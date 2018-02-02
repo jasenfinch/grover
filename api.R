@@ -29,3 +29,13 @@ removeDirectory <- function(authKey,instrument,directory){
     stop('Incorrect authentication key')
   }
 }
+
+#* @get /directories
+listDirectories <- function(authKey,instrument){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    list.dirs(str_c('Z:\\',instrument),recursive = F,full.names = F)
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
