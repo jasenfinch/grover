@@ -39,3 +39,14 @@ listDirectories <- function(authKey,instrument){
     stop('Incorrect authentication key')
   }
 }
+
+#* @get /rawfiles
+listFiles <- function(authKey,instrument,directory){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    files <- list.files(str_c('Z:\\',instrument,'\\',directory),recursive = F,full.names = F)
+    files[str_detect(files,coll('.raw'))]
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
