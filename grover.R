@@ -1,4 +1,4 @@
-## Place grover.txt file in the home directory containing the IP and port on which to host the server
+## Place grover.txt file in the home directory containing the IP, port on which to host the server and authentication key.
 
 library(plumber)
 
