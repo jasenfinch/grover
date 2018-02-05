@@ -1,6 +1,7 @@
 library(msconverteR)
 library(stringr)
 library(magrittr)
+library(rjson)
 
 #* @get /convert
 #* @xml
@@ -56,6 +57,21 @@ listFiles <- function(authKey,instrument,directory){
   if (authKey == key) {
     files <- list.files(str_c('Z:\\',instrument,'\\',directory),recursive = F,full.names = F)
     files[str_detect(files,coll('.raw'))]
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
+
+#* @get /sampleInfo
+#* @json
+sampleInfo <- function(authKey,instrument,directory,file){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    path <- str_c('Z:',instrument,directory,file,sep = '/')
+    GetSampleInfo(path) %>%
+      split(1:nrow(.)) %>%
+      unname() %>%
+      toJSON()
   } else {
     stop('Incorrect authentication key')
   }
