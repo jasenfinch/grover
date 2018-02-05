@@ -2,6 +2,7 @@ library(msconverteR)
 library(stringr)
 library(magrittr)
 library(rjson)
+library(GetSampleInfo)
 
 #* @get /convert
 #* @xml
