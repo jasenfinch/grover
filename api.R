@@ -82,3 +82,19 @@ sampleInfo <- function(authKey,instrument,directory,file){
     stop('Incorrect authentication key')
   }
 }
+
+#* @get /sampleScanFilters
+#* @json
+sampleScanFilters <- function(authkey,instrumetn,directory,file){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    path <- str_c('Z:',instrument,directory,file,sep = '/')
+    GetScanFilters(path) %>%
+      split(1:nrow(.)) %>%
+      unname() %>%
+      toJSON()
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
+
