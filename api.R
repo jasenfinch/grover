@@ -4,6 +4,11 @@ library(magrittr)
 library(rjson)
 library(GetSampleInfo)
 
+#* @get /extant
+alive <- function(authKey){
+  "I'm still here!"
+}
+
 #* @get /convert
 #* @xml
 convertFile <- function(authKey,instrument,directory,file,args='',res){
