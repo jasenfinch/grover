@@ -6,7 +6,12 @@ library(GetSampleInfo)
 
 #* @get /extant
 alive <- function(authKey){
-  "I'm still here!"
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    "I'm still here!"
+  } else {
+    stop('Incorrect authentication key')
+  }
 }
 
 #* @get /convert
@@ -90,7 +95,7 @@ sampleInfo <- function(authKey,instrument,directory,file){
 
 #* @get /sampleScanFilters
 #* @json
-sampleScanFilters <- function(authkey,instrumetn,directory,file){
+sampleScanFilters <- function(authkey,instrument,directory,file){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
     path <- str_c('Z:',instrument,directory,file,sep = '/')
@@ -102,4 +107,3 @@ sampleScanFilters <- function(authkey,instrumetn,directory,file){
     stop('Incorrect authentication key')
   }
 }
-
