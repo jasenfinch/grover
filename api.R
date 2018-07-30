@@ -95,7 +95,7 @@ sampleInfo <- function(authKey,instrument,directory,file){
 
 #* @get /sampleScanFilters
 #* @json
-sampleScanFilters <- function(authkey,instrument,directory,file){
+sampleScanFilters <- function(authKey,instrument,directory,file){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
     path <- str_c('Z:',instrument,directory,file,sep = '/')
