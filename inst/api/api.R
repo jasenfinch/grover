@@ -4,16 +4,6 @@ library(magrittr)
 library(rjson)
 library(GetSampleInfo)
 
-#* @get /extant
-alive <- function(auth){
-  key <- readGrover()
-  if (authKey == key) {
-    "I'm still here!"
-  } else {
-    stop('Incorrect authentication key')
-  }
-}
-
 #* @get /convert
 #* @xml
 convertFile <- function(authKey,instrument,directory,file,args='',res){

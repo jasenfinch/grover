@@ -1,12 +1,14 @@
-#' @importFrom readr
+#' @importFrom readr read_lines
 #' @export
 
 readGrover <- function(path){
   details <- readr::read_lines(path)
-  grover(details[[1]],details[[2]],details[[3]])
+  grover(details[[1]],details[[2]] %>% as.numeric(),details[[3]])
 }
 
 #' grover
+#' @examples 
+#' grove <- grover('127.0.0.1',8000,'1234')
 #' @export
 
 grover <- function(host,port,auth){
@@ -38,6 +40,7 @@ auth <- function(grove){
 }
 
 #' checkGrover
+#' @importFrom stringr str_c
 #' @export
 
 checkGrover <- function(grove){
@@ -46,7 +49,7 @@ checkGrover <- function(grove){
       GET() %>%
       content() %>%
       unlist()},silent = T)
-  if (answer != "I'm still here!") {
+  if (answer != "I'm here!") {
     answer <- 'grover is MIA!'
   }
   return(answer)
