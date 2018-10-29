@@ -1,12 +1,12 @@
-library(msconverteR)
+library(grover)
 library(stringr)
 library(magrittr)
 library(rjson)
 library(GetSampleInfo)
 
 #* @get /extant
-alive <- function(authKey){
-  key <- readLines('~/grover.txt')[3]
+alive <- function(auth){
+  key <- readGrover()
   if (authKey == key) {
     "I'm still here!"
   } else {

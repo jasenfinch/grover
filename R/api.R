@@ -1,8 +1,22 @@
-#' @importFrom plumber plumb
 
-groverAPI <- function(grove){
-  apiScript <- system.file('api/api.R')
-  r <- plumb('api.R')
+denied <- function(){
+  stop('Incorrect authentication key')
+}
+
+#' @importFrom plumber plumber
+#' @export
+groverAPI <- function(grove,repository,tmp){
+  api <- plumber$new()
   
-  r$run(port = port(grove),host = host(grove))
+  api$handle('GET','/extant',function(auth){
+    key <- auth(grove)
+    if (auth == key) {
+      "I'm still here!"
+    } else {
+      denied()
+    }
+  })
+  
+  
+  api$run(port = port(grove),host = host(grove))
 }

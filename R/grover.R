@@ -41,7 +41,7 @@ auth <- function(grove){
 #' @export
 
 checkGrover <- function(grove){
-  cmd <- str_c(host(grove),':',port(grove),'/extant?','authKey=',auth(grove))
+  cmd <- str_c(host(grove),':',port(grove),'/extant?','auth=',auth(grove))
   answer <- try({cmd %>%
       GET() %>%
       content() %>%
