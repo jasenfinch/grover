@@ -1,0 +1,194 @@
+#' listInstruments
+#' @description list available instruments using the grover API.
+#' @export
+
+listInstruments <- function(host,port,authKey){
+  cmd <- str_c(host,':',port,'/instruments?','authKey=',authKey)
+  cmd %>%
+    GET() %>%
+    content() %>%
+    unlist()
+}
+
+#' listDirectories
+#' @description list all directories for a given instrument using the grover API.
+#' @importFrom stringr str_c
+#' @importFrom magrittr %>%
+#' @importFrom httr GET content
+#' @export
+
+listDirectories <- function(host,port,authKey,instrument){
+  cmd <- str_c(host,':',port,'/directories?','authKey=',authKey,'&instrument=',instrument)
+  cmd %>%
+    GET() %>%
+    content() %>%
+    unlist()
+}
+
+#' listRawFiles
+#' @description list all raw files present in a given directory using the grover API.
+#' @export
+
+listRawFiles <- function(host,port,authKey,instrument,directory){
+  cmd <- str_c(host,':',port,'/rawfiles?','authKey=',authKey,'&instrument=',instrument,'&directory=',directory)
+  cmd %>%
+    GET() %>%
+    content() %>%
+    unlist()
+}
+
+#' convertFile
+#' @description convert a raw MS file using the grover API.
+#' @importFrom stringr str_split
+#' @importFrom utils URLencode
+#' @export
+
+convertFile <- function(outDir = '.', host, port, authKey, instrument, directory, file, args=''){
+  tidycmd <- str_c(host,':',port,'/tidyup?',
+                   'authKey=',authKey,
+                   '&instrument=',instrument,
+                   '&directory=',directory
+  )
+  tidycmd %>% GET()
+  cmd <- str_c(host,':',port,'/convert?',
+               'authKey=',authKey,
+               '&instrument=',instrument,
+               '&directory=',directory,
+               '&file=',file,
+               '&args=')
+  if (args != '') {
+    cmd <- str_c(cmd,args)
+  }
+  fileName <- str_split(file,'[.]')[[1]][1]
+  convertedFile <- cmd %>%
+    URLencode() %>%
+    GET()
+  if (convertedFile$status_code == 200) {
+    convertedFile <- convertedFile %>%
+      content(as = 'text',encoding = 'UTF-8')
+    writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
+    tidycmd <- str_c(host,':',port,'/tidyup?',
+                     'authKey=',authKey,
+                     '&instrument=',instrument,
+                     '&directory=',directory
+    )
+    tidycmd %>% GET()
+    return(1)
+  } else {
+    return(0)
+  }
+  
+}
+
+#' convertDirectory
+#' @description convert a directory of raw files using the grover API
+#' @importFrom purrr walk
+#' @importFrom crayon green red bold blue yellow
+#' @import cli
+#' @export
+
+convertDirectory <- function(outDir = '.', host, port, authKey, instrument, directory, args){
+  outDir <- str_c(outDir,directory,sep = '/')
+  files <- listRawFiles(host,port,authKey,instrument,directory)
+  cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n\n')
+  dir.create(outDir)
+  walk(1:length(files),~{
+    file <- files[.]
+    cat(.,'. ',file,' ',cli::symbol$continue,'\r',sep = '')
+    success <- convertFile(outDir,host,port,authKey,instrument,directory,file,args)
+    flush.console()
+    if (success == 1) {
+      cat('\r',.,'. ',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+    }
+    if (success == 0) {
+      cat('\r',.,'. ',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+    }
+  })
+}
+
+#' convertDirectorySplitModes
+#' @description convert a directory of raw files, splitting positive and negative mode data using the grover API
+#' @export
+
+convertDirectorySplitModes <- function(outDir = '.', host, port, authKey, instrument, directory, args){
+  outDir <- str_c(outDir,directory,sep = '/')
+  dir.create(outDir)
+  cat('\n',red('Negative Mode'),sep = '')
+  negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
+  convertDirectory(outDir,host,port,authKey,instrument,directory,negArgs)
+  negDir <- str_c(outDir,'/',directory,'-neg')
+  dir.create(negDir)
+  walk(list.files(str_c(outDir,'/',directory),full.names = T),~{
+    f <- str_split(.,'/')[[1]]
+    f <- f[length(f)]
+    file.rename(from = ., to = str_c(negDir,'/',f))
+  })
+  unlink(str_c(outDir,'/',directory),recursive = T)
+  cat('\n',red('Positive Mode'),sep = '')
+  posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
+  convertDirectory(outDir,host,port,authKey,instrument,directory,posArgs)
+  posDir <- str_c(outDir,'/',directory,'-pos')
+  dir.create(posDir)
+  walk(list.files(str_c(outDir,'/',directory),full.names = T),~{
+    f <- str_split(.,'/')[[1]]
+    f <- f[length(f)]
+    file.rename(from = ., to = str_c(posDir,'/',f))
+  })
+  unlink(str_c(outDir,'/',directory),recursive = T)
+}
+
+#' conversionArgsPeakPick
+#' @description msconvert args for peak picking.
+#' @export
+
+conversionArgsPeakPick <- function(){
+  '--filter "peakPicking true 1-"'
+}
+
+#' conversionArgsNegativeMode
+#' @description msconvert args to convert only positive mode data.
+#' @export
+
+conversionArgsNegativeMode <- function(){
+  '--filter "polarity negative"'
+}
+
+#' conversionArgsPositiveMode
+#' @description msconvert args to convert only negative mode data.
+#' @export
+
+conversionArgsPositiveMode <- function(){
+  '--filter "polarity positive"'
+}
+
+#' conversionArgsIgnoreUnknownInstrumentError
+#' @description msconvert args to ignore the unkown instrument error.
+#' @export
+
+conversionArgsIgnoreUnknownInstrumentError <- function(){
+  '--ignoreUnknownInstrumentError'
+}
+
+#' conversionArgsMSlevel1
+#' @description msconvert args to convert only MS level 1.
+#' @export
+
+conversionArgsMSlevel1 <- function(){
+  '--filter "msLevel 1"'
+}
+
+#' conversionArgsMSlevel2
+#' @description msconvert args to convert only MS level 2.
+#' @export
+
+conversionArgsMSlevel2 <- function(){
+  '--filter "msLevel 2"'
+}
+
+#' conversionArgsMSlevel3
+#' @description msconvert args to convert only MS level 3.
+#' @export
+
+conversionArgsMSlevel3 <- function(){
+  '--filter "msLevel 3"'
+}

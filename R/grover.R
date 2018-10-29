@@ -12,32 +12,38 @@ readGrover <- function(path){
 #' @export
 
 grover <- function(host,port,auth){
-new('Grover',
-    host = host,
-    port = port,
-    auth = auth)
+  new('Grover',
+      host = host,
+      port = port,
+      auth = auth)
 }
 
 #' host
 #' @export
 
-host <- function(grove){
-  grove@host
-}
+setMethod('host',signature = 'Grover',
+          function(grove){
+            grove@host
+          }
+)
 
 #' port
 #' @export
 
-port <- function(grove){
-  grove@port
-}
+setMethod('port',signature = 'Grover',
+          function(grove){
+            grove@port
+          }
+)
 
 #' auth
 #' @export
 
-auth <- function(grove){
-  grove@auth
-}
+setMethod('auth',signature = 'Grover',
+          function(grove){
+            grove@auth
+          }
+)
 
 #' checkGrover
 #' @importFrom stringr str_c

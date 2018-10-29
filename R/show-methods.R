@@ -7,6 +7,19 @@ setMethod('show',signature = 'Grover',
             cat(blue('\nGrover Information\n\n'))
             cat('Host:\t\t',host(object),'\n')
             cat('Port:\t\t',port(object),'\n')
-            cat('Authentication:\t',auth(object),'\n\n')
+            cat('Authentication:\t',auth(object),'\n')
+            cat('\n')
+          }
+)
+
+#' show-Repository
+#' @export
+
+setMethod('show',signature = 'Repository',
+          function(object){
+            cat(blue('\nRepository\n\n'))
+            cat('Path:\t\t',path(object),'\n')
+            cat('Extensions:\t',extensions(object) %>% str_c(collapse = ' '),'\n')
+            cat('\n')
           }
 )

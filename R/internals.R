@@ -11,6 +11,3 @@ extant <- function(auth){
   }
 }
 
-repository <- function(path){
-  
-}
