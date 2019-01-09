@@ -50,12 +50,12 @@ setMethod('auth',signature = 'Grover',
 #' @export
 
 checkGrover <- function(grove){
-  cmd <- str_c(host(grove),':',port(grove),'/extant?','auth=',auth(grove))
+  cmd <- str_c(host(grove),':',port(grove),'/extant?','authKey=',auth(grove))
   answer <- try({cmd %>%
       GET() %>%
       content() %>%
       unlist()},silent = T)
-  if (answer != "I'm here!") {
+  if (answer != "I'm still here!") {
     answer <- 'grover is MIA!'
   }
   return(answer)

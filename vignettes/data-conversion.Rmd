@@ -1,0 +1,159 @@
+---
+title: "Raw data conversion using the grover API"
+author: "Jasen Finch"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  prettydoc::html_pretty:
+    toc: true
+    highlight: github
+    theme: tactile
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Load repository host information
+
+Firstly load the grover library:
+
+```{r}
+library(grover)
+```
+
+Next the grover API host information of needs to be loaded. 
+This should be a text file containing 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed.
+The default path for this file is `"~/grover.txt"`.
+
+```{r}
+grove <- readGrover()
+
+print(grove)
+```
+
+This returns a `Grover` class object containing the host information.
+This information can be extracted from this object using the following methods:
+
+```{r}
+host(grove)
+```
+
+```{r}
+port(grove)
+```
+
+```{r}
+auth(grove)
+```
+
+Before using the grover API we can firstly that it is currently active and working:
+
+```{r}
+checkGrover(grove)
+```
+
+## Query the repository
+
+We can query the repository using a number of functions to find what MS is availble.
+
+The availble instruments can be found using:
+
+```{r}
+instruments <- listInstruments(grove)
+
+instruments
+```
+
+The available data directories for a specified instrument can be found using:
+
+```{r}
+directories <- listDirectories(grove,instruments[1])
+
+tail(directories)
+```
+
+The names of the raw data files for a give directory can be listed using:
+
+```{r}
+rawFiles <- listRawFiles(grove,instruments[1],directories[length(directories) - 1])
+
+tail(rawFiles)
+```
+
+## Convert files
+
+Files can be converted using a number of functions that query the grover API.
+
+A single specified raw file can be converted using the following:
+
+```{r}
+convertFile(grove,
+            instruments[1],
+            directories[length(directories) - 1],
+            rawFiles[length(rawFiles)],
+            outDir = '.')
+```
+
+Alternatively, an entire directory can be converted using:
+
+```{r,eval=FALSE}
+convertDirectory(grove,
+                 instruments[1],
+                 directories[length(directories) - 1],
+                 outDir = '.')
+```
+
+In some cases it maybe that ionisation mode data needs to be converted separtely for a directory. The following can be used:
+
+```{r,eval=FALSE}
+convertDirectorySplitModes(grove,
+                           instruments[1],
+                           directories[length(directories) - 1],
+                           outDir = '.')
+```
+
+## Conversion arguments
+
+A number of addition conversion argument functions are availble to customise the conversion.
+These functions are listed below.
+
+```{r,echo=FALSE}
+library(magrittr)
+
+lsf.str("package:grover") %>% .[stringr::str_detect(.,'conversion')]
+```
+
+When these functions are used, they simply return a string of the given argument that is to be passed to msconvert.
+
+```{r}
+conversionArgsPeakPick()
+```
+
+Mutiple functions can also be combined.
+
+```{r}
+stringr::str_c(conversionArgsPeakPick(),conversionArgsNegativeMode(),sep = ' ')
+```
+
+A full list of the available msconvert arguments can be found [here](http://proteowizard.sourceforge.net/tools.shtml).
+
+The conversion arguments can the be used as follows:
+
+```{r}
+convertFile(grove,
+            instruments[1],
+            directories[length(directories) - 1],
+            rawFiles[length(rawFiles)],
+            args = conversionArgsPeakPick(),
+            outDir = '.')
+```
+
+
+
