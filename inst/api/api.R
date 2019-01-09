@@ -4,6 +4,7 @@ library(rjson)
 library(GetSampleInfo)
 library(yaml)
 library(plumber)
+library(grover)
 
 #* @get /extant
 alive <- function(authKey){
