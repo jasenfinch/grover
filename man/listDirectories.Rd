@@ -4,7 +4,7 @@
 \alias{listDirectories}
 \title{listDirectories}
 \usage{
-listDirectories(host, port, authKey, instrument)
+listDirectories(grove, instrument)
 }
 \description{
 list all directories for a given instrument using the grover API.

@@ -4,7 +4,7 @@
 \alias{listInstruments}
 \title{listInstruments}
 \usage{
-listInstruments(host, port, authKey)
+listInstruments(grove)
 }
 \description{
 list available instruments using the grover API.

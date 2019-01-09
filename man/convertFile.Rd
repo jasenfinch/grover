@@ -4,8 +4,8 @@
 \alias{convertFile}
 \title{convertFile}
 \usage{
-convertFile(outDir = ".", host, port, authKey, instrument, directory,
-  file, args = "")
+convertFile(grove, instrument, directory, file, args = "",
+  outDir = ".")
 }
 \description{
 convert a raw MS file using the grover API.

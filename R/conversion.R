@@ -2,8 +2,8 @@
 #' @description list available instruments using the grover API.
 #' @export
 
-listInstruments <- function(host,port,authKey){
-  cmd <- str_c(host,':',port,'/instruments?','authKey=',authKey)
+listInstruments <- function(grove){
+  cmd <- str_c(host(grove),':',port(grove),'/instruments?','authKey=',auth(grove))
   cmd %>%
     GET() %>%
     content() %>%
@@ -17,8 +17,8 @@ listInstruments <- function(host,port,authKey){
 #' @importFrom httr GET content
 #' @export
 
-listDirectories <- function(host,port,authKey,instrument){
-  cmd <- str_c(host,':',port,'/directories?','authKey=',authKey,'&instrument=',instrument)
+listDirectories <- function(grove,instrument){
+  cmd <- str_c(host(grove),':',port(grove),'/directories?','authKey=',auth(grove),'&instrument=',instrument)
   cmd %>%
     GET() %>%
     content() %>%
@@ -29,8 +29,8 @@ listDirectories <- function(host,port,authKey,instrument){
 #' @description list all raw files present in a given directory using the grover API.
 #' @export
 
-listRawFiles <- function(host,port,authKey,instrument,directory){
-  cmd <- str_c(host,':',port,'/rawfiles?','authKey=',authKey,'&instrument=',instrument,'&directory=',directory)
+listRawFiles <- function(grove,instrument,directory){
+  cmd <- str_c(host(grove),':',port(grove),'/rawfiles?','authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
   cmd %>%
     GET() %>%
     content() %>%
@@ -43,15 +43,15 @@ listRawFiles <- function(host,port,authKey,instrument,directory){
 #' @importFrom utils URLencode
 #' @export
 
-convertFile <- function(outDir = '.', host, port, authKey, instrument, directory, file, args=''){
-  tidycmd <- str_c(host,':',port,'/tidyup?',
-                   'authKey=',authKey,
+convertFile <- function(grove, instrument, directory, file, args='',outDir = '.'){
+  tidycmd <- str_c(host(grove),':',port(grove),'/tidyup?',
+                   'authKey=',auth(grove),
                    '&instrument=',instrument,
                    '&directory=',directory
   )
   tidycmd %>% GET()
-  cmd <- str_c(host,':',port,'/convert?',
-               'authKey=',authKey,
+  cmd <- str_c(host(grove),':',port(grove),'/convert?',
+               'authKey=',auth(grove),
                '&instrument=',instrument,
                '&directory=',directory,
                '&file=',file,
@@ -67,8 +67,8 @@ convertFile <- function(outDir = '.', host, port, authKey, instrument, directory
     convertedFile <- convertedFile %>%
       content(as = 'text',encoding = 'UTF-8')
     writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
-    tidycmd <- str_c(host,':',port,'/tidyup?',
-                     'authKey=',authKey,
+    tidycmd <- str_c(host(grove),':',port(grove),'/tidyup?',
+                     'authKey=',auth(grove),
                      '&instrument=',instrument,
                      '&directory=',directory
     )
@@ -87,15 +87,15 @@ convertFile <- function(outDir = '.', host, port, authKey, instrument, directory
 #' @import cli
 #' @export
 
-convertDirectory <- function(outDir = '.', host, port, authKey, instrument, directory, args){
+convertDirectory <- function(grove, instrument, directory, args = '',outDir = '.'){
   outDir <- str_c(outDir,directory,sep = '/')
-  files <- listRawFiles(host,port,authKey,instrument,directory)
+  files <- listRawFiles(grove,instrument,directory)
   cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n\n')
   dir.create(outDir)
   walk(1:length(files),~{
     file <- files[.]
     cat(.,'. ',file,' ',cli::symbol$continue,'\r',sep = '')
-    success <- convertFile(outDir,host,port,authKey,instrument,directory,file,args)
+    success <- convertFile(grove,instrument,directory,file,args,outDir)
     flush.console()
     if (success == 1) {
       cat('\r',.,'. ',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
@@ -110,12 +110,12 @@ convertDirectory <- function(outDir = '.', host, port, authKey, instrument, dire
 #' @description convert a directory of raw files, splitting positive and negative mode data using the grover API
 #' @export
 
-convertDirectorySplitModes <- function(outDir = '.', host, port, authKey, instrument, directory, args){
+convertDirectorySplitModes <- function(grove,instrument, directory, args = '', outDir = '.'){
   outDir <- str_c(outDir,directory,sep = '/')
   dir.create(outDir)
   cat('\n',red('Negative Mode'),sep = '')
   negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
-  convertDirectory(outDir,host,port,authKey,instrument,directory,negArgs)
+  convertDirectory(grove,instrument,directory,negArgs,outDir)
   negDir <- str_c(outDir,'/',directory,'-neg')
   dir.create(negDir)
   walk(list.files(str_c(outDir,'/',directory),full.names = T),~{
@@ -126,7 +126,7 @@ convertDirectorySplitModes <- function(outDir = '.', host, port, authKey, instru
   unlink(str_c(outDir,'/',directory),recursive = T)
   cat('\n',red('Positive Mode'),sep = '')
   posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
-  convertDirectory(outDir,host,port,authKey,instrument,directory,posArgs)
+  convertDirectory(grove,instrument,directory,posArgs,outDir)
   posDir <- str_c(outDir,'/',directory,'-pos')
   dir.create(posDir)
   walk(list.files(str_c(outDir,'/',directory),full.names = T),~{

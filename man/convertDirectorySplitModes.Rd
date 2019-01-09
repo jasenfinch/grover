@@ -4,8 +4,8 @@
 \alias{convertDirectorySplitModes}
 \title{convertDirectorySplitModes}
 \usage{
-convertDirectorySplitModes(outDir = ".", host, port, authKey, instrument,
-  directory, args)
+convertDirectorySplitModes(grove, instrument, directory, args = "",
+  outDir = ".")
 }
 \description{
 convert a directory of raw files, splitting positive and negative mode data using the grover API

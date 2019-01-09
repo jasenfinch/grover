@@ -4,7 +4,7 @@
 \alias{listRawFiles}
 \title{listRawFiles}
 \usage{
-listRawFiles(host, port, authKey, instrument, directory)
+listRawFiles(grove, instrument, directory)
 }
 \description{
 list all raw files present in a given directory using the grover API.
