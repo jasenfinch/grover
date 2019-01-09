@@ -1,12 +1,14 @@
-#' @importFrom plumber plumber
+#' @importFrom plumber plumb
 #' @export
  
-groverAPI <- function(grove,repository,tmp){
-  api <- plumber$new()
-  
-  api$handle('GET','/extant',extant)
+groverAPI <- function(grove){
+  # api <- plumber$new()
+  # 
+  # api$handle('GET','/extant',extant)
   
   # api$handle('GET','/repository',repository)
+  
+  api <- plumb(system.file('api/api.r',package = 'grover'))
   
   api$run(port = port(grove),host = host(grove))
 }

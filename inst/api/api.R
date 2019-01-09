@@ -1,8 +1,18 @@
-library(grover)
 library(stringr)
 library(magrittr)
 library(rjson)
 library(GetSampleInfo)
+library(yaml)
+
+#* @get /extant
+alive <- function(authKey){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    "I'm still here!"
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
 
 #* @get /convert
 #* @xml
@@ -93,6 +103,23 @@ sampleScanFilters <- function(authKey,instrument,directory,file){
       split(1:nrow(.)) %>%
       unname() %>%
       toJSON()
+  } else {
+    stop('Incorrect authentication key')
+  }
+}
+
+#* @get /getConfig
+#* @json
+getConfig <- function(authKey,instrument,directory){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    file <- str_c('Z:',instrument,directory,'config.yml',sep = '/')
+    if (file.exists(file)) {
+      read_yaml(file) %>%
+        toJSON()
+    } else {
+      stop('No config found!')
+    }
   } else {
     stop('Incorrect authentication key')
   }
