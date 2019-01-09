@@ -1,4 +1,3 @@
-library(msconverteR)
 library(stringr)
 library(magrittr)
 library(rjson)

@@ -1,0 +1,17 @@
+Package: grover
+Title: REST API For Mass Spectrometry File Conversion
+Version: 0.0.1
+Authors@R: 
+    person(given = "Jasen",
+           family = "Finch",
+           role = c("aut", "cre"),
+           email = "jsf9@aber.ac.uk")
+Description: Convert raw mass spectromery data files using msconvert and a REST API.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
