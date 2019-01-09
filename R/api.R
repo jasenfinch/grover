@@ -1,3 +1,7 @@
+#' Grover API
+#' @description Run the grover REST API for file conversion
+#' @examples 
+#' groverAPI(readGrover())
 #' @importFrom plumber plumb
 #' @export
  

@@ -1,7 +1,7 @@
 #' @importFrom readr read_lines
 #' @export
 
-readGrover <- function(path){
+readGrover <- function(path = '~/grover.txt'){
   details <- readr::read_lines(path)
   grover(details[[1]],details[[2]] %>% as.numeric(),details[[3]])
 }
