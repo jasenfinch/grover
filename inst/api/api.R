@@ -3,6 +3,7 @@ library(magrittr)
 library(rjson)
 library(GetSampleInfo)
 library(yaml)
+library(plumber)
 
 #* @get /extant
 alive <- function(authKey){

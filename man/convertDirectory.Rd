@@ -4,8 +4,7 @@
 \alias{convertDirectory}
 \title{convertDirectory}
 \usage{
-convertDirectory(outDir = ".", host, port, authKey, instrument,
-  directory, args)
+convertDirectory(grove, instrument, directory, args = "", outDir = ".")
 }
 \description{
 convert a directory of raw files using the grover API
