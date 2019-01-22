@@ -7,6 +7,19 @@
 convertFile(grove, instrument, directory, file, args = "",
   outDir = ".")
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+
+\item{instrument}{instrument name}
+
+\item{directory}{directory name}
+
+\item{file}{file name}
+
+\item{args}{arguments to pass to msconvert}
+
+\item{outDir}{output directory path for converted files}
+}
 \description{
-convert a raw MS file using the grover API.
+Convert a raw MS file using the grover API.
 }

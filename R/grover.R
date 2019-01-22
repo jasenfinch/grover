@@ -1,3 +1,14 @@
+
+globalVariables(c('grove'))
+
+#' readGrover
+#' @description Read grover API host information from a text file.
+#' @param path file path to text file containing host information
+#' @details The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
+#' @examples 
+#' \dontrun{
+#' grove <- readGrover('~/grover.txt')
+#' }
 #' @importFrom readr read_lines
 #' @export
 
@@ -7,6 +18,11 @@ readGrover <- function(path = '~/grover.txt'){
 }
 
 #' grover
+#' @description Create a Grover object containing API host information.
+#' @param host host address
+#' @param port port on which the API is hosted
+#' @param auth authentication key
+#' @importFrom methods new
 #' @examples 
 #' grove <- grover('127.0.0.1',8000,'1234')
 #' @export
@@ -19,6 +35,9 @@ grover <- function(host,port,auth){
 }
 
 #' host
+#' @rdname host
+#' @description Retrieve host information from a Grover object.
+#' @param grove S4 object of class Grover 
 #' @export
 
 setMethod('host',signature = 'Grover',
@@ -28,6 +47,9 @@ setMethod('host',signature = 'Grover',
 )
 
 #' port
+#' @rdname port
+#' @description Retrieve port information from a Grover object.
+#' @param grove S4 object of class Grover
 #' @export
 
 setMethod('port',signature = 'Grover',
@@ -37,6 +59,9 @@ setMethod('port',signature = 'Grover',
 )
 
 #' auth
+#' @rdname auth
+#' @description Retrieve authentication key from a Grover object.
+#' @param grove S4 object of class Grover
 #' @export
 
 setMethod('auth',signature = 'Grover',
@@ -46,6 +71,8 @@ setMethod('auth',signature = 'Grover',
 )
 
 #' checkGrover
+#' @description Check grover API is active.
+#' @param grove S4 object of class Grover
 #' @importFrom stringr str_c
 #' @export
 

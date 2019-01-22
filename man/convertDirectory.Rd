@@ -6,6 +6,17 @@
 \usage{
 convertDirectory(grove, instrument, directory, args = "", outDir = ".")
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+
+\item{instrument}{instrument name}
+
+\item{directory}{directory name}
+
+\item{args}{arguments to pass to msconvert}
+
+\item{outDir}{output directory path for converted files}
+}
 \description{
-convert a directory of raw files using the grover API
+Convert a directory of raw files using the grover API.
 }
