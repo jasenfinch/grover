@@ -1,3 +1,6 @@
+
+globalVariables(c('grove'))
+
 #' @importFrom readr read_lines
 #' @export
 
@@ -7,6 +10,7 @@ readGrover <- function(path = '~/grover.txt'){
 }
 
 #' grover
+#' @importFrom methods new
 #' @examples 
 #' grove <- grover('127.0.0.1',8000,'1234')
 #' @export

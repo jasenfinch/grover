@@ -15,3 +15,12 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
+Imports: cli,
+        crayon,
+        httr,
+        magrittr,
+        plumber,
+        purrr,
+        readr,
+        stringr,
+        methods

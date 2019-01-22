@@ -1,5 +1,6 @@
 #' show-Grover
 #' @importFrom crayon blue
+#' @importFrom methods show
 #' @export
 
 setMethod('show',signature = 'Grover',
