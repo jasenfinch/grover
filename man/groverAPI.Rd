@@ -6,9 +6,14 @@
 \usage{
 groverAPI(grove)
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+}
 \description{
-Run the grover REST API for file conversion
+Run the grover REST API for file conversion.
 }
 \examples{
+\dontrun{
 groverAPI(readGrover())
+}
 }

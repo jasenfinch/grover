@@ -6,6 +6,13 @@
 \usage{
 listRawFiles(grove, instrument, directory)
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+
+\item{instrument}{instrument name}
+
+\item{directory}{directory name}
+}
 \description{
-list all raw files present in a given directory using the grover API.
+List all raw files present in a given directory using the grover API.
 }

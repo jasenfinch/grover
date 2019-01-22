@@ -7,6 +7,9 @@
 \usage{
 \S4method{show}{Grover}(object)
 }
+\arguments{
+\item{object}{S4 object of class Grover}
+}
 \description{
-show-Grover
+Show method for class S4 Grover.
 }

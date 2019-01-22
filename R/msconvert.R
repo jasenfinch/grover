@@ -3,6 +3,7 @@
 #' @param file file to convert
 #' @param outPath output directory path
 #' @param args arguments to pass to msconvert
+#' @param verbose should output be printed to the console
 #' @importFrom stringr str_c
 #' @export
 

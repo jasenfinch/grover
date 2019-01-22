@@ -6,6 +6,11 @@
 \usage{
 listDirectories(grove, instrument)
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+
+\item{instrument}{instrument name}
+}
 \description{
-list all directories for a given instrument using the grover API.
+List all directories for a given instrument using the grover API.
 }
