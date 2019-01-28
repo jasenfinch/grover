@@ -6,8 +6,15 @@
 \usage{
 grover(host, port, auth)
 }
+\arguments{
+\item{host}{host address}
+
+\item{port}{port on which the API is hosted}
+
+\item{auth}{authentication key}
+}
 \description{
-grover
+Create a Grover object containing API host information.
 }
 \examples{
 grove <- grover('127.0.0.1',8000,'1234')

@@ -1,5 +1,6 @@
 #' listInstruments
-#' @description list available instruments using the grover API.
+#' @description List available instruments using the grover API.
+#' @param grove S4 object of class Grover
 #' @export
 
 listInstruments <- function(grove){
@@ -11,7 +12,9 @@ listInstruments <- function(grove){
 }
 
 #' listDirectories
-#' @description list all directories for a given instrument using the grover API.
+#' @description List all directories for a given instrument using the grover API.
+#' @param grove S4 object of class Grover
+#' @param instrument instrument name
 #' @importFrom stringr str_c
 #' @importFrom magrittr %>%
 #' @importFrom httr GET content
@@ -26,7 +29,10 @@ listDirectories <- function(grove,instrument){
 }
 
 #' listRawFiles
-#' @description list all raw files present in a given directory using the grover API.
+#' @description List all raw files present in a given directory using the grover API.
+#' @param grove S4 object of class Grover
+#' @param instrument instrument name
+#' @param directory directory name
 #' @export
 
 listRawFiles <- function(grove,instrument,directory){
@@ -38,7 +44,13 @@ listRawFiles <- function(grove,instrument,directory){
 }
 
 #' convertFile
-#' @description convert a raw MS file using the grover API.
+#' @description Convert a raw MS file using the grover API.
+#' @param grove S4 object of class Grover
+#' @param instrument instrument name
+#' @param directory directory name
+#' @param file file name
+#' @param args arguments to pass to msconvert
+#' @param outDir output directory path for converted files
 #' @importFrom stringr str_split
 #' @importFrom utils URLencode
 #' @export
@@ -81,7 +93,12 @@ convertFile <- function(grove, instrument, directory, file, args='',outDir = '.'
 }
 
 #' convertDirectory
-#' @description convert a directory of raw files using the grover API
+#' @description Convert a directory of raw files using the grover API.
+#' @param grove S4 object of class Grover
+#' @param instrument instrument name
+#' @param directory directory name
+#' @param args arguments to pass to msconvert
+#' @param outDir output directory path for converted files
 #' @importFrom purrr walk
 #' @importFrom crayon green red bold blue yellow
 #' @import cli
@@ -106,8 +123,13 @@ convertDirectory <- function(grove, instrument, directory, args = '',outDir = '.
   })
 }
 
-#' convertDirectorySplitModes
-#' @description convert a directory of raw files, splitting positive and negative mode data using the grover API
+#' convertDirectorySplitModeC
+#' @description Convert a directory of raw files, splitting positive and negative mode data using the grover API.
+#' @param grove S4 object of class Grover
+#' @param instrument instrument name
+#' @param directory directory name
+#' @param args arguments to pass to msconvert
+#' @param outDir output directory path for converted files
 #' @export
 
 convertDirectorySplitModes <- function(grove,instrument, directory, args = '', outDir = '.'){

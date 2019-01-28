@@ -6,6 +6,9 @@
 \usage{
 checkGrover(grove)
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+}
 \description{
-checkGrover
+Check grover API is active.
 }

@@ -6,6 +6,9 @@
 \usage{
 listInstruments(grove)
 }
+\arguments{
+\item{grove}{S4 object of class Grover}
+}
 \description{
-list available instruments using the grover API.
+List available instruments using the grover API.
 }

@@ -12,6 +12,8 @@ msconvert(file, outPath = ".", args = "", verbose = T)
 \item{outPath}{output directory path}
 
 \item{args}{arguments to pass to msconvert}
+
+\item{verbose}{should output be printed to the console}
 }
 \description{
 Convert vender mass spectrometry file formats using msconvert
