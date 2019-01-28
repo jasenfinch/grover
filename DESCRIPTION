@@ -1,6 +1,6 @@
 Package: grover
 Title: REST API For Mass Spectrometry File Conversion
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -12,7 +12,8 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    prettydoc
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Imports: cli,
