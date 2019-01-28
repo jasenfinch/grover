@@ -9,7 +9,7 @@
 msconvert <- function(file, outPath = '.', args= '', verbose = T){
   cmd <- str_c('msconvert',file,'-o',outPath,args,sep = ' ')
   if (verbose == T) {
-    cat('\n',cmd,'\n')
+    cat(str_c('\n[',Sys.time(),']'),cmd,'\n')
   }
   system(cmd,intern = T)
 }
