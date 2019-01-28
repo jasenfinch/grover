@@ -1,6 +1,6 @@
 Package: grover
 Title: REST API For Mass Spectrometry File Conversion
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
