@@ -93,7 +93,7 @@ Files can be converted using a number of functions that query the grover API.
 
 A single specified raw file can be converted using the following:
 
-```{r}
+```{r,eval=FALSE}
 convertFile(grove,
             instruments[1],
             directories[length(directories) - 1],
@@ -146,7 +146,7 @@ A full list of the available msconvert arguments can be found [here](http://prot
 
 The conversion arguments can the be used as follows:
 
-```{r}
+```{r,eval=FALSE}
 convertFile(grove,
             instruments[1],
             directories[length(directories) - 1],
