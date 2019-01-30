@@ -116,7 +116,6 @@ convertDirectory <- function(grove, instrument, directory, args = '', outDir = '
   files <- listRawFiles(grove,instrument,directory)
   cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
   dir.create(outDir)
-  # pb <- progress_bar$new(total = length(files))
   pb <- progress_bar$new(
     format = "  converting [:bar] :percent eta: :eta",
     total = length(files), clear = FALSE)
