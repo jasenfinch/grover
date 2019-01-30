@@ -28,4 +28,5 @@ Imports: cli,
         dplyr,
         lubridate,
         rjson,
-        tibble
+        tibble,
+        progress

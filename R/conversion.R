@@ -55,7 +55,8 @@ listRawFiles <- function(grove,instrument,directory){
 #' @importFrom utils URLencode
 #' @export
 
-convertFile <- function(grove, instrument, directory, file, args='',outDir = '.'){
+convertFile <- function(grove, instrument, directory, file, args='', outDir = '.'){
+  cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
   tidycmd <- str_c(host(grove),':',port(grove),'/tidyup?',
                    'authKey=',auth(grove),
                    '&instrument=',instrument,
@@ -85,11 +86,16 @@ convertFile <- function(grove, instrument, directory, file, args='',outDir = '.'
                      '&directory=',directory
     )
     tidycmd %>% GET()
-    return(1)
+    success <- 1
   } else {
-    return(0)
+    success <- 0
   }
-  
+  if (success == 1) {
+    cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+  }
+  if (success == 0) {
+    cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+  }
 }
 
 #' convertDirectory
@@ -102,24 +108,23 @@ convertFile <- function(grove, instrument, directory, file, args='',outDir = '.'
 #' @importFrom purrr walk
 #' @importFrom crayon green red bold blue yellow
 #' @import cli
+#' @import progress
 #' @export
 
-convertDirectory <- function(grove, instrument, directory, args = '',outDir = '.'){
+convertDirectory <- function(grove, instrument, directory, args = '', outDir = '.'){
   outDir <- str_c(outDir,directory,sep = '/')
   files <- listRawFiles(grove,instrument,directory)
-  cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n\n')
+  cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
   dir.create(outDir)
+  # pb <- progress_bar$new(total = length(files))
+  pb <- progress_bar$new(
+    format = "  converting [:bar] :percent eta: :eta",
+    total = length(files), clear = FALSE)
+  pb$tick(0)
   walk(1:length(files),~{
     file <- files[.]
-    cat(.,'. ',file,' ',cli::symbol$continue,'\r',sep = '')
-    success <- convertFile(grove,instrument,directory,file,args,outDir)
-    flush.console()
-    if (success == 1) {
-      cat('\r',.,'. ',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
-    }
-    if (success == 0) {
-      cat('\r',.,'. ',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
-    }
+    convertFile(grove,instrument,directory,file,args,outDir)
+    pb$tick()
   })
 }
 
