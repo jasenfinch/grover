@@ -1,6 +1,6 @@
 Package: grover
 Title: REST API For Mass Spectrometry File Conversion
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -28,4 +28,5 @@ Imports: cli,
         dplyr,
         lubridate,
         rjson,
-        tibble
+        tibble,
+        progress

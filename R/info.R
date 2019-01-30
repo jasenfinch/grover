@@ -19,20 +19,36 @@ getFilename <- function(x){
 #' @export
 
 sampleInfo <- function(grove, instrument, directory, file){
+  cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
   cmd <- str_c(host(grove), ":", port(grove), "/sampleInfo?", "authKey=", 
                auth(grove), "&instrument=", instrument, "&directory=", directory, 
                "&file=", file)
   
   filters <- sampleScanFilters(grove, instrument, directory, file)
   
-  cmd %>% 
-    GET() %>% 
-    content() %>% 
-    unlist() %>%
-    fromJSON() %>% 
-    unlist(recursive = F) %>%
-    as_tibble() %>%
-    mutate(scan_filters = filters)
+  info <- cmd %>% 
+    GET() 
+  
+  if (info$status_code == 200) {
+    info <- info %>% 
+      content() %>% 
+      unlist() %>%
+      fromJSON() %>% 
+      unlist(recursive = F) %>%
+      as_tibble() %>%
+      mutate(scan_filters = filters)
+    success <- 1
+  } else {
+    info <- NULL
+    success <- 0
+  }
+  if (success == 1) {
+    cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+  }
+  if (success == 0) {
+    cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+  }
+  return(info)
 }
 
 #' sampleScanFilters
@@ -72,8 +88,19 @@ sampleScanFilters <- function(grove, instrument, directory, file){
 runInfo <- function(grove, instrument, directory) {
   files <- listRawFiles(grove, instrument, directory)
   
-  i <- map(files, sampleInfo, grove = grove, 
-           instrument = instrument, directory = directory)
+  cat('\nGenrating run info table for',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
+  
+  pb <- progress_bar$new(
+    format = "  retrieving [:bar] :percent eta: :eta",
+    total = length(files), clear = FALSE)
+  pb$tick(0)
+  i <- map(1:length(files), ~{
+    file <- files[.]
+    info <- sampleInfo(grove,instrument,directory,file)
+    pb$tick()
+    return(info)
+  })
+  
   i <- i[!sapply(i,is.null)] %>%
     bind_rows()
   
