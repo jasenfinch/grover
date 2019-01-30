@@ -1,6 +1,11 @@
 
 globalVariables(c('grove'))
 
+globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
+                  'sample_name','inj_order','creation_date','file_name',
+                  'instrument_method','path','inj_vol','sample_wt','sample_vol',
+                  'dilution','fileName'))
+
 #' readGrover
 #' @description Read grover API host information from a text file.
 #' @param path file path to text file containing host information
