@@ -4,8 +4,13 @@
 \alias{convertDirectorySplitModes}
 \title{convertDirectorySplitModeC}
 \usage{
-convertDirectorySplitModes(grove, instrument, directory, args = "",
-  outDir = ".")
+convertDirectorySplitModes(
+  grove,
+  instrument,
+  directory,
+  args = "",
+  outDir = "."
+)
 }
 \arguments{
 \item{grove}{S4 object of class Grover}

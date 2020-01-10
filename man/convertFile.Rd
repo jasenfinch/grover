@@ -4,8 +4,7 @@
 \alias{convertFile}
 \title{convertFile}
 \usage{
-convertFile(grove, instrument, directory, file, args = "",
-  outDir = ".")
+convertFile(grove, instrument, directory, file, args = "", outDir = ".")
 }
 \arguments{
 \item{grove}{S4 object of class Grover}
