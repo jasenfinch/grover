@@ -4,7 +4,7 @@
 #' @export
 
 listInstruments <- function(grove){
-  cmd <- str_c(host(grove),':',port(grove),'/instruments?','authKey=',auth(grove))
+  cmd <- str_c('http://',host(grove),':',port(grove),'/instruments?','authKey=',auth(grove))
   cmd %>%
     GET() %>%
     content() %>%
@@ -21,7 +21,7 @@ listInstruments <- function(grove){
 #' @export
 
 listDirectories <- function(grove,instrument){
-  cmd <- str_c(host(grove),':',port(grove),'/directories?','authKey=',auth(grove),'&instrument=',instrument)
+  cmd <- str_c('http://',host(grove),':',port(grove),'/directories?','authKey=',auth(grove),'&instrument=',instrument)
   cmd %>%
     GET() %>%
     content() %>%
@@ -36,7 +36,8 @@ listDirectories <- function(grove,instrument){
 #' @export
 
 listRawFiles <- function(grove,instrument,directory){
-  cmd <- str_c(host(grove),':',port(grove),'/rawfiles?','authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
+  cmd <- str_c('http://',host(grove),':',port(grove),'/rawfiles?',
+               'authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
   cmd %>%
     GET() %>%
     content() %>%
@@ -57,13 +58,13 @@ listRawFiles <- function(grove,instrument,directory){
 
 convertFile <- function(grove, instrument, directory, file, args='', outDir = '.'){
   cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-  tidycmd <- str_c(host(grove),':',port(grove),'/tidyup?',
+  tidycmd <- str_c('http://',host(grove),':',port(grove),'/tidyup?',
                    'authKey=',auth(grove),
                    '&instrument=',instrument,
                    '&directory=',directory
   )
   tidycmd %>% GET()
-  cmd <- str_c(host(grove),':',port(grove),'/convert?',
+  cmd <- str_c('http://',host(grove),':',port(grove),'/convert?',
                'authKey=',auth(grove),
                '&instrument=',instrument,
                '&directory=',directory,
@@ -80,7 +81,7 @@ convertFile <- function(grove, instrument, directory, file, args='', outDir = '.
     convertedFile <- convertedFile %>%
       content(as = 'text',encoding = 'UTF-8')
     writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
-    tidycmd <- str_c(host(grove),':',port(grove),'/tidyup?',
+    tidycmd <- str_c('http://',host(grove),':',port(grove),'/tidyup?',
                      'authKey=',auth(grove),
                      '&instrument=',instrument,
                      '&directory=',directory

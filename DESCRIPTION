@@ -1,6 +1,6 @@
 Package: grover
 Title: REST API For Mass Spectrometry File Conversion
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -15,7 +15,7 @@ Suggests:
     rmarkdown,
     prettydoc
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Imports: cli,
         crayon,
         httr,
@@ -29,4 +29,5 @@ Imports: cli,
         lubridate,
         rjson,
         tibble,
-        progress
+        progress,
+        base64enc
