@@ -36,7 +36,8 @@ listDirectories <- function(grove,instrument){
 #' @export
 
 listRawFiles <- function(grove,instrument,directory){
-  cmd <- str_c(host(grove),':',port(grove),'/rawfiles?','authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
+  cmd <- str_c('http://',host(grove),':',port(grove),'/rawfiles?',
+               'authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
   cmd %>%
     GET() %>%
     content() %>%

@@ -5,6 +5,7 @@ library(GetSampleInfo)
 library(yaml)
 library(plumber)
 library(grover)
+library(base64enc)
 
 #* @get /extant
 alive <- function(authKey){
@@ -125,4 +126,23 @@ getConfig <- function(authKey,instrument,directory){
   } else {
     stop('Incorrect authentication key')
   }
+}
+
+#* @get /getRaw
+getRaw <- function(authKey,instrument,directory,file){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    f <- str_c('Z:',instrument,directory,file,sep = '/')
+    if (file.exists(f)) {
+      con <- file(f,'rb')
+      f <- readBin(con,'raw',n = file.info(f)$size) %>%
+        base64encode()
+      close(con)
+    } else {
+      stop('No config found!')
+    }
+  } else {
+    stop('Incorrect authentication key')
+  }
+  return(f)
 }
