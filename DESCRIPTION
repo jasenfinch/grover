@@ -29,4 +29,5 @@ Imports: cli,
         lubridate,
         rjson,
         tibble,
-        progress
+        progress,
+        base64enc

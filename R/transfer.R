@@ -18,7 +18,7 @@ rawFile <- function(grove,instrument,directory,file,outDir = '.'){
   rawData <- cmd %>%
     URLencode() %>%
     GET()
-  if (convertedFile$status_code == 200) {
+  if (rawData$status_code == 200) {
     con <- str_c(outDir,'/',file) %>%
       file('wb')
     rawD <- rawData %>%
