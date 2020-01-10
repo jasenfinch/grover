@@ -139,7 +139,7 @@ getRaw <- function(authKey,instrument,directory,file){
         base64encode()
       close(con)
     } else {
-      stop('No config found!')
+      stop('File not found!')
     }
   } else {
     stop('Incorrect authentication key')
