@@ -24,7 +24,7 @@ convertFile <- function(authKey,instrument,directory,file,args='',res){
   if (authKey == key) {
     dirPath <- str_c('C:/TMP_STORE/',instrument,'/',directory)
     dir.create(dirPath)
-    msconvert(str_c('Z:\\',instrument,'\\',directory,'\\',file),
+    msconvert(str_c('Y:\\',instrument,'\\',directory,'\\',file),
               outPath = str_c('C:\\TMP_STORE\\',instrument,'\\',directory),
               args) %>%
       str_c(collapse = '\n')
@@ -49,7 +49,7 @@ removeDirectory <- function(authKey,instrument,directory){
 listInstruments <- function(authKey){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key){
-    list.dirs('Z:\\',recursive = F,full.names = F)
+    list.dirs('Y:\\',recursive = F,full.names = F)
   } else {
     stop('Incorrect authentication key')
   }
@@ -59,7 +59,7 @@ listInstruments <- function(authKey){
 listDirectories <- function(authKey,instrument){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    list.dirs(str_c('Z:\\',instrument),recursive = F,full.names = F)
+    list.dirs(str_c('Y:\\',instrument),recursive = F,full.names = F)
   } else {
     stop('Incorrect authentication key')
   }
@@ -69,7 +69,7 @@ listDirectories <- function(authKey,instrument){
 listFiles <- function(authKey,instrument,directory){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    path <- str_c('Z:\\',instrument,'\\',directory)
+    path <- str_c('Y:\\',instrument,'\\',directory)
     files <- list.files(path,recursive = F,full.names = F)
     if (instrument == 'TSQ'){
       return(files[str_detect(files,coll('.RAW'))])
@@ -86,7 +86,7 @@ listFiles <- function(authKey,instrument,directory){
 sampleInfo <- function(authKey,instrument,directory,file){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    path <- str_c('Z:',instrument,directory,file,sep = '/')
+    path <- str_c('Y:',instrument,directory,file,sep = '/')
     GetSampleInfo(path) %>%
       split(1:nrow(.)) %>%
       unname() %>%
@@ -101,7 +101,7 @@ sampleInfo <- function(authKey,instrument,directory,file){
 sampleScanFilters <- function(authKey,instrument,directory,file){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    path <- str_c('Z:',instrument,directory,file,sep = '/')
+    path <- str_c('Y:',instrument,directory,file,sep = '/')
     GetScanFilters(path) %>%
       split(1:nrow(.)) %>%
       unname() %>%
@@ -116,7 +116,7 @@ sampleScanFilters <- function(authKey,instrument,directory,file){
 getConfig <- function(authKey,instrument,directory){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    file <- str_c('Z:',instrument,directory,'config.yml',sep = '/')
+    file <- str_c('Y:',instrument,directory,'config.yml',sep = '/')
     if (file.exists(file)) {
       read_yaml(file) %>%
         toJSON()
@@ -132,14 +132,14 @@ getConfig <- function(authKey,instrument,directory){
 getRaw <- function(authKey,instrument,directory,file){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
-    f <- str_c('Z:',instrument,directory,file,sep = '/')
+    f <- str_c('Y:',instrument,directory,file,sep = '/')
     if (file.exists(f)) {
       con <- file(f,'rb')
       f <- readBin(con,'raw',n = file.info(f)$size) %>%
         base64encode()
       close(con)
     } else {
-      stop('No config found!')
+      stop('File not found!')
     }
   } else {
     stop('Incorrect authentication key')
