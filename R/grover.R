@@ -21,7 +21,7 @@ globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
 
 readGrover <- function(path = 'grover.yml'){
   details <- read_yaml(path)
-  grover(details$host,details$port,as.character(details$authKey))
+  grover(details$host,details$port,as.character(details$auth))
 }
 
 #' grover
@@ -45,11 +45,21 @@ grover <- function(host,port,auth){
 #' @rdname host
 #' @description Retrieve host information from a Grover object.
 #' @param grove S4 object of class Grover 
+#' @param value new host value to set
 #' @export
 
 setMethod('host',signature = 'Grover',
           function(grove){
             grove@host
+          }
+)
+
+#' @rdname host
+
+setMethod('host<-',signature = 'Grover',
+          function(grove,value){
+           grove@host <- value
+           return(grove)
           }
 )
 
@@ -65,6 +75,15 @@ setMethod('port',signature = 'Grover',
           }
 )
 
+#' @rdname port
+
+setMethod('port<-',signature = 'Grover',
+          function(grove, value){
+            grove@port <- value
+            return(grove)
+          }
+)
+
 #' auth
 #' @rdname auth
 #' @description Retrieve authentication key from a Grover object.
@@ -74,6 +93,15 @@ setMethod('port',signature = 'Grover',
 setMethod('auth',signature = 'Grover',
           function(grove){
             grove@auth
+          }
+)
+
+#' @rdname auth
+
+setMethod('auth<-',signature = 'Grover',
+          function(grove){
+            grove@auth <- value
+            return(grove)
           }
 )
 

@@ -1,22 +1,37 @@
 #' @rdname host
-#' @export
 
 setGeneric('host',function(grove){
   standardGeneric('host')
 })
 
+#' @rdname host
+
+setGeneric('host<-',function(grove,value){
+  standardGeneric('host<-')
+})
+
 #' @rdname port
-#' @export
 
 setGeneric('port',function(grove){
   standardGeneric('port')
 })
 
+#' @rdname port
+
+setGeneric('port<-',function(grove,value){
+  standardGeneric('port<-')
+})
+
 #' @rdname auth
-#' @export
 
 setGeneric('auth',function(grove){
   standardGeneric('auth')
+})
+
+#' @rdname auth
+
+setGeneric('auth<-',function(grove,value){
+  standardGeneric('auth<-')
 })
 
 #' #' @rdname path
