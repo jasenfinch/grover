@@ -2,15 +2,23 @@
 % Please edit documentation in R/allGenerics.R, R/grover.R
 \name{host}
 \alias{host}
-\alias{host,Grover-method}
+\alias{host<-}
+\alias{host,GroverClient-method}
+\alias{host<-,GroverClient-method}
 \title{host}
 \usage{
 host(grove)
 
-\S4method{host}{Grover}(grove)
+host(grove) <- value
+
+\S4method{host}{GroverClient}(grove)
+
+\S4method{host}{GroverClient}(grove) <- value
 }
 \arguments{
-\item{grove}{S4 object of class Grover}
+\item{grove}{S4 object of class GroverClient}
+
+\item{value}{new host value to set}
 }
 \description{
 Retrieve host information from a Grover object.

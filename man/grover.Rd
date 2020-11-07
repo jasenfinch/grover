@@ -4,7 +4,7 @@
 \alias{grover}
 \title{grover}
 \usage{
-grover(host, port, auth)
+grover(host, port, auth, repository = NULL)
 }
 \arguments{
 \item{host}{host address}
@@ -12,10 +12,12 @@ grover(host, port, auth)
 \item{port}{port on which the API is hosted}
 
 \item{auth}{authentication key}
+
+\item{repository}{data repository directory path}
 }
 \description{
-Create a Grover object containing API host information.
+Create a GroverClient or GroverHost object containing API host information.
 }
 \examples{
-grove <- grover('127.0.0.1',8000,'1234')
+grove <- grover('localhost',8000,'1234')
 }

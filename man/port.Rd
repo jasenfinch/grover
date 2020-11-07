@@ -2,15 +2,21 @@
 % Please edit documentation in R/allGenerics.R, R/grover.R
 \name{port}
 \alias{port}
-\alias{port,Grover-method}
+\alias{port<-}
+\alias{port,GroverClient-method}
+\alias{port<-,GroverClient-method}
 \title{port}
 \usage{
 port(grove)
 
-\S4method{port}{Grover}(grove)
+port(grove) <- value
+
+\S4method{port}{GroverClient}(grove)
+
+\S4method{port}{GroverClient}(grove) <- value
 }
 \arguments{
-\item{grove}{S4 object of class Grover}
+\item{grove}{S4 object of class GroverClient}
 }
 \description{
 Retrieve port information from a Grover object.

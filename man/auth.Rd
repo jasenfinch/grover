@@ -2,15 +2,21 @@
 % Please edit documentation in R/allGenerics.R, R/grover.R
 \name{auth}
 \alias{auth}
-\alias{auth,Grover-method}
+\alias{auth<-}
+\alias{auth,GroverClient-method}
+\alias{auth<-,GroverClient-method}
 \title{auth}
 \usage{
 auth(grove)
 
-\S4method{auth}{Grover}(grove)
+auth(grove) <- value
+
+\S4method{auth}{GroverClient}(grove)
+
+\S4method{auth}{GroverClient}(grove) <- value
 }
 \arguments{
-\item{grove}{S4 object of class Grover}
+\item{grove}{S4 object of class GroverClient}
 }
 \description{
 Retrieve authentication key from a Grover object.

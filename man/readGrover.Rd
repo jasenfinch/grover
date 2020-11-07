@@ -16,9 +16,13 @@ Read grover API host information from a text file.
 The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
 }
 \examples{
-\dontrun{
-grover_example <- system.file('example_grover.yml',
+## Grover client
+grover_client <- system.file('grover_client.yml',
                               package = 'grover')
-grove <- readGrover(grover_example)
-}
+grove_client <- readGrover(grover_example)
+
+## Grover host
+grover_host <- system.file('grover_host.yml',
+                              package = 'grover')
+grove_host <- readGrover(grover_host)
 }
