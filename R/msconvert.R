@@ -7,7 +7,7 @@
 #' @importFrom stringr str_c
 #' @export
 
-msconvert <- function(file, outPath = '.', args= '', verbose = T){
+msconvert <- function(file, outPath = '.', args= '', verbose = TRUE){
   cmd <- str_c('msconvert',file,'-o',outPath,args,sep = ' ')
   if (verbose == T) {
     cat(str_c('\n[',Sys.time(),']'),cmd,'\n')
