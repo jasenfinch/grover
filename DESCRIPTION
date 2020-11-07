@@ -15,7 +15,7 @@ Suggests:
     rmarkdown,
     prettydoc
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 Imports: cli,
         crayon,
         httr,
@@ -31,3 +31,4 @@ Imports: cli,
         tibble,
         progress,
         base64enc
+Remotes: wilsontom/GetSampleInfo
