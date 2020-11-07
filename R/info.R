@@ -20,7 +20,7 @@ getFilename <- function(x){
 
 sampleInfo <- function(grove, instrument, directory, file){
   cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-  cmd <- str_c(host(grove), ":", port(grove), "/sampleInfo?", "authKey=", 
+  cmd <- str_c(hostURL(grove), "/sampleInfo?", "authKey=", 
                auth(grove), "&instrument=", instrument, "&directory=", directory, 
                "&file=", file)
   
@@ -64,7 +64,7 @@ sampleInfo <- function(grove, instrument, directory, file){
 #' @export
 
 sampleScanFilters <- function(grove, instrument, directory, file){
-  cmd <- str_c(host(grove), ":", port(grove), "/sampleScanFilters?", "authKey=", 
+  cmd <- str_c(hostURL(grove), "/sampleScanFilters?", "authKey=", 
                auth(grove), "&instrument=", instrument, "&directory=", directory, 
                "&file=", file)
   cmd %>% 
