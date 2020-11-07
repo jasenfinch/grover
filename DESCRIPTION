@@ -13,7 +13,8 @@ LazyData: true
 Suggests: 
     knitr,
     rmarkdown,
-    prettydoc
+    prettydoc,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: cli,

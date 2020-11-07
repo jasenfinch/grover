@@ -99,7 +99,7 @@ setMethod('auth',signature = 'Grover',
 #' @rdname auth
 
 setMethod('auth<-',signature = 'Grover',
-          function(grove){
+          function(grove,value){
             grove@auth <- value
             return(grove)
           }
