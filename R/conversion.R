@@ -4,7 +4,7 @@
 #' @export
 
 listInstruments <- function(grove){
-  cmd <- str_c('http://',host(grove),':',port(grove),'/instruments?','authKey=',auth(grove))
+  cmd <- str_c(hostURL(grove),'/instruments?','authKey=',auth(grove))
   cmd %>%
     GET() %>%
     content() %>%
@@ -21,7 +21,7 @@ listInstruments <- function(grove){
 #' @export
 
 listDirectories <- function(grove,instrument){
-  cmd <- str_c('http://',host(grove),':',port(grove),'/directories?','authKey=',auth(grove),'&instrument=',instrument)
+  cmd <- str_c(hostURL(grove),'/directories?','authKey=',auth(grove),'&instrument=',instrument)
   cmd %>%
     GET() %>%
     content() %>%
@@ -36,7 +36,7 @@ listDirectories <- function(grove,instrument){
 #' @export
 
 listRawFiles <- function(grove,instrument,directory){
-  cmd <- str_c('http://',host(grove),':',port(grove),'/rawfiles?',
+  cmd <- str_c(hostURL(grove),'/rawfiles?',
                'authKey=',auth(grove),'&instrument=',instrument,'&directory=',directory)
   cmd %>%
     GET() %>%
@@ -58,13 +58,13 @@ listRawFiles <- function(grove,instrument,directory){
 
 convertFile <- function(grove, instrument, directory, file, args='', outDir = '.'){
   cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-  tidycmd <- str_c('http://',host(grove),':',port(grove),'/tidyup?',
+  tidycmd <- str_c(hostURL(grove),'/tidyup?',
                    'authKey=',auth(grove),
                    '&instrument=',instrument,
                    '&directory=',directory
   )
   tidycmd %>% GET()
-  cmd <- str_c('http://',host(grove),':',port(grove),'/convert?',
+  cmd <- str_c(hostURL(grove),'/convert?',
                'authKey=',auth(grove),
                '&instrument=',instrument,
                '&directory=',directory,

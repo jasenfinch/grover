@@ -10,7 +10,7 @@
 
 rawFile <- function(grove,instrument,directory,file,outDir = '.'){
   cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-  cmd <- str_c('http://',host(grove),':',port(grove),'/getRaw?',
+  cmd <- str_c(hostURL(grove),'/getRaw?',
                'authKey=',auth(grove),
                '&instrument=',instrument,
                '&directory=',directory,

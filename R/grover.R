@@ -82,7 +82,7 @@ setMethod('auth',signature = 'Grover',
 #' @export
 
 checkGrover <- function(grove){
-  cmd <- str_c(host(grove),':',port(grove),'/extant?','authKey=',auth(grove))
+  cmd <- str_c(hostURL(grove),'/extant?','authKey=',auth(grove))
   answer <- try({cmd %>%
       GET() %>%
       content() %>%
@@ -91,4 +91,13 @@ checkGrover <- function(grove){
     answer <- 'grover is MIA!'
   }
   return(answer)
+}
+
+hostURL <- function(grove){
+  if (port(grove) != 80) {
+    url <- str_c('http://',host(grove),':',port(grove)) 
+  } else {
+    url <- str_c('http://',host(grove))
+  }
+  return(url)
 }
