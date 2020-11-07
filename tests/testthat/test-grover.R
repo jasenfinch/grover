@@ -2,20 +2,26 @@
 context('Grover class methods')
 
 test_that('grover constructors and accessors work',{
-  grover_example <- system.file('example_grover.yml',package = 'grover')
-  grove <- readGrover(grover_example)
+  grover_client <- system.file('grover_client.yml',package = 'grover')
+  grove_client <- readGrover(grover_client)
   
-  host(grove) <- 'localhost'
-  port(grove) <- 8000
-  auth(grove) <- '1234'
-  h <- host(grove)
-  p <- port(grove)
-  a <- auth(grove)
+  grove_host <- system.file('grover_host.yml',package = 'grover')
+  grove_host <- readGrover(grove_host)
   
-  expect_s4_class(grove,'Grover')
+  host(grove_client) <- 'localhost'
+  port(grove_client) <- 8000
+  auth(grove_client) <- '1234'
+  repository(grove_host) <- './data'
+  h <- host(grove_client)
+  p <- port(grove_client)
+  a <- auth(grove_client)
+  r <- repository(grove_host)
+  
+  expect_s4_class(grove_client,'GroverClient')
   expect_equal(h,'localhost')
   expect_equal(p,8000)
   expect_equal(a,'1234')
+  expect_equal(r,'./data')
 })
 
 test_that('host URL constructed correclty',{

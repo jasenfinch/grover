@@ -1,0 +1,4 @@
+host: localhost
+port: 8000
+auth: 1234
+repository: ./data

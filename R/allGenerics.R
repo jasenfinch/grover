@@ -34,6 +34,18 @@ setGeneric('auth<-',function(grove,value){
   standardGeneric('auth<-')
 })
 
+#' @rdname repository
+
+setGeneric('repository',function(grove){
+  standardGeneric('repository')
+})
+
+#' @rdname repository
+
+setGeneric('repository<-',function(grove,value){
+  standardGeneric('repository<-')
+})
+
 setGeneric('hostURL',function(grove){
   standardGeneric('hostURL')
 })
