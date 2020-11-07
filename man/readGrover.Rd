@@ -4,7 +4,7 @@
 \alias{readGrover}
 \title{readGrover}
 \usage{
-readGrover(path = "~/grover.txt")
+readGrover(path = "grover.yml")
 }
 \arguments{
 \item{path}{file path to text file containing host information}
@@ -17,6 +17,8 @@ The text file should contain 3 lines, the first the host address, the second the
 }
 \examples{
 \dontrun{
-grove <- readGrover('~/grover.txt')
+grover_example <- system.file('example_grover.yml',
+                              package = 'grover')
+grove <- readGrover(grover_example)
 }
 }

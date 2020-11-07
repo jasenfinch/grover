@@ -12,14 +12,16 @@ globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
 #' @details The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
 #' @examples 
 #' \dontrun{
-#' grove <- readGrover('~/grover.txt')
+#' grover_example <- system.file('example_grover.yml',
+#'                               package = 'grover')
+#' grove <- readGrover(grover_example)
 #' }
-#' @importFrom readr read_lines
+#' @importFrom yaml read_yaml
 #' @export
 
-readGrover <- function(path = '~/grover.txt'){
-  details <- readr::read_lines(path)
-  grover(details[[1]],details[[2]] %>% as.numeric(),details[[3]])
+readGrover <- function(path = 'grover.yml'){
+  details <- read_yaml(path)
+  grover(details$host,details$port,as.character(details$authKey))
 }
 
 #' grover
@@ -29,7 +31,7 @@ readGrover <- function(path = '~/grover.txt'){
 #' @param auth authentication key
 #' @importFrom methods new
 #' @examples 
-#' grove <- grover('127.0.0.1',8000,'1234')
+#' grove <- grover('localhost',8000,'1234')
 #' @export
 
 grover <- function(host,port,auth){
