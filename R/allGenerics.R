@@ -34,6 +34,10 @@ setGeneric('auth<-',function(grove,value){
   standardGeneric('auth<-')
 })
 
+setGeneric('hostURL',function(grove){
+  standardGeneric('hostURL')
+})
+
 #' #' @rdname path
 #' #' @export
 #' 

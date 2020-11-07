@@ -58,8 +58,8 @@ setMethod('host',signature = 'Grover',
 
 setMethod('host<-',signature = 'Grover',
           function(grove,value){
-           grove@host <- value
-           return(grove)
+            grove@host <- value
+            return(grove)
           }
 )
 
@@ -105,29 +105,13 @@ setMethod('auth<-',signature = 'Grover',
           }
 )
 
-#' checkGrover
-#' @description Check grover API is active.
-#' @param grove S4 object of class Grover
-#' @importFrom stringr str_c
-#' @export
-
-checkGrover <- function(grove){
-  cmd <- str_c(hostURL(grove),'/extant?','authKey=',auth(grove))
-  answer <- try({cmd %>%
-      GET() %>%
-      content() %>%
-      unlist()},silent = T)
-  if (answer != "I'm still here!") {
-    answer <- 'grover is MIA!'
-  }
-  return(answer)
-}
-
-hostURL <- function(grove){
-  if (port(grove) != 80) {
-    url <- str_c('http://',host(grove),':',port(grove)) 
-  } else {
-    url <- str_c('http://',host(grove))
-  }
-  return(url)
-}
+setMethod('hostURL',signature = 'Grover',
+          function(grove){
+            if (port(grove) != 80) {
+              url <- str_c('http://',host(grove),':',port(grove)) 
+            } else {
+              url <- str_c('http://',host(grove))
+            }
+            return(url)          
+          }
+)
