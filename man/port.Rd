@@ -17,6 +17,8 @@ port(grove) <- value
 }
 \arguments{
 \item{grove}{S4 object of class GroverClient}
+
+\item{value}{new port value to set}
 }
 \description{
 Retrieve port information from a Grover object.

@@ -50,13 +50,7 @@ setGeneric('hostURL',function(grove){
   standardGeneric('hostURL')
 })
 
-#' #' @rdname path
-#' #' @export
-#' 
-#' setGeneric('path',function(repo){
-#'   standardGeneric('path')
-#' })
+setGeneric('extant',function(grove){
+  standardGeneric('extant')
+})
 
-# setGeneric('extensions',function(repo){
-#   standardGeneric('extensions')
-# })

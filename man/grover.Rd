@@ -19,5 +19,15 @@ grover(host, port, auth, repository = NULL)
 Create a GroverClient or GroverHost object containing API host information.
 }
 \examples{
-grove <- grover('localhost',8000,'1234')
+## Grover client 
+grove_client <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234")
+
+## Grover host
+grove_host <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234",
+                     repository = system.file('repository',
+                                               package = 'grover'))
 }

@@ -1,10 +1,5 @@
 
-globalVariables(c('grove'))
-
-globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
-                  'sample_name','inj_order','creation_date','file_name',
-                  'instrument_method','path','inj_vol','sample_wt','sample_vol',
-                  'dilution','fileName'))
+globalVariables('host_auth')
 
 #' readGrover
 #' @description Read grover API host information from a text file.
@@ -14,7 +9,7 @@ globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
 #' ## Grover client
 #' grover_client <- system.file('grover_client.yml',
 #'                               package = 'grover')
-#' grove_client <- readGrover(grover_example)
+#' grove_client <- readGrover(grover_client)
 #' 
 #' ## Grover host
 #' grover_host <- system.file('grover_host.yml',
@@ -35,8 +30,18 @@ readGrover <- function(path = 'grover.yml'){
 #' @param auth authentication key
 #' @param repository data repository directory path
 #' @importFrom methods new
-#' @examples 
-#' grove <- grover('localhost',8000,'1234')
+#' @examples
+#' ## Grover client 
+#' grove_client <- grover(host = "127.0.0.1",
+#'                      port = 8000,
+#'                      auth = "1234")
+#' 
+#' ## Grover host
+#' grove_host <- grover(host = "127.0.0.1",
+#'                      port = 8000,
+#'                      auth = "1234",
+#'                      repository = system.file('repository',
+#'                                                package = 'grover'))
 #' @export
 
 grover <- function(host,port,auth,repository = NULL){
@@ -83,6 +88,7 @@ setMethod('host<-',signature = 'GroverClient',
 #' @rdname port
 #' @description Retrieve port information from a Grover object.
 #' @param grove S4 object of class GroverClient
+#' @param value new port value to set
 #' @export
 
 setMethod('port',signature = 'GroverClient',
@@ -104,6 +110,7 @@ setMethod('port<-',signature = 'GroverClient',
 #' @rdname auth
 #' @description Retrieve authentication key from a Grover object.
 #' @param grove S4 object of class GroverClient
+#' @param value new auth value to set
 #' @export
 
 setMethod('auth',signature = 'GroverClient',
@@ -125,6 +132,7 @@ setMethod('auth<-',signature = 'GroverClient',
 #' @rdname repository
 #' @description Retrieve data repository directory path key from a GroverHost.
 #' @param grove S4 object of class GroverHost
+#' @param value new repository value to set
 #' @export
 
 setMethod('repository',signature = 'GroverHost',

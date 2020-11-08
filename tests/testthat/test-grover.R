@@ -22,6 +22,8 @@ test_that('grover constructors and accessors work',{
   expect_equal(p,8000)
   expect_equal(a,'1234')
   expect_equal(r,'./data')
+  expect_output(print(grove_client),'Grover Information')
+  expect_output(print(grove_host),'Repository:')
 })
 
 test_that('host URL constructed correclty',{

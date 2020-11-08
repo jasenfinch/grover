@@ -31,5 +31,6 @@ Imports: cli,
         rjson,
         tibble,
         progress,
-        base64enc
+        base64enc,
+        yaml
 Remotes: wilsontom/GetSampleInfo

@@ -17,6 +17,8 @@ auth(grove) <- value
 }
 \arguments{
 \item{grove}{S4 object of class GroverClient}
+
+\item{value}{new auth value to set}
 }
 \description{
 Retrieve authentication key from a Grover object.

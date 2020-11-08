@@ -17,6 +17,8 @@ repository(grove) <- value
 }
 \arguments{
 \item{grove}{S4 object of class GroverHost}
+
+\item{value}{new repository value to set}
 }
 \description{
 Retrieve data repository directory path key from a GroverHost.

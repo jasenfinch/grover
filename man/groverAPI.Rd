@@ -4,7 +4,7 @@
 \alias{groverAPI}
 \title{Grover API}
 \usage{
-groverAPI(grove)
+groverAPI(grove_host)
 }
 \arguments{
 \item{grove}{S4 object of class Grover}
@@ -14,6 +14,11 @@ Run the grover REST API for file conversion.
 }
 \examples{
 \dontrun{
-groverAPI(readGrover())
+grove_host <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234",
+                     repository = system.file('repository',
+                                               package = 'grover'))
+groverAPI(grove_host) 
 }
 }

@@ -3,19 +3,23 @@
 #' @param grove S4 object of class Grover
 #' @examples 
 #' \dontrun{
-#' groverAPI(readGrover())
+#' grove_host <- grover(host = "127.0.0.1",
+#'                      port = 8000,
+#'                      auth = "1234",
+#'                      repository = system.file('repository',
+#'                                                package = 'grover'))
+#' groverAPI(grove_host) 
 #' }
-#' @importFrom plumber plumb
+#' @importFrom plumber pr pr_get pr_run
 #' @export
  
-groverAPI <- function(grove){
-  # api <- plumber$new()
-  # 
-  # api$handle('GET','/extant',extant)
+groverAPI <- function(grove_host){
   
-  # api$handle('GET','/repository',repository)
+  api <- pr()
   
-  api <- plumb(system.file('api/api.R',package = 'grover'))
+  api <- pr_get(api,'/extant',hostExtant)
   
-  api$run(port = port(grove),host = host(grove))
+  pr_run(api,
+         host = host(grove_host),
+         port = port(grove_host))
 }

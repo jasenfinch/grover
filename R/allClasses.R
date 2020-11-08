@@ -1,5 +1,5 @@
 #' Grover
-#' @rdname Grover
+#' @rdname Grover-class
 #' @description A simple S4 class containing grover API host information
 #' @slot host host address
 #' @slot port port on which the API is hosted
@@ -14,7 +14,7 @@ setClass('GroverClient',
          )
 )
 
-#' @rdname Grover
+#' @rdname Grover-class
 #' @export
 
 setClass('GroverHost',
