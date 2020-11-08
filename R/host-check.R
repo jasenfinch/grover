@@ -1,6 +1,6 @@
 
 hostExtant <- function(auth){
-  if (auth == auth(grove_host)) {
+  if (auth == host_auth) {
     "I'm still here!"
   } else {
     stop('Incorrect authentication key')

@@ -4,10 +4,10 @@
 \alias{extant,GroverClient-method}
 \title{extant}
 \usage{
-\S4method{extant}{GroverClient}(grove)
+\S4method{extant}{GroverClient}(grover_client)
 }
 \arguments{
-\item{grove}{S4 object of class GroverGlient}
+\item{grover_client}{S4 object of class GroverGlient}
 }
 \description{
 Check grover API is still extistant.

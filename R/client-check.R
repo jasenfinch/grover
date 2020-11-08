@@ -1,13 +1,13 @@
 #' extant
 #' @rdname extant
 #' @description Check grover API is still extistant.
-#' @param grove S4 object of class GroverGlient
+#' @param grover_client S4 object of class GroverGlient
 #' @importFrom stringr str_c
 #' @export
 
 setMethod('extant',signature = 'GroverClient', 
-          function(grove){
-            cmd <- str_c(hostURL(grove),'/extant?','authKey=',auth(grove))
+          function(grover_client){
+            cmd <- str_c(hostURL(grover_client),'/extant?','auth=',auth(grover_client))
             answer <- try({cmd %>%
                 GET() %>%
                 content() %>%

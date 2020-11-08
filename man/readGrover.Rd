@@ -19,10 +19,10 @@ The text file should contain 3 lines, the first the host address, the second the
 ## Grover client
 grover_client <- system.file('grover_client.yml',
                               package = 'grover')
-grove_client <- readGrover(grover_client)
+grover_client <- readGrover(grover_client)
 
 ## Grover host
 grover_host <- system.file('grover_host.yml',
                               package = 'grover')
-grove_host <- readGrover(grover_host)
+grover_host <- readGrover(grover_host)
 }

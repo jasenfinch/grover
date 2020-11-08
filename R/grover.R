@@ -9,12 +9,12 @@ globalVariables('host_auth')
 #' ## Grover client
 #' grover_client <- system.file('grover_client.yml',
 #'                               package = 'grover')
-#' grove_client <- readGrover(grover_client)
+#' grover_client <- readGrover(grover_client)
 #' 
 #' ## Grover host
 #' grover_host <- system.file('grover_host.yml',
 #'                               package = 'grover')
-#' grove_host <- readGrover(grover_host)
+#' grover_host <- readGrover(grover_host)
 #' @importFrom yaml read_yaml
 #' @export
 
@@ -32,12 +32,12 @@ readGrover <- function(path = 'grover.yml'){
 #' @importFrom methods new
 #' @examples
 #' ## Grover client 
-#' grove_client <- grover(host = "127.0.0.1",
+#' grover_client <- grover(host = "127.0.0.1",
 #'                      port = 8000,
 #'                      auth = "1234")
 #' 
 #' ## Grover host
-#' grove_host <- grover(host = "127.0.0.1",
+#' grover_host <- grover(host = "127.0.0.1",
 #'                      port = 8000,
 #'                      auth = "1234",
 #'                      repository = system.file('repository',

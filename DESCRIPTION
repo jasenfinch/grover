@@ -14,7 +14,9 @@ Suggests:
     knitr,
     rmarkdown,
     prettydoc,
-    testthat
+    testthat,
+    callr
+Remotes: wilsontom/GetSampleInfo
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: cli,
@@ -33,4 +35,3 @@ Imports: cli,
         progress,
         base64enc,
         yaml
-Remotes: wilsontom/GetSampleInfo
