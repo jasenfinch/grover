@@ -11,9 +11,9 @@ grover_client <- grover(host = "127.0.0.1",
                        port = 8000,
                        auth = "1234")
 
-api <- callr::r_bg(function(grover_host){
-  grover::groverAPI(grover_host)
-},args = list(grover_host = grover_host),package = TRUE)
+api <- callr::r_bg(function(groverAPI,grover_host){
+  groverAPI(grover_host)
+},args = list(groverAPI = groverAPI,grover_host = grover_host), package = TRUE)
 
 
 test_that('api is running',{
@@ -21,7 +21,7 @@ test_that('api is running',{
 })
 
 test_that('client can detect api',{
-  expect_equal(extant(grover_client),"I'm still here")
+  expect_equal(extant(grover_client),"I'm still here!")
 })
 
 api$kill()

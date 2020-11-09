@@ -1,3 +1,4 @@
+# Check if the grover host exists
 
 hostExtant <- function(auth){
   if (auth == host_auth) {

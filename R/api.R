@@ -10,15 +10,22 @@
 #'                                                package = 'grover'))
 #' groverAPI(grover_host) 
 #' }
-#' @importFrom plumber pr pr_get pr_run
+#' @importFrom plumber pr pr_get pr_run serializer_content_type
+#' @importFrom magrittr %>%
 #' @export
  
 groverAPI <- function(grover_host){
-  host_auth <- auth(grover_host)
+  host_auth <<- auth(grover_host) 
+  host_repository <<- repository(grover_host)
   
   api <- pr(envir = new.env(parent = environment()))
   
   api <- pr_get(api,'/extant',hostExtant)
+  api <- pr_get(api,
+                '/getFile',
+                hostGetFile,
+                serializer = serializer_content_type('application/octet-stream'))
+    
   
   pr_run(api,
          host = host(grover_host),

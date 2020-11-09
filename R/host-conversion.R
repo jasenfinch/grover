@@ -19,7 +19,7 @@ listDirectories <- function(authKey,instrument){
 }
 
 #* @get /rawfiles
-listFiles <- function(authKey,instrument,directory){
+rawFiles <- function(authKey,instrument,directory){
   key <- readLines('~/grover.txt')[3]
   if (authKey == key) {
     path <- str_c('Y:\\',instrument,'\\',directory)
@@ -32,6 +32,18 @@ listFiles <- function(authKey,instrument,directory){
   } else {
     stop('Incorrect authentication key')
   }
+}
+
+#* @get /listFiles
+listFiles <- function(authKey,instrument,directory){
+  key <- readLines('~/grover.txt')[3]
+  if (authKey == key) {
+    path <- str_c('Y:\\',instrument,'\\',directory)
+    files <- list.files(path,recursive = F,full.names = F)
+  } else {
+    stop('Incorrect authentication key')
+  }
+  return(files)
 }
 
 #* @get /convert
