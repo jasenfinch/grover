@@ -36,6 +36,7 @@ groverAPI <- function(grover_host){
   api <- pr_get(api,'/listRawFiles',hostListRawFiles)
   api <- pr_get(api,'/listDirectories',hostListDirectories)
   api <- pr_get(api,'/listInsturments',hostListInstruments)
+  api <- pr_get(api,'/sampleInfo',hostSampleInfo)
   api <- pr_put(api,'/tidy',hostTidy)
   
   pr_run(api,

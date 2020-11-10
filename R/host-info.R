@@ -1,45 +1,51 @@
-#* @get /sampleInfo
-#* @json
-sampleInfo <- function(authKey,instrument,directory,file){
-  key <- readLines('~/grover.txt')[3]
-  if (authKey == key) {
-    path <- str_c('Y:',instrument,directory,file,sep = '/')
-    GetSampleInfo(path) %>%
-      split(1:nrow(.)) %>%
+#' @importFrom rawR readFileHeader readIndex
+#' @importFrom dplyr slice
+#' @importFrom rjson toJSON
+
+hostSampleInfo <- function(auth,instrument,directory,file){
+  
+  if (auth == host_auth) {
+    path <- str_c(host_repository,instrument,directory,file,sep = '/')
+    
+    sample_info <- readFileHeader(path) %>%
+      as_tibble() %>%
+      slice(1) %>%
+      mutate(directory = directory) %>%
+      select(`fileOrder` = `Sample row number`,
+             sample_type = `Sample type`,
+             fileName = `RAW file`,
+             sample_id = `Sample id`,
+             directory,
+             instrument_method = `Instrument method`,
+             position = `Sample vial`,
+             inj_vol = `Sample injection volume`,
+             sample_vol = `Sample volume`,
+             dilution = `Sample dilution factor`,
+             comment = `Sample comment`,
+             batch = `User text 0`,
+             block = `User text 1`,
+             name = `User text 2`,
+             class = `User text 3`,
+             injOrder = `User text 4`,
+             creation_date = `Creation date`,
+             instrument_name = `Instrument name`,
+             instrument_model = `Instrument model`,
+             instrument_serial = `Serial number`,
+             software_version = `Software version`,
+      )
+    
+    scan_filters <- readIndex(path) %>%
+      .$scanType %>%
+      unique() %>%
+      str_c(collapse = ';;;')
+    
+    sample_info <- sample_info %>%
+      mutate(scan_filters = scan_filters) %>%
+      split(seq_len(nrow(.))) %>%
       unname() %>%
       toJSON()
-  } else {
-    stop('Incorrect authentication key')
-  }
-}
-
-#* @get /sampleScanFilters
-#* @json
-sampleScanFilters <- function(authKey,instrument,directory,file){
-  key <- readLines('~/grover.txt')[3]
-  if (authKey == key) {
-    path <- str_c('Y:',instrument,directory,file,sep = '/')
-    GetScanFilters(path) %>%
-      split(1:nrow(.)) %>%
-      unname() %>%
-      toJSON()
-  } else {
-    stop('Incorrect authentication key')
-  }
-}
-
-#* @get /getConfig
-#* @json
-getConfig <- function(authKey,instrument,directory){
-  key <- readLines('~/grover.txt')[3]
-  if (authKey == key) {
-    file <- str_c('Y:',instrument,directory,'config.yml',sep = '/')
-    if (file.exists(file)) {
-      read_yaml(file) %>%
-        toJSON()
-    } else {
-      stop('No config found!')
-    }
+    
+    return(sample_info)
   } else {
     stop('Incorrect authentication key')
   }

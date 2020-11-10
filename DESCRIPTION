@@ -10,13 +10,14 @@ Description: Convert raw mass spectromery data files using msconvert and a REST 
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+Depends: rawR
 Suggests: 
     knitr,
     rmarkdown,
     prettydoc,
     testthat,
     callr
-Remotes: wilsontom/GetSampleInfo
+Remotes: fgcz/rawR
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Imports: cli,

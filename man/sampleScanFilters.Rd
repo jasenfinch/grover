@@ -4,16 +4,16 @@
 \alias{sampleScanFilters}
 \title{sampleScanFilters}
 \usage{
-sampleScanFilters(authKey, instrument, directory, file)
+sampleScanFilters(grove, instrument, directory, file)
 }
 \arguments{
+\item{grove}{S4 object of class Grover}
+
 \item{instrument}{instrument name}
 
 \item{directory}{directory name}
 
 \item{file}{file name}
-
-\item{grove}{S4 object of class Grover}
 }
 \description{
 get sample scan filters for a given file using the grover API.
