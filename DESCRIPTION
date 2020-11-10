@@ -33,4 +33,6 @@ Imports: cli,
         rjson,
         tibble,
         progress,
-        yaml
+        yaml,
+        base64enc,
+        msconverteR

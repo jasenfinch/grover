@@ -50,7 +50,7 @@ setGeneric('hostURL',function(grove){
   standardGeneric('hostURL')
 })
 
-setGeneric('extant',function(grover_client){
-  standardGeneric('extant')
-})
+# setGeneric('extant',function(grover_client){
+#   standardGeneric('extant')
+# })
 
