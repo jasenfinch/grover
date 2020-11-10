@@ -7,7 +7,7 @@
 groverAPI(grover_host)
 }
 \arguments{
-\item{grove}{S4 object of class Grover}
+\item{grover_host}{S4 object of class Grover}
 }
 \description{
 Run the grover REST API for file conversion.

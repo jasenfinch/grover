@@ -150,6 +150,8 @@ setMethod('repository<-',signature = 'GroverHost',
           }
 )
 
+#' @importFrom stringr str_c
+
 setMethod('hostURL',signature = 'GroverClient',
           function(grove){
             if (port(grove) != 80) {

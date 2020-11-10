@@ -1,6 +1,7 @@
 #' @importFrom rawR readFileHeader readIndex
-#' @importFrom dplyr slice
+#' @importFrom dplyr slice mutate select
 #' @importFrom rjson toJSON
+#' @importFrom tibble as_tibble
 
 hostSampleInfo <- function(auth,instrument,directory,file){
   

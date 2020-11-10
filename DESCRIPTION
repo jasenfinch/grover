@@ -11,28 +11,21 @@ License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Depends: rawR
+Imports: crayon,
+        dplyr,
+        magrittr,
+        methods,
+        msconverteR,
+        plumber,
+        rjson,
+        stringr,
+        tibble,
+        yaml
 Suggests: 
     knitr,
     rmarkdown,
     prettydoc,
-    testthat,
-    callr
+    testthat
 Remotes: fgcz/rawR
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
-Imports: cli,
-        crayon,
-        httr,
-        magrittr,
-        plumber,
-        purrr,
-        stringr,
-        methods,
-        dplyr,
-        lubridate,
-        rjson,
-        tibble,
-        progress,
-        yaml,
-        base64enc,
-        msconverteR
