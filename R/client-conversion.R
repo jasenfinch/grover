@@ -15,9 +15,6 @@
 #' #' @description List all directories for a given instrument using the grover API.
 #' #' @param grove S4 object of class Grover
 #' #' @param instrument instrument name
-#' #' @importFrom stringr str_c
-#' #' @importFrom magrittr %>%
-#' #' @importFrom httr GET content
 #' #' @export
 #' 
 #' listDirectories <- function(grove,instrument){
@@ -52,8 +49,6 @@
 #' #' @param file file name
 #' #' @param args arguments to pass to msconvert
 #' #' @param outDir output directory path for converted files
-#' #' @importFrom stringr str_split
-#' #' @importFrom utils URLencode
 #' #' @export
 #' 
 #' convertFile <- function(grove, instrument, directory, file, args='', outDir = '.'){
@@ -106,10 +101,6 @@
 #' #' @param directory directory name
 #' #' @param args arguments to pass to msconvert
 #' #' @param outDir output directory path for converted files
-#' #' @importFrom purrr walk
-#' #' @importFrom crayon green red bold blue yellow
-#' #' @import cli
-#' #' @import progress
 #' #' @export
 #' 
 #' convertDirectory <- function(grove, instrument, directory, args = '', outDir = '.'){

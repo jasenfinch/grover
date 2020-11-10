@@ -5,7 +5,6 @@
 #' #' @param directory directory name
 #' #' @param file file name
 #' #' @param outDir output directory path for converted files
-#' #' @importFrom base64enc base64decode
 #' #' @export
 #' 
 #' rawFile <- function(grove,instrument,directory,file,outDir = '.'){

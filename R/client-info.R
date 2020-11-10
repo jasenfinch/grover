@@ -1,4 +1,3 @@
-#' #' @importFrom stringr coll
 #' 
 #' getFilename <- function(x){
 #'   y <- str_split(x,coll('\\'))[[1]]
@@ -12,10 +11,6 @@
 #' #' @param instrument instrument name
 #' #' @param directory directory name
 #' #' @param file file name
-#' #' @importFrom tibble as_tibble
-#' #' @importFrom rjson fromJSON
-#' #' @importFrom dplyr mutate select rename
-#' #' @importFrom tibble rowid_to_column
 #' #' @export
 #' 
 #' sampleInfo <- function(grove, instrument, directory, file){
@@ -57,10 +52,6 @@
 #' #' @param instrument instrument name
 #' #' @param directory directory name
 #' #' @param file file name
-#' #' @importFrom tibble as_tibble
-#' #' @importFrom rjson fromJSON
-#' #' @importFrom dplyr mutate select rename
-#' #' @importFrom tibble rowid_to_column
 #' #' @export
 #' 
 #' sampleScanFilters <- function(grove, instrument, directory, file){
@@ -81,8 +72,6 @@
 #' #' @param grove S4 object of class Grover
 #' #' @param instrument instrument name
 #' #' @param directory directory name
-#' #' @importFrom dplyr bind_rows arrange rowwise
-#' #' @importFrom purrr map
 #' #' @export
 #' 
 #' runInfo <- function(grove, instrument, directory) {
@@ -132,8 +121,6 @@
 #'     mutate(fileName = str_replace_all(fileName,'raw','mzML'))
 #' }
 #' 
-#' #' @importFrom lubridate dmy 
-#' #' @importFrom stringr str_replace_all str_split_fixed
 #' 
 #' creationToinjectionOrder <- function(creation_date){
 #'   creation_date %>%

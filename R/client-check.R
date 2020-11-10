@@ -2,7 +2,6 @@
 #' #' @rdname extant
 #' #' @description Check grover API is still extistant.
 #' #' @param grover_client S4 object of class GroverGlient
-#' #' @importFrom stringr str_c
 #' #' @export
 #' 
 #' setMethod('extant',signature = 'GroverClient', 
