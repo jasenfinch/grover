@@ -4,9 +4,11 @@
 \alias{convertFile}
 \title{convertFile}
 \usage{
-convertFile(authKey, instrument, directory, file, args = "", res)
+convertFile(grove, instrument, directory, file, args = "", outDir = ".")
 }
 \arguments{
+\item{grove}{S4 object of class Grover}
+
 \item{instrument}{instrument name}
 
 \item{directory}{directory name}
@@ -14,8 +16,6 @@ convertFile(authKey, instrument, directory, file, args = "", res)
 \item{file}{file name}
 
 \item{args}{arguments to pass to msconvert}
-
-\item{grove}{S4 object of class Grover}
 
 \item{outDir}{output directory path for converted files}
 }

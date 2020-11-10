@@ -4,12 +4,12 @@
 \alias{listDirectories}
 \title{listDirectories}
 \usage{
-listDirectories(authKey, instrument)
+listDirectories(grove, instrument)
 }
 \arguments{
-\item{instrument}{instrument name}
-
 \item{grove}{S4 object of class Grover}
+
+\item{instrument}{instrument name}
 }
 \description{
 List all directories for a given instrument using the grover API.

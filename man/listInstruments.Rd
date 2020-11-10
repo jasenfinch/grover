@@ -4,7 +4,7 @@
 \alias{listInstruments}
 \title{listInstruments}
 \usage{
-listInstruments(authKey)
+listInstruments(grove)
 }
 \arguments{
 \item{grove}{S4 object of class Grover}
