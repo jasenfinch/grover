@@ -1,7 +1,6 @@
 #' @importFrom msconverteR convert_files
-#' @importFrom plumber include_file
 
-hostConvertFile <- function(auth,instrument,directory,file,args = '',res){
+hostConvertFile <- function(auth,instrument,directory,file,args = ''){
 
   tmp_dir <- tempdir()
   tmp_path <- str_c(tmp_dir,instrument,directory,sep = '/') 
@@ -23,7 +22,8 @@ hostConvertFile <- function(auth,instrument,directory,file,args = '',res){
                       '.mzML'),
                       sep = '/')
     
-    include_file(out_file,res)
+    return(out_file)
+    
   } else {
     stop('Incorrect authentication key')
   }
