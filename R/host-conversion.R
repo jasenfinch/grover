@@ -3,9 +3,6 @@
 hostConvertFile <- function(auth,instrument,directory,file,args = ''){
 
   tmp_dir <- tempdir()
-  tmp_path <- str_c(tmp_dir,instrument,directory,sep = '/') 
-  
-  dir.create(tmp_path,recursive = TRUE)
   
   if (auth == host_auth) {
     
@@ -14,10 +11,10 @@ hostConvertFile <- function(auth,instrument,directory,file,args = ''){
                                 directory,
                                 file,
                                 sep = '/'),
-                  outpath = tmp_path,
+                  outpath = tmp_dir,
                   args = args)
     
-    out_file <- str_c(tmp_path,
+    out_file <- str_c(tmp_dir,
                       str_c(tools::file_path_sans_ext(file),
                       '.mzML'),
                       sep = '/')

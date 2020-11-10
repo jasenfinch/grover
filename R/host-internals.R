@@ -1,11 +1,10 @@
 
-hostTidy <- function(auth,instrument,directory){
+hostTidy <- function(auth,file){
   
   tmp_dir <- tempdir()
-  tmp_path <- str_c(tmp_dir,instrument,directory,sep = '/')
   
   if (auth == host_auth){
-    unlink(tmp_path,
+    unlink(str_c(tmp_dir,file,sep = '/'),
            recursive = TRUE)
   } else {
     stop('Incorrect authentication key')
