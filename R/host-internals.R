@@ -1,9 +1,13 @@
 
-#* @get /tidyup
-removeDirectory <- function(authKey,instrument,directory){
-  key <- readLines('~/grover.txt')[3]
-  if (authKey == key){
-    unlink(str_c('C:/TMP_STORE/',instrument,'/',directory),recursive = T)
+#* @get /tidy
+hostTidy <- function(auth,instrument,directory){
+  
+  tmp_dir <- tempdir()
+  tmp_path <- str_c(tmp_dir,instrument,directory,sep = '/')
+  
+  if (auth == host_auth){
+    unlink(tmp_path,
+           recursive = TRUE)
   } else {
     stop('Incorrect authentication key')
   }

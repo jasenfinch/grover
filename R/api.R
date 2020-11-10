@@ -10,7 +10,7 @@
 #'                                                package = 'grover'))
 #' groverAPI(grover_host) 
 #' }
-#' @importFrom plumber pr pr_get pr_run serializer_content_type
+#' @importFrom plumber pr pr_get pr_put  pr_run serializer_content_type
 #' @importFrom magrittr %>%
 #' @importFrom msconverteR get_pwiz_container
 #' @export
@@ -36,6 +36,7 @@ groverAPI <- function(grover_host){
   api <- pr_get(api,'/listRawFiles',hostListRawFiles)
   api <- pr_get(api,'/listDirectories',hostListDirectories)
   api <- pr_get(api,'/listInsturments',hostListInstruments)
+  api <- pr_put(api,'/tidy',hostTidy)
   
   pr_run(api,
          host = host(grover_host),
