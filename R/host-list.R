@@ -13,7 +13,7 @@ hostListFiles <- function(auth,instrument,directory){
   return(files)
 }
 
-#' @importFrom stringr str_detect
+#' @importFrom stringr str_detect regex
 
 hostListRawFiles <- function(auth,instrument,directory){
   if (auth == host_auth) {
@@ -23,11 +23,11 @@ hostListRawFiles <- function(auth,instrument,directory){
                               sep = '/'),
                         recursive = FALSE,
                         full.names = FALSE)
-    if (instrument == 'TSQ'){
-      return(files[str_detect(files,coll('.RAW'))])
-    } else {
-      return(files[str_detect(files,coll('.raw'))])
-    }
+    
+    raw_files <- files[str_detect(files,
+                                  regex('[.]raw',ignore_case = TRUE))]
+    
+    return(raw_files)
   } else {
     stop('Incorrect authentication key')
   }
