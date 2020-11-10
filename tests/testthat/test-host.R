@@ -1,16 +1,18 @@
 
 context('host functions')
 
-host_auth <- '1234'
-host_repository <- system.file('repository',
+host_auth <<- '1234'
+host_repository <<- system.file('repository',
                                package = 'grover')
 instrument <- 'Thermo-Exactive'
 directory <- 'Experiment_1'
 sample <- 'QC01.raw'
 
 test_that('hostExtant works',{
-  expect_equal(hostExtant(host_auth),
-                   "I'm still here!")
+  # host_auth <- '1234'
+  result <- hostExtant(host_auth)
+  
+  expect_equal(result,"I'm still here!")
 })
 
 test_that('hostConvertFile works',{
