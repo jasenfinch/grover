@@ -1,5 +1,4 @@
 
-#* @get /tidy
 hostTidy <- function(auth,instrument,directory){
   
   tmp_dir <- tempdir()
