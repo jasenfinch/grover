@@ -8,6 +8,8 @@ groverAPI(grover_host, background = FALSE)
 }
 \arguments{
 \item{grover_host}{S4 object of class Grover}
+
+\item{background}{Run as a background process.}
 }
 \description{
 Run the grover REST API for file conversion.

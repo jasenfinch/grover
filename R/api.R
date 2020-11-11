@@ -1,6 +1,7 @@
 #' Grover API
 #' @description Run the grover REST API for file conversion.
 #' @param grover_host S4 object of class Grover
+#' @param background Run as a background process.
 #' @examples 
 #' \dontrun{
 #' grover_host <- grover(host = "127.0.0.1",
