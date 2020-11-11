@@ -54,7 +54,32 @@ setGeneric('writeGrover',function(grover_host,out = 'grover_host.yml'){
   standardGeneric('writeGrover')
 })
 
+#' @rdname extant
+
 setGeneric('extant',function(grover_client){
   standardGeneric('extant')
 })
 
+#' @rdname listInstruments
+
+setGeneric('listInstruments',function(grover_client){
+  standardGeneric('listInstruments')
+})
+
+#' @rdname listDirectories
+
+setGeneric('listDirectories',function(grover_client,instrument){
+  standardGeneric('listDirectories')
+})
+
+#' @rdname listFiles
+
+setGeneric('listFiles',function(grover_client,instrument,directory){
+  standardGeneric('listFiles')
+})
+
+#' @rdname listFiles
+
+setGeneric('listRawFiles',function(grover_client,instrument,directory){
+  standardGeneric('listRawFiles')
+})
