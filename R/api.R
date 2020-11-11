@@ -13,10 +13,26 @@
 #' @importFrom plumber pr pr_get pr_put  pr_run serializer_content_type
 #' @importFrom magrittr %>%
 #' @importFrom msconverteR get_pwiz_container
+#' @importFrom callr r_bg
 #' @export
- 
-groverAPI <- function(grover_host){
+
+groverAPI <- function(grover_host,background = FALSE){
   
+  if (isFALSE(background)) {
+    API(grover_host)
+  } else {
+    api_bg <- r_bg(function(grover_host,API){
+      requireNamespace('grover',quietly = TRUE)
+      API(grover_host)
+    },
+    args = list(grover_host = grover_host,API = API))
+    
+    return(api_bg)
+  }
+  
+}
+
+API <- function(grover_host){
   get_pwiz_container()
   
   writeGrover(grover_host,groverHostTemp())
@@ -40,5 +56,5 @@ groverAPI <- function(grover_host){
   
   pr_run(api,
          host = host(grover_host),
-         port = port(grover_host))
+         port = port(grover_host))  
 }

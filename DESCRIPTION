@@ -13,6 +13,7 @@ LazyData: true
 Depends: rawR
 Imports: crayon,
         dplyr,
+        httr,
         magrittr,
         methods,
         msconverteR,

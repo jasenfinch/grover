@@ -4,7 +4,7 @@
 \alias{groverAPI}
 \title{Grover API}
 \usage{
-groverAPI(grover_host)
+groverAPI(grover_host, background = FALSE)
 }
 \arguments{
 \item{grover_host}{S4 object of class Grover}
