@@ -54,7 +54,7 @@ setGeneric('writeGrover',function(grover_host,out = 'grover_host.yml'){
   standardGeneric('writeGrover')
 })
 
-# setGeneric('extant',function(grover_client){
-#   standardGeneric('extant')
-# })
+setGeneric('extant',function(grover_client){
+  standardGeneric('extant')
+})
 
