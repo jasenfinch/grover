@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
 Description: Convert raw mass spectromery data files using msconvert and a REST API.
-License: GPL (>= 3)
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports: callr,
