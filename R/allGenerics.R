@@ -83,3 +83,9 @@ setGeneric('listFiles',function(grover_client,instrument,directory){
 setGeneric('listRawFiles',function(grover_client,instrument,directory){
   standardGeneric('listRawFiles')
 })
+
+#' @rdname convertFile
+
+setGeneric('convertFile',function(grover_client, instrument, directory, file, args='', outDir = '.'){
+  standardGeneric('convertFile')
+})

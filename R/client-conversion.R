@@ -1,55 +1,70 @@
 #' convertFile
+#' @rdname convertFile
 #' @description Convert a raw MS file using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param file file name
-#' @param args arguments to pass to msconvert
+#' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
+#' @importFrom tools file_path_sans_ext
+#' @importFrom stringr str_split
+#' @importFrom httr PUT
 #' @export
 
-convertFile <- function(grove, instrument, directory, file, args='', outDir = '.'){
-  cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-  tidycmd <- str_c(hostURL(grove),'/tidyup?',
-                   'authKey=',auth(grove),
-                   '&instrument=',instrument,
-                   '&directory=',directory
-  )
-  tidycmd %>% GET()
-  cmd <- str_c(hostURL(grove),'/convert?',
-               'authKey=',auth(grove),
-               '&instrument=',instrument,
-               '&directory=',directory,
-               '&file=',file,
-               '&args=')
-  if (args != '') {
-    cmd <- str_c(cmd,args)
-  }
-  fileName <- str_split(file,'[.]')[[1]][1]
-  convertedFile <- cmd %>%
-    URLencode() %>%
-    GET()
-  if (convertedFile$status_code == 200) {
-    convertedFile <- convertedFile %>%
-      content(as = 'text',encoding = 'UTF-8')
-    writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
-    tidycmd <- str_c('http://',host(grove),':',port(grove),'/tidyup?',
-                     'authKey=',auth(grove),
-                     '&instrument=',instrument,
-                     '&directory=',directory
-    )
-    tidycmd %>% GET()
-    success <- 1
-  } else {
-    success <- 0
-  }
-  if (success == 1) {
-    cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
-  }
-  if (success == 0) {
-    cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
-  }
-}
+setMethod('convertFile',signature = 'GroverClient',
+          function(grover_client, instrument, directory, file, args='', outDir = '.'){
+            cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
+            
+            converted_file <- file %>%
+              file_path_sans_ext() %>%
+              str_c('.mzML')
+            
+            tidycmd <- str_c(hostURL(grover_client),'/tidy?',
+                             'auth=',auth(grover_client),
+                             '&file=',converted_file)
+            tidycmd %>% PUT()
+            
+            cmd <- str_c(hostURL(grover_client),'/convert?',
+                         'auth=',auth(grover_client),
+                         '&instrument=',instrument,
+                         '&directory=',directory,
+                         '&file=',file,
+                         '&args=')
+            
+            if (args != '') {
+              cmd <- str_c(cmd,args)
+            }
+            
+            fileName <- str_split(file,'[.]')[[1]][1]
+            
+            convertedFile <- cmd %>%
+              URLencode() %>%
+              GET()
+            
+            if (convertedFile$status_code == 200) {
+              convertedFile <- convertedFile %>%
+                content(as = 'text',encoding = 'UTF-8')
+              
+              writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
+              
+              tidycmd <- str_c(hostURL(grover_client),'/tidyup?',
+                               'auth=',auth(grover_client),
+                               '&instrument=',instrument,
+                               '&directory=',directory
+              )
+              tidycmd %>% PUT()
+              success <- 1
+            } else {
+              success <- 0
+            }
+            if (success == 1) {
+              cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+            }
+            if (success == 0) {
+              cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+            }
+          })
 
 #' convertDirectory
 #' @description Convert a directory of raw files using the grover API.

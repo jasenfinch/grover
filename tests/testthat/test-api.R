@@ -43,6 +43,16 @@ test_that('raw files can be listed',{
   expect_equal(instrument,'QC01.raw')
 })
 
+test_that('a file can be converted',{
+  out_dir <- tempdir()
+  convertFile(grover_client,
+              'Thermo-Exactive',
+              'Experiment_1',
+              'QC01.raw',
+              outDir = out_dir)
+  expect_true(file.exists(str_c(out_dir,'/QC01.mzML')))
+})
+
 api$kill()
 
 test_that('client cannot detect api after it is killed',{
