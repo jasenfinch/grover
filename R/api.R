@@ -47,7 +47,8 @@ API <- function(grover_host){
   api <- pr_get(api,'/extant',hostExtant)
   api <- pr_get(api,
                 '/getFile',
-                hostGetFile)
+                hostGetFile,
+                serializer = serializer_content_type('application/octet-stream'))
   api <- pr_get(api,'/listFiles',hostListFiles)
   api <- pr_get(api,'/listRawFiles',hostListRawFiles)
   api <- pr_get(api,'/listDirectories',hostListDirectories)

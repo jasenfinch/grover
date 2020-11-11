@@ -1,6 +1,8 @@
 
 context('grover api')
 
+out_dir <- tempdir()
+
 grover_host <- grover(host = "127.0.0.1",
                      port = 8000,
                      auth = "1234",
@@ -44,7 +46,6 @@ test_that('raw files can be listed',{
 })
 
 test_that('a file can be converted',{
-  out_dir <- tempdir()
   convertFile(grover_client,
               'Thermo-Exactive',
               'Experiment_1',
@@ -55,7 +56,6 @@ test_that('a file can be converted',{
 })
 
 test_that('a directory can be converted',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
               'Thermo-Exactive',
               'Experiment_1',
@@ -65,7 +65,6 @@ test_that('a directory can be converted',{
 })
 
 test_that('a directory can be converted with peak picking argument',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -76,7 +75,6 @@ test_that('a directory can be converted with peak picking argument',{
 })
 
 test_that('a directory can be converted with ignore unknown error argument',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -87,7 +85,6 @@ test_that('a directory can be converted with ignore unknown error argument',{
 })
 
 test_that('a directory can be converted with MS level 1 argument',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -98,7 +95,6 @@ test_that('a directory can be converted with MS level 1 argument',{
 })
 
 test_that('a directory can be converted with MS level 2 argument',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -109,7 +105,6 @@ test_that('a directory can be converted with MS level 2 argument',{
 })
 
 test_that('a directory can be converted with MS level 3 argument',{
-  out_dir <- tempdir()
   convertDirectory(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -120,7 +115,6 @@ test_that('a directory can be converted with MS level 3 argument',{
 })
 
 test_that('a directory can be converted with split modes',{
-  out_dir <- tempdir()
   convertDirectorySplitModes(grover_client,
                    'Thermo-Exactive',
                    'Experiment_1',
@@ -130,6 +124,16 @@ test_that('a directory can be converted with split modes',{
   expect_true(file.exists(str_c(out_dir,
                                 '/Experiment_1/Experiment_1-pos/QC01.mzML')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
+})
+
+test_that('a file can be transfered',{
+  getFile(grover_client,
+          'Thermo-Exactive',
+          'Experiment_1',
+          'QC01.raw',
+          outDir = out_dir)
+  expect_true(file.exists(str_c(out_dir,'/QC01.raw')))
+  unlink(str_c(out_dir,'/QC01.raw'))
 })
 
 
