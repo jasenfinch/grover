@@ -67,29 +67,39 @@ setMethod('convertFile',signature = 'GroverClient',
           })
 
 #' convertDirectory
+#' @rdname convertDirectory
 #' @description Convert a directory of raw files using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
-#' @param args arguments to pass to msconvert
+#' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
+#' @import progress
+#' @importFrom crayon bold yellow
+#' @importFrom purrr walk
 #' @export
 
-convertDirectory <- function(grove, instrument, directory, args = '', outDir = '.'){
-  outDir <- str_c(outDir,directory,sep = '/')
-  files <- listRawFiles(grove,instrument,directory)
-  cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
-  dir.create(outDir)
-  pb <- progress_bar$new(
-    format = "  converting [:bar] :percent eta: :eta",
-    total = length(files), clear = FALSE)
-  pb$tick(0)
-  walk(1:length(files),~{
-    file <- files[.]
-    convertFile(grove,instrument,directory,file,args,outDir)
-    pb$tick()
-  })
-}
+setMethod('convertDirectory',signature = 'GroverClient',
+          function(grover_client, instrument, directory, args = '', outDir = '.'){
+            
+            files <- listRawFiles(grover_client,instrument,directory)
+            
+            cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
+            
+            outDir <- str_c(outDir,directory,sep = '/')
+            dir.create(outDir)
+            
+            pb <- progress_bar$new(
+              format = "  converting [:bar] :percent eta: :eta",
+              total = length(files), clear = FALSE)
+            pb$tick(0)
+            
+            walk(1:length(files),~{
+              file <- files[.]
+              convertFile(grover_client,instrument,directory,file,args,outDir)
+              pb$tick()
+            })
+          })
 
 #' convertDirectorySplitModeC
 #' @description Convert a directory of raw files, splitting positive and negative mode data using the grover API.

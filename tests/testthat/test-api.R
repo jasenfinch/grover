@@ -53,6 +53,16 @@ test_that('a file can be converted',{
   expect_true(file.exists(str_c(out_dir,'/QC01.mzML')))
 })
 
+test_that('a directory can be converted',{
+  out_dir <- tempdir()
+  convertDirectory(grover_client,
+              'Thermo-Exactive',
+              'Experiment_1',
+              outDir = out_dir)
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+})
+
+
 api$kill()
 
 test_that('client cannot detect api after it is killed',{
