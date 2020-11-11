@@ -19,10 +19,9 @@ groverAPI <- function(grover_host){
   
   get_pwiz_container()
   
-  host_auth <<- auth(grover_host) 
-  host_repository <<- repository(grover_host)
+  writeGrover(grover_host,groverHostTemp())
   
-  api <- pr(envir = new.env(parent = environment()))
+  api <- pr()
   
   api <- pr_get(api,
                 '/convert',

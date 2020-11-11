@@ -1,5 +1,10 @@
 
 hostListFiles <- function(auth,instrument,directory){
+  
+  grover_host <- readGrover(groverHostTemp())
+  host_auth <- auth(grover_host)
+  host_repository <- repository(grover_host)
+  
   if (auth == host_auth) {
     files <- list.files(str_c(host_repository,
                               instrument,
@@ -16,6 +21,11 @@ hostListFiles <- function(auth,instrument,directory){
 #' @importFrom stringr str_detect regex
 
 hostListRawFiles <- function(auth,instrument,directory){
+  
+  grover_host <- readGrover(groverHostTemp())
+  host_auth <- auth(grover_host)
+  host_repository <- repository(grover_host)
+  
   if (auth == host_auth) {
     files <- list.files(str_c(host_repository,
                               instrument,
@@ -34,6 +44,11 @@ hostListRawFiles <- function(auth,instrument,directory){
 }
 
 hostListDirectories <- function(auth,instrument){
+  
+  grover_host <- readGrover(groverHostTemp())
+  host_auth <- auth(grover_host)
+  host_repository <- repository(grover_host)
+  
   if (auth == host_auth) {
     dir(str_c(host_repository,instrument,sep = '/'))
   } else {
@@ -42,6 +57,11 @@ hostListDirectories <- function(auth,instrument){
 }
 
 hostListInstruments <- function(auth){
+  
+  grover_host <- readGrover(groverHostTemp())
+  host_auth <- auth(grover_host)
+  host_repository <- repository(grover_host)
+  
   if (auth == host_auth){
     dir(host_repository)
   } else {

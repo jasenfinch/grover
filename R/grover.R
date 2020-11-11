@@ -1,5 +1,10 @@
 
-globalVariables('host_auth')
+globalVariables(c('host_auth','host_repository','Sample row number','Sample type','RAW file',
+                  'Sample id','Instrument method','Sample vial','Sample injection volume',
+                  'Sample dilution factor','Sample comment','User text 0','User text 1',
+                  'User text 2','User text 3','User text 4','Creation date','Instrument name',
+                  'Instrument model','Serial number','Software version','.','Sample volume'),
+)
 
 #' readGrover
 #' @description Read grover API host information from a text file.

@@ -1,12 +1,20 @@
 
 context('host functions')
 
-host_auth <<- '1234'
-host_repository <<- system.file('repository',
+host_auth <- '1234'
+host_repository <- system.file('repository',
                                package = 'grover')
 instrument <- 'Thermo-Exactive'
 directory <- 'Experiment_1'
 sample <- 'QC01.raw'
+
+writeGrover(
+  grover(host = "127.0.0.1",
+         port = 8000,
+         auth = host_auth,
+         repository = host_repository
+  ),
+  out = groverHostTemp())
 
 test_that('hostExtant works',{
   result <- hostExtant(host_auth)

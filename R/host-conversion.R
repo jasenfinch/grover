@@ -2,6 +2,10 @@
 
 hostConvertFile <- function(auth,instrument,directory,file,args = ''){
 
+  grover_host <- readGrover(groverHostTemp())
+  host_auth <- auth(grover_host)
+  host_repository <- repository(grover_host)
+  
   tmp_dir <- tempdir()
   
   if (auth == host_auth) {

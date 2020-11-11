@@ -50,6 +50,10 @@ setGeneric('hostURL',function(grove){
   standardGeneric('hostURL')
 })
 
+setGeneric('writeGrover',function(grover_host,out = 'grover_host.yml'){
+  standardGeneric('writeGrover')
+})
+
 # setGeneric('extant',function(grover_client){
 #   standardGeneric('extant')
 # })
