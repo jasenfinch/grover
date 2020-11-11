@@ -36,7 +36,7 @@ test_that('hostConvertFile fails',{
 
 test_that('hostSampleInfo works',{
   sample_info <- hostSampleInfo(host_auth,instrument,directory,sample)
-  expect_equal(nchar(sample_info),597)
+  expect_equal(nchar(sample_info),1131)
 })
 
 test_that('hostSampleInfo fails',{
