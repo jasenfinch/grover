@@ -1,3 +1,4 @@
+#' @importFrom fs file_delete
 
 setMethod('writeGrover',signature = 'GroverHost',function(grover_host,out = 'grover_host.yml'){
   writeLines(c(
@@ -21,8 +22,7 @@ hostTidy <- function(auth,file){
   tmp_dir <- tempdir()
   
   if (auth == host_auth){
-    unlink(str_c(tmp_dir,file,sep = '/'),
-           recursive = TRUE)
+    file_delete(str_c(tmp_dir,file,sep = '/'))
   } else {
     stop('Incorrect authentication key')
   }

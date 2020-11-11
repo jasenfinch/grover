@@ -1,3 +1,4 @@
+#' @importFrom fs dir_ls path_abs
 
 hostListFiles <- function(auth,instrument,directory){
   
@@ -6,12 +7,13 @@ hostListFiles <- function(auth,instrument,directory){
   host_repository <- repository(grover_host)
   
   if (auth == host_auth) {
-    files <- list.files(str_c(host_repository,
-                              instrument,
-                              directory,
-                              sep = '/'),
-                        recursive = FALSE,
-                        full.names = FALSE)
+    files <- dir_ls(str_c(host_repository,
+                          instrument,
+                          directory,
+                          sep = '/'),
+                    type = 'file',
+                    recurse = FALSE) %>%
+      path_abs()
   } else {
     stop('Incorrect authentication key')
   }
@@ -27,12 +29,13 @@ hostListRawFiles <- function(auth,instrument,directory){
   host_repository <- repository(grover_host)
   
   if (auth == host_auth) {
-    files <- list.files(str_c(host_repository,
-                              instrument,
-                              directory,
-                              sep = '/'),
-                        recursive = FALSE,
-                        full.names = FALSE)
+    files <- dir_ls(str_c(host_repository,
+                          instrument,
+                          directory,
+                          sep = '/'),
+                    type = 'file',
+                    recurse = FALSE) %>%
+      path_abs()
     
     raw_files <- files[str_detect(files,
                                   regex('[.]raw',ignore_case = TRUE))]
@@ -43,6 +46,8 @@ hostListRawFiles <- function(auth,instrument,directory){
   }
 }
 
+#' @importFrom fs path_file
+
 hostListDirectories <- function(auth,instrument){
   
   grover_host <- readGrover(groverHostTemp())
@@ -50,7 +55,9 @@ hostListDirectories <- function(auth,instrument){
   host_repository <- repository(grover_host)
   
   if (auth == host_auth) {
-    dir(str_c(host_repository,instrument,sep = '/'))
+    dir_ls(str_c(host_repository,instrument,sep = '/'),
+           type = 'directory') %>%
+      path_file()
   } else {
     stop('Incorrect authentication key')
   }
@@ -63,7 +70,9 @@ hostListInstruments <- function(auth){
   host_repository <- repository(grover_host)
   
   if (auth == host_auth){
-    dir(host_repository)
+    dir_ls(host_repository,
+           type = 'directory') %>%
+      path_file()
   } else {
     stop('Incorrect authentication key')
   }

@@ -1,4 +1,4 @@
-# server side get file
+#' @importFrom fs file_exists file_info
 
 hostGetFile <- function(auth,instrument,directory,file){
 
@@ -8,9 +8,11 @@ hostGetFile <- function(auth,instrument,directory,file){
   
   if (auth == host_auth) {
     f <- str_c(host_repository,instrument,directory,file,sep = '/')
-    if (file.exists(f)) {
+    if (file_exists(f)) {
       con <- file(f,'rb')
-      f <- readBin(con,'raw',n = file.info(f)$size) 
+      f <- readBin(con,
+                   'raw',
+                   n = file_info(f)$size) 
       close(con)
     } else {
       stop('File not found!')

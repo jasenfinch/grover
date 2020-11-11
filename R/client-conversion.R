@@ -78,6 +78,7 @@ setMethod('convertFile',signature = 'GroverClient',
 #' @import progress
 #' @importFrom crayon bold yellow
 #' @importFrom purrr walk
+#' @importFrom fs dir_create
 #' @export
 
 setMethod('convertDirectory',signature = 'GroverClient',
@@ -88,7 +89,7 @@ setMethod('convertDirectory',signature = 'GroverClient',
             cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
             
             outDir <- str_c(outDir,directory,sep = '/')
-            dir.create(outDir)
+            dir_create(outDir)
             
             pb <- progress_bar$new(
               format = "  converting [:bar] :percent eta: :eta",
@@ -111,13 +112,14 @@ setMethod('convertDirectory',signature = 'GroverClient',
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
 #' @importFrom crayon red
+#' @importFrom fs file_move dir_delete
 #' @export
 
 setMethod('convertDirectorySplitModes',signature = 'GroverClient',
           function(grover_client,instrument, directory, args = '', outDir = '.'){
             
             outDir <- str_c(outDir,directory,sep = '/')
-            dir.create(outDir)
+            dir_create(outDir)
             
             cat('\n',red('Negative Mode'),sep = '')
             
@@ -126,15 +128,15 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             convertDirectory(grover_client,instrument,directory,negArgs,outDir)
             
             negDir <- str_c(outDir,'/',directory,'-neg')
-            dir.create(negDir)
+            dir_create(negDir)
             
             walk(list.files(str_c(outDir,'/',directory),full.names = TRUE),~{
               f <- str_split(.,'/')[[1]]
               f <- f[length(f)]
-              file.rename(from = ., to = str_c(negDir,'/',f))
+              file_move(.xstr_c(negDir,'/',f))
             })
             
-            unlink(str_c(outDir,'/',directory),recursive = TRUE)
+            dir_delete(str_c(outDir,'/',directory))
             
             cat('\n',red('Positive Mode'),sep = '')
             
@@ -143,14 +145,14 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             convertDirectory(grover_client,instrument,directory,posArgs,outDir)
             
             posDir <- str_c(outDir,'/',directory,'-pos')
-            dir.create(posDir)
+            dir_create(posDir)
             
             walk(list.files(str_c(outDir,'/',directory),full.names = TRUE),~{
               f <- str_split(.,'/')[[1]]
               f <- f[length(f)]
-              file.rename(from = ., to = str_c(posDir,'/',f))
+              file_move(.x,str_c(posDir,'/',f))
             })
-            unlink(str_c(outDir,'/',directory),recursive = TRUE)
+            dir_delete(str_c(outDir,'/',directory))
           })
 
 #' conversionArgsPeakPick
