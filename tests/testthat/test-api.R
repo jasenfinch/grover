@@ -127,7 +127,7 @@ test_that('a directory can be converted with split modes',{
 })
 
 test_that('a file can be transfered',{
-  getFile(grover_client,
+  transferFile(grover_client,
           'Thermo-Exactive',
           'Experiment_1',
           'QC01.raw',
@@ -136,6 +136,29 @@ test_that('a file can be transfered',{
   unlink(str_c(out_dir,'/QC01.raw'))
 })
 
+test_that('a directory can be transfered',{
+  transferDirectory(grover_client,
+               'Thermo-Exactive',
+               'Experiment_1',
+               outDir = out_dir)
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.raw')))
+  unlink(str_c(out_dir,'/Experiment_1/QC01.raw'))
+})
+
+test_that('sample information can be returned',{
+  sample_info <- sampleInfo(grover_client,
+                    'Thermo-Exactive',
+                    'Experiment_1',
+                    'QC01.raw')
+  expect_s3_class(sample_info,'tbl_df')
+})
+
+test_that('run information for a directory can be returned',{
+  run_info <- runInfo(grover_client,
+                            'Thermo-Exactive',
+                            'Experiment_1')
+  expect_s3_class(run_info,'tbl_df')
+})
 
 api$kill()
 

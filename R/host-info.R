@@ -12,7 +12,9 @@ hostSampleInfo <- function(auth,instrument,directory,file){
   if (auth == host_auth) {
     path <- str_c(host_repository,instrument,directory,file,sep = '/')
     
-    sample_info <- readFileHeader(path) %>%
+    sample_info <- readFileHeader(path,
+                                  exe = system.file('exec/rawR.exe',
+                                                    package = 'rawR')) %>%
       as_tibble() %>%
       slice(1) %>%
       mutate(directory = directory) %>%

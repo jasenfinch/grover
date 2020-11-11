@@ -10,7 +10,6 @@ Description: Convert raw mass spectromery data files using msconvert and a REST 
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Depends: rawR
 Imports: callr,
         crayon,
         dplyr,
@@ -19,6 +18,7 @@ Imports: callr,
         methods,
         msconverteR,
         plumber,
+        rawR,
         rjson,
         stringr,
         tibble,

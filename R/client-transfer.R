@@ -1,15 +1,14 @@
-#' getFile
-#' @rdname getFile
+#' transferFile
+#' @rdname transferFile
 #' @description Transfer a file using the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param file file name
 #' @param outDir output directory path for transferred file
-#' @param base
 #' @export
 
-setMethod('getFile',signature = 'GroverClient',
+setMethod('transferFile',signature = 'GroverClient',
           function(grover_client,instrument,directory,file,outDir = '.'){
             
             cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
@@ -46,25 +45,31 @@ setMethod('getFile',signature = 'GroverClient',
             }
           })
 
-#' rawDirectory
-#' @description Transfer a directory of raw files using the grover API.
-#' @param grove S4 object of class Grover
+#' transferDirectory
+#' @rdname transferDirectory
+#' @description Transfer a directory using the grover API.
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param outDir output directory path for converted files
 #' @export
 
-rawDirectory <- function(grove, instrument, directory, outDir = '.'){
+setMethod('transferDirectory',signature = 'GroverClient',
+          function(grover_client, instrument, directory, outDir = '.'){
+  
   outDir <- str_c(outDir,directory,sep = '/')
-  files <- listRawFiles(grove,instrument,directory)
-  cat('\nTransfering',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
+  
+  files <- listFiles(grover_client,instrument,directory)
+  
+  cat('\nTransfering',bold(blue(directory)),'containing',bold(yellow(length(files))),' files\n')
+  
   dir.create(outDir)
   pb <- progress_bar$new(
     format = "  transfering [:bar] :percent eta: :eta",
     total = length(files), clear = FALSE)
   pb$tick(0)
   walk(1:length(files),~{
-    rawFile(grove,instrument,directory,files[.x],outDir)
+    transferFile(grover_client,instrument,directory,files[.x],outDir)
     pb$tick()
   })
-}
+})

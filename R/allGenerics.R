@@ -102,8 +102,26 @@ setGeneric('convertDirectorySplitModes',function(grover_client, instrument, dire
   standardGeneric('convertDirectorySplitModes')
 })
 
-#' @rdname getFile
+#' @rdname transferFile
 
-setGeneric('getFile',function(grover_client,instrument,directory,file,outDir = '.'){
-  standardGeneric('getFile')
+setGeneric('transferFile',function(grover_client,instrument,directory,file,outDir = '.'){
+  standardGeneric('transferFile')
+})
+
+#' @rdname transferDirectory
+
+setGeneric('transferDirectory',function(grover_client,instrument,directory,outDir = '.'){
+  standardGeneric('transferDirectory')
+})
+
+#' @rdname sampleInfo
+
+setGeneric('sampleInfo',function(grover_client,instrument,directory,file){
+  standardGeneric('sampleInfo')
+})
+
+#' @rdname runInfo
+
+setGeneric('runInfo',function(grover_client,instrument,directory){
+  standardGeneric('runInfo')
 })
