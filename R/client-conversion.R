@@ -101,41 +101,56 @@ setMethod('convertDirectory',signature = 'GroverClient',
             })
           })
 
-#' convertDirectorySplitModeC
+#' convertDirectorySplitModes
+#' @rdname convertDirectorySplitModes
 #' @description Convert a directory of raw files, splitting positive and negative mode data using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
-#' @param args arguments to pass to msconvert
+#' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
+#' @importFrom crayon red
 #' @export
 
-convertDirectorySplitModes <- function(grove,instrument, directory, args = '', outDir = '.'){
-  outDir <- str_c(outDir,directory,sep = '/')
-  dir.create(outDir)
-  cat('\n',red('Negative Mode'),sep = '')
-  negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
-  convertDirectory(grove,instrument,directory,negArgs,outDir)
-  negDir <- str_c(outDir,'/',directory,'-neg')
-  dir.create(negDir)
-  walk(list.files(str_c(outDir,'/',directory),full.names = T),~{
-    f <- str_split(.,'/')[[1]]
-    f <- f[length(f)]
-    file.rename(from = ., to = str_c(negDir,'/',f))
-  })
-  unlink(str_c(outDir,'/',directory),recursive = T)
-  cat('\n',red('Positive Mode'),sep = '')
-  posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
-  convertDirectory(grove,instrument,directory,posArgs,outDir)
-  posDir <- str_c(outDir,'/',directory,'-pos')
-  dir.create(posDir)
-  walk(list.files(str_c(outDir,'/',directory),full.names = T),~{
-    f <- str_split(.,'/')[[1]]
-    f <- f[length(f)]
-    file.rename(from = ., to = str_c(posDir,'/',f))
-  })
-  unlink(str_c(outDir,'/',directory),recursive = T)
-}
+setMethod('convertDirectorySplitModes',signature = 'GroverClient',
+          function(grover_client,instrument, directory, args = '', outDir = '.'){
+            
+            outDir <- str_c(outDir,directory,sep = '/')
+            dir.create(outDir)
+            
+            cat('\n',red('Negative Mode'),sep = '')
+            
+            negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
+            
+            convertDirectory(grover_client,instrument,directory,negArgs,outDir)
+            
+            negDir <- str_c(outDir,'/',directory,'-neg')
+            dir.create(negDir)
+            
+            walk(list.files(str_c(outDir,'/',directory),full.names = TRUE),~{
+              f <- str_split(.,'/')[[1]]
+              f <- f[length(f)]
+              file.rename(from = ., to = str_c(negDir,'/',f))
+            })
+            
+            unlink(str_c(outDir,'/',directory),recursive = TRUE)
+            
+            cat('\n',red('Positive Mode'),sep = '')
+            
+            posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
+            
+            convertDirectory(grover_client,instrument,directory,posArgs,outDir)
+            
+            posDir <- str_c(outDir,'/',directory,'-pos')
+            dir.create(posDir)
+            
+            walk(list.files(str_c(outDir,'/',directory),full.names = TRUE),~{
+              f <- str_split(.,'/')[[1]]
+              f <- f[length(f)]
+              file.rename(from = ., to = str_c(posDir,'/',f))
+            })
+            unlink(str_c(outDir,'/',directory),recursive = TRUE)
+          })
 
 #' conversionArgsPeakPick
 #' @description msconvert args for peak picking.
