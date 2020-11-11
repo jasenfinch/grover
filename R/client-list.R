@@ -1,4 +1,5 @@
 #' listInstruments
+#' @rdname listInstruments
 #' @description List available instruments using the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @export
@@ -16,8 +17,9 @@ setMethod('listInstruments',signature = 'GroverClient',
           })
 
 #' listDirectories
+#' @rdname listDirectories
 #' @description List all directories for a given instrument using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @export
 
@@ -36,8 +38,9 @@ setMethod('listDirectories',signature = 'GroverClient',
           })
 
 #' listFiles
+#' @rdname listFiles
 #' @description List all files present in a given directory using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
 #' @export
@@ -59,8 +62,9 @@ setMethod('listFiles',signature = 'GroverClient',
           })
 
 #' listRawFiles
+#' @rdname listRawFiles
 #' @description List all raw files present in a given directory using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
 #' @export
