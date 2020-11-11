@@ -10,11 +10,11 @@ runInfo(grover_client, instrument, directory)
 \S4method{runInfo}{GroverClient}(grover_client, instrument, directory)
 }
 \arguments{
+\item{grover_client}{S4 object of class Grover}
+
 \item{instrument}{instrument name}
 
 \item{directory}{directory name}
-
-\item{grove}{S4 object of class Grover}
 }
 \description{
 Get sample meta information for a directory run using the grover API.

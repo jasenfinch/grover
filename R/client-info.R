@@ -46,7 +46,7 @@ setMethod('sampleInfo',signature = 'GroverClient',
 #' runInfo
 #' @rdname runInfo
 #' @description Get sample meta information for a directory run using the grover API.
-#' @param grove S4 object of class Grover
+#' @param grover_client S4 object of class Grover
 #' @param instrument instrument name
 #' @param directory directory name
 #' @importFrom dplyr bind_rows rename

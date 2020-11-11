@@ -10,6 +10,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
 #' @importFrom httr PUT
+#' @importFrom utils URLencode
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',
