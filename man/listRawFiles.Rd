@@ -14,5 +14,6 @@
 \item{directory}{directory name}
 }
 \description{
-List all raw files present in a given directory using the grover API.
+List all raw files present in a given directory using 
+the grover API.
 }

@@ -21,5 +21,6 @@ repository(grove) <- value
 \item{value}{new repository value to set}
 }
 \description{
-Retrieve data repository directory path key from a GroverHost.
+Retrieve data repository directory path key 
+from a GroverHost.
 }

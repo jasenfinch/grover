@@ -20,5 +20,6 @@ listRawFiles(grover_client, instrument, directory)
 \item{directory}{directory name}
 }
 \description{
-List all files present in a given directory using the grover API.
+List all files present in a given directory using 
+the grover API.
 }

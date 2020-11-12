@@ -33,5 +33,6 @@ convertDirectorySplitModes(
 \item{outDir}{output directory path for converted files}
 }
 \description{
-Convert a directory of raw files, splitting positive and negative mode data using the grover API.
+Convert a directory of raw files, splitting positive 
+and negative mode data using the grover API.
 }

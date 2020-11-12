@@ -17,5 +17,6 @@ runInfo(grover_client, instrument, directory)
 \item{directory}{directory name}
 }
 \description{
-Get sample meta information for a directory run using the grover API.
+Get sample meta information for a directory run using the 
+grover API.
 }

@@ -19,5 +19,6 @@ sampleInfo(grover_client, instrument, directory, file)
 \item{file}{file name}
 }
 \description{
-get sample header information for a given raw file using the grover API.
+get sample header information for a given raw file using 
+the grover API.
 }

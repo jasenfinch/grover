@@ -13,7 +13,9 @@ readGrover(path = "grover.yml")
 Read grover API host information from a text file.
 }
 \details{
-The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
+The text file should contain 3 lines, the first the host address, 
+the second the port on which it is hosted and lastly the authentication
+ key needed
 }
 \examples{
 ## Grover client

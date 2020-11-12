@@ -15,5 +15,6 @@ listDirectories(grover_client, instrument)
 \item{instrument}{instrument name}
 }
 \description{
-List all directories for a given instrument using the grover API.
+List all directories for a given instrument using 
+the grover API.
 }
