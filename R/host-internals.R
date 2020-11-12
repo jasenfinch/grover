@@ -15,20 +15,6 @@ groverHostTemp <- function(){
   str_c(tempdir(),'grover_host.yml',sep = '/')
 }
 
-hostTidy <- function(auth,file){
-  
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  
-  checkAuth(auth,host_auth)
-  
-  tmp_dir <- tempdir()
-  
-  file_delete(str_c(tmp_dir,file,sep = '/')) %>%
-    path_file()
-  
-}
-
 checkAuth <- function(auth,host_auth){
   if (auth != host_auth){
     stop('Incorrect authentication key',call. = FALSE)
