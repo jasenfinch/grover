@@ -1,6 +1,7 @@
 #' @importFrom fs file_delete
 
-setMethod('writeGrover',signature = 'GroverHost',function(grover_host,out = 'grover_host.yml'){
+setMethod('writeGrover',signature = 'GroverHost',
+          function(grover_host,out = 'grover_host.yml'){
   writeLines(c(
     str_c('host: ',host(grover_host)),
     str_c('port: ',port(grover_host)),

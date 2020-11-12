@@ -86,31 +86,51 @@ setGeneric('listRawFiles',function(grover_client,instrument,directory){
 
 #' @rdname convertFile
 
-setGeneric('convertFile',function(grover_client, instrument, directory, file, args='', outDir = '.'){
+setGeneric('convertFile',function(grover_client, 
+                                  instrument, 
+                                  directory, 
+                                  file, 
+                                  args = '',
+                                  outDir = '.'){
   standardGeneric('convertFile')
 })
 
 #' @rdname convertDirectory
 
-setGeneric('convertDirectory',function(grover_client, instrument, directory, args='', outDir = '.'){
+setGeneric('convertDirectory',function(grover_client, 
+                                       instrument, 
+                                       directory, 
+                                       args = '', 
+                                       outDir = '.'){
   standardGeneric('convertDirectory')
 })
 
 #' @rdname convertDirectorySplitModes
 
-setGeneric('convertDirectorySplitModes',function(grover_client, instrument, directory, args='', outDir = '.'){
+setGeneric('convertDirectorySplitModes',function(grover_client, 
+                                                 instrument, 
+                                                 directory, 
+                                                 args = '', 
+                                                 outDir = '.'){
   standardGeneric('convertDirectorySplitModes')
 })
 
 #' @rdname transferFile
 
-setGeneric('transferFile',function(grover_client,instrument,directory,file,outDir = '.'){
+setGeneric('transferFile',function(grover_client, 
+                                   instrument,
+                                   directory,
+                                   file,
+                                   outDir = '.'){
   standardGeneric('transferFile')
 })
 
 #' @rdname transferDirectory
 
-setGeneric('transferDirectory',function(grover_client,instrument,directory,outDir = '.'){
+setGeneric('transferDirectory',function(grover_client,
+                                        instrument,
+                                        directory,
+                                        outDir = '.'){
   standardGeneric('transferDirectory')
 })
 

@@ -9,7 +9,11 @@
 #' @export
 
 setMethod('transferFile',signature = 'GroverClient',
-          function(grover_client,instrument,directory,file,outDir = '.'){
+          function(grover_client,
+                   instrument,
+                   directory,
+                   file,
+                   outDir = '.'){
             
             cmd <- str_c(hostURL(grover_client),'/getFile?',
                          'auth=',auth(grover_client),
@@ -36,11 +40,21 @@ setMethod('transferFile',signature = 'GroverClient',
               success <- 0
             }
             if (success == 1) {
-              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::green(cli::symbol$tick),
+                      '\n',
+                      sep = '')
               return('success')
             }
             if (success == 0) {
-              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::red(cli::symbol$cross),
+                      '\n',
+                      sep = '')
               return('failure')
             }
           })
@@ -76,7 +90,11 @@ setMethod('transferDirectory',signature = 'GroverClient',
             
             results <- map(seq_len(length(files)),~{
               suppressMessages({
-                res <- transferFile(grover_client,instrument,directory,files[.x],outDir)
+                res <- transferFile(grover_client,
+                                    instrument,
+                                    directory,
+                                    files[.x],
+                                    outDir)
               })
               pb$tick()
               Sys.sleep(2)

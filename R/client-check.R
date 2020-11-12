@@ -8,7 +8,9 @@
 setMethod('extant',signature = 'GroverClient',
           function(grover_client){
             
-            cmd <- str_c(hostURL(grover_client),'/extant?','auth=',auth(grover_client))
+            cmd <- str_c(hostURL(grover_client),
+                         '/extant?',
+                         'auth=',auth(grover_client))
             
             answer <- try({cmd %>%
                 GET() %>%

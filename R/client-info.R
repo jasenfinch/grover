@@ -1,6 +1,7 @@
 #' sampleInfo
 #' @rdname sampleInfo
-#' @description get sample header information for a given raw file using the grover API.
+#' @description get sample header information for a given raw file using 
+#' the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -11,8 +12,11 @@
 setMethod('sampleInfo',signature = 'GroverClient',
           function(grover_client, instrument, directory, file){
             
-            cmd <- str_c(hostURL(grover_client), "/sampleInfo?", "auth=",
-                         auth(grover_client), "&instrument=", instrument, "&directory=", directory,
+            cmd <- str_c(hostURL(grover_client),
+                         "/sampleInfo?", 
+                         "auth=",auth(grover_client), 
+                         "&instrument=",instrument,
+                         "&directory=",directory,
                          "&file=", file)
             
             info <- cmd %>%
@@ -33,17 +37,28 @@ setMethod('sampleInfo',signature = 'GroverClient',
             }
             
             if (success == 1) {
-              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::green(cli::symbol$tick),
+                      '\n',
+                      sep = '')
             }
             if (success == 0) {
-              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::red(cli::symbol$cross),
+                      '\n',
+                      sep = '')
             }
             return(info)
           })
 
 #' runInfo
 #' @rdname runInfo
-#' @description Get sample meta information for a directory run using the grover API.
+#' @description Get sample meta information for a directory run using the 
+#' grover API.
 #' @param grover_client S4 object of class Grover
 #' @param instrument instrument name
 #' @param directory directory name
@@ -55,7 +70,11 @@ setMethod('runInfo',signature = 'GroverClient',
           function(grover_client, instrument, directory) {
             files <- listRawFiles(grover_client, instrument, directory)
             
-            message('\nGenrating run info table for ',bold(blue(directory)),' containing ',bold(yellow(length(files))),'.raw files\n')
+            message('\nGenrating run info table for ',
+                    bold(blue(directory)),
+                    ' containing ',
+                    bold(yellow(length(files))),
+                    '.raw files\n')
             
             pb <- progress_bar$new(
               format = "  retrieving [:bar] :percent eta: :eta",

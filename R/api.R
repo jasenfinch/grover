@@ -18,7 +18,9 @@
 #' @importFrom callr r_bg
 #' @export
 
-groverAPI <- function(grover_host,background = FALSE,log_dir = '~/.grover/logs'){
+groverAPI <- function(grover_host,
+                      background = FALSE,
+                      log_dir = '~/.grover/logs'){
   
   if (isFALSE(background)) {
     API(grover_host)
@@ -47,7 +49,7 @@ API <- function(grover_host,log_dir = '~/.grover/logs'){
   writeGrover(grover_host,groverHostTemp())
   
   if (!dir_exists(log_dir)) dir_create(log_dir)
-    
+  
   message('API logs can be found at ~/.grover/logs')
   
   log_appender(appender_tee(tempfile("plumber_", log_dir, ".log")))
@@ -62,10 +64,11 @@ API <- function(grover_host,log_dir = '~/.grover/logs'){
                 hostConvertFile,
                 serializer = serializer_content_type('application/xml'))
   api <- pr_get(api,'/extant',hostExtant)
-  api <- pr_get(api,
-                '/getFile',
-                hostGetFile,
-                serializer = serializer_content_type('application/octet-stream'))
+  api <- pr_get(
+    api,
+    '/getFile',
+    hostGetFile,
+    serializer = serializer_content_type('application/octet-stream'))
   api <- pr_get(api,'/listFiles',hostListFiles)
   api <- pr_get(api,'/listRawFiles',hostListRawFiles)
   api <- pr_get(api,'/listDirectories',hostListDirectories)

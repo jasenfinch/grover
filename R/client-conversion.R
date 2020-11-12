@@ -14,7 +14,12 @@
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',
-          function(grover_client, instrument, directory, file, args='', outDir = '.'){
+          function(grover_client, 
+                   instrument, 
+                   directory, 
+                   file, 
+                   args = '', 
+                   outDir = '.'){
             
             converted_file <- file %>%
               file_path_sans_ext() %>%
@@ -59,11 +64,21 @@ setMethod('convertFile',signature = 'GroverClient',
               success <- 0
             }
             if (success == 1) {
-              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::green(cli::symbol$tick),
+                      '\n',
+                      sep = '')
               return('success')
             }
             if (success == 0) {
-              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',
+                      file,
+                      ' ',
+                      crayon::red(cli::symbol$cross),
+                      '\n',
+                      sep = '')
               return('failure')
             }
           })
@@ -82,11 +97,19 @@ setMethod('convertFile',signature = 'GroverClient',
 #' @export
 
 setMethod('convertDirectory',signature = 'GroverClient',
-          function(grover_client, instrument, directory, args = '', outDir = '.'){
+          function(grover_client, 
+                   instrument, 
+                   directory, 
+                   args = '', 
+                   outDir = '.'){
             
             files <- listRawFiles(grover_client,instrument,directory)
             
-            message('\nConverting ',bold(blue(directory)),' containing ',bold(yellow(length(files))),'.raw files\n')
+            message('\nConverting ',
+                    bold(blue(directory)),
+                    ' containing ',
+                    bold(yellow(length(files))),
+                    '.raw files\n')
             
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)
@@ -99,7 +122,12 @@ setMethod('convertDirectory',signature = 'GroverClient',
             results <- map(seq_len(length(files)),~{
               file <- files[.]
               suppressMessages({
-                res <- convertFile(grover_client,instrument,directory,file,args,outDir)
+                res <- convertFile(grover_client,
+                                   instrument,
+                                   directory,
+                                   file,
+                                   args,
+                                   outDir)
               })
               pb$tick()
               return(res)
@@ -117,7 +145,8 @@ setMethod('convertDirectory',signature = 'GroverClient',
 
 #' convertDirectorySplitModes
 #' @rdname convertDirectorySplitModes
-#' @description Convert a directory of raw files, splitting positive and negative mode data using the grover API.
+#' @description Convert a directory of raw files, splitting positive 
+#' and negative mode data using the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -129,7 +158,11 @@ setMethod('convertDirectory',signature = 'GroverClient',
 #' @export
 
 setMethod('convertDirectorySplitModes',signature = 'GroverClient',
-          function(grover_client,instrument, directory, args = '', outDir = '.'){
+          function(grover_client,
+                   instrument, 
+                   directory, 
+                   args = '', 
+                   outDir = '.'){
             
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)
@@ -138,7 +171,11 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             
             negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
             
-            convertDirectory(grover_client,instrument,directory,negArgs,outDir)
+            convertDirectory(grover_client,
+                             instrument,
+                             directory,
+                             negArgs,
+                             outDir)
             
             negDir <- str_c(outDir,'/',directory,'-neg')
             dir_create(negDir)
@@ -155,7 +192,11 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             
             posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
             
-            convertDirectory(grover_client,instrument,directory,posArgs,outDir)
+            convertDirectory(grover_client,
+                             instrument,
+                             directory,
+                             posArgs,
+                             outDir)
             
             posDir <- str_c(outDir,'/',directory,'-pos')
             dir_create(posDir)
