@@ -76,6 +76,11 @@ API <- function(grover_host,log_dir = '~/.grover/logs'){
   api <- pr_get(api,'/sampleInfo',hostSampleInfo)
   api <- pr_put(api,'/tidy',hostTidy)
   
+  api <- pr_get(api,'/fileInfo',hostFileInfo)
+  api <- pr_get(api,'/directoryFileInfo',hostDirectoryFileInfo)
+  api <- pr_get(api,'/instrumentFileInfo',hostInsturmentFileInfo)
+  api <- pr_get(api,'/repositoryFileInfo',hostRepositoryFileInfo)
+  
   pr_run(api,
          host = host(grover_host),
          port = port(grover_host))  

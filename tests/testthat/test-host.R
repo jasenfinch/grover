@@ -100,3 +100,23 @@ test_that('hostGetFile authentication fails',{
 test_that('hostGetFile fails with incorrect file specification',{
   expect_error(hostGetFile(host_auth,instrument,directory,'incorrect.raw'))
 })
+
+test_that('hostFileInfo works',{
+  file_info <- hostFileInfo(host_auth,instrument,directory,sample)
+  expect_equal(nchar(file_info),140)
+})
+
+test_that('hostDirectoryFileInfo works',{
+  directory_info <- hostDirectoryFileInfo(host_auth,instrument,directory)
+  expect_equal(nchar(directory_info),140)
+})
+
+test_that('hostInstrumentFileInfo works',{
+  instrument_info <- hostInsturmentFileInfo(host_auth,instrument)
+  expect_equal(nchar(instrument_info),140)
+})
+
+test_that('hostRepositoryFileInfo works',{
+  repository_info <- hostRepositoryFileInfo(host_auth)
+  expect_equal(nchar(repository_info),140)
+})
