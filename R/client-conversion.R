@@ -15,7 +15,6 @@
 
 setMethod('convertFile',signature = 'GroverClient',
           function(grover_client, instrument, directory, file, args='', outDir = '.'){
-            cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
             
             converted_file <- file %>%
               file_path_sans_ext() %>%
@@ -60,10 +59,12 @@ setMethod('convertFile',signature = 'GroverClient',
               success <- 0
             }
             if (success == 1) {
-              cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              return('success')
             }
             if (success == 0) {
-              cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              return('failure')
             }
           })
 
@@ -75,9 +76,8 @@ setMethod('convertFile',signature = 'GroverClient',
 #' @param directory directory name
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
-#' @import progress
+#' @importFrom progress progress_bar
 #' @importFrom crayon bold yellow
-#' @importFrom purrr walk
 #' @importFrom fs dir_create
 #' @export
 
@@ -86,21 +86,33 @@ setMethod('convertDirectory',signature = 'GroverClient',
             
             files <- listRawFiles(grover_client,instrument,directory)
             
-            cat('\nConverting',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
+            message('\nConverting ',bold(blue(directory)),' containing ',bold(yellow(length(files))),'.raw files\n')
             
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)
             
             pb <- progress_bar$new(
-              format = "  converting [:bar] :percent eta: :eta",
+              format = "[:bar] :percent eta: :eta",
               total = length(files), clear = FALSE)
             pb$tick(0)
             
-            walk(1:length(files),~{
+            results <- map(1:length(files),~{
               file <- files[.]
-              convertFile(grover_client,instrument,directory,file,args,outDir)
+              suppressMessages({
+                res <- convertFile(grover_client,instrument,directory,file,args,outDir)
+              })
               pb$tick()
+              return(res)
             })
+            
+            message()
+            
+            results <- files[str_detect(results,'failure')]
+            
+            if (length(results) > 0) {
+              warning(str_c('Unable to convert files: ',
+                            str_c(results,collapse = ', ')),call. = FALSE)
+            }
           })
 
 #' convertDirectorySplitModes
@@ -113,6 +125,7 @@ setMethod('convertDirectory',signature = 'GroverClient',
 #' @param outDir output directory path for converted files
 #' @importFrom crayon red
 #' @importFrom fs file_move dir_delete
+#' @importFrom purrr walk
 #' @export
 
 setMethod('convertDirectorySplitModes',signature = 'GroverClient',
@@ -121,7 +134,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)
             
-            cat('\n',red('Negative Mode'),sep = '')
+            message('\n',red('Negative Mode'),sep = '')
             
             negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
             
@@ -138,7 +151,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             
             dir_delete(str_c(outDir,'/',directory))
             
-            cat('\n',red('Positive Mode'),sep = '')
+            message('\n',red('Positive Mode'),sep = '')
             
             posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
             
