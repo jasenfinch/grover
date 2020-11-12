@@ -11,8 +11,6 @@
 setMethod('sampleInfo',signature = 'GroverClient',
           function(grover_client, instrument, directory, file){
             
-            cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-            
             cmd <- str_c(hostURL(grover_client), "/sampleInfo?", "auth=",
                          auth(grover_client), "&instrument=", instrument, "&directory=", directory,
                          "&file=", file)
@@ -35,10 +33,10 @@ setMethod('sampleInfo',signature = 'GroverClient',
             }
             
             if (success == 1) {
-              cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
             }
             if (success == 0) {
-              cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
             }
             return(info)
           })
@@ -57,7 +55,7 @@ setMethod('runInfo',signature = 'GroverClient',
           function(grover_client, instrument, directory) {
             files <- listRawFiles(grover_client, instrument, directory)
             
-            cat('\nGenrating run info table for',bold(blue(directory)),'containing',bold(yellow(length(files))),'.raw files\n')
+            message('\nGenrating run info table for ',bold(blue(directory)),' containing ',bold(yellow(length(files))),'.raw files\n')
             
             pb <- progress_bar$new(
               format = "  retrieving [:bar] :percent eta: :eta",
@@ -65,7 +63,9 @@ setMethod('runInfo',signature = 'GroverClient',
             pb$tick(0)
             sample_info <- files %>%
               map(~{
-                info <- sampleInfo(grover_client,instrument,directory,.x)
+                suppressMessages({
+                  info <- sampleInfo(grover_client,instrument,directory,.x)  
+                })
                 pb$tick()
                 return(info)
               }) %>%

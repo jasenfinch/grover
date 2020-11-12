@@ -11,8 +11,6 @@
 setMethod('transferFile',signature = 'GroverClient',
           function(grover_client,instrument,directory,file,outDir = '.'){
             
-            cat('\n',file,' ',cli::symbol$continue,'\r',sep = '')
-            
             cmd <- str_c(hostURL(grover_client),'/getFile?',
                          'auth=',auth(grover_client),
                          '&instrument=',instrument,
@@ -38,10 +36,12 @@ setMethod('transferFile',signature = 'GroverClient',
               success <- 0
             }
             if (success == 1) {
-              cat('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              message('\r',file,' ',crayon::green(cli::symbol$tick),'\n',sep = '')
+              return('success')
             }
             if (success == 0) {
-              cat('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              message('\r',file,' ',crayon::red(cli::symbol$cross),'\n',sep = '')
+              return('failure')
             }
           })
 
@@ -56,20 +56,39 @@ setMethod('transferFile',signature = 'GroverClient',
 
 setMethod('transferDirectory',signature = 'GroverClient',
           function(grover_client, instrument, directory, outDir = '.'){
-  
-  outDir <- str_c(outDir,directory,sep = '/')
-  
-  files <- listFiles(grover_client,instrument,directory)
-  
-  cat('\nTransfering',bold(blue(directory)),'containing',bold(yellow(length(files))),' files\n')
-  
-  dir.create(outDir)
-  pb <- progress_bar$new(
-    format = "  transfering [:bar] :percent eta: :eta",
-    total = length(files), clear = FALSE)
-  pb$tick(0)
-  walk(1:length(files),~{
-    transferFile(grover_client,instrument,directory,files[.x],outDir)
-    pb$tick()
-  })
-})
+            
+            outDir <- str_c(outDir,directory,sep = '/')
+            
+            files <- listFiles(grover_client,instrument,directory)
+            
+            message('\nTransfering ',
+                    bold(blue(directory)),
+                    ' containing ',
+                    bold(yellow(length(files))),
+                    ' files\n')
+            
+            dir_create(outDir)
+            
+            pb <- progress_bar$new(
+              format = "[:bar] :percent eta: :eta",
+              total = length(files), clear = FALSE)
+            pb$tick(0)
+            
+            results <- map(1:length(files),~{
+              suppressMessages({
+                res <- transferFile(grover_client,instrument,directory,files[.x],outDir)
+              })
+              pb$tick()
+              Sys.sleep(2)
+              return(res)
+            })
+            
+            message()
+            
+            results <- files[str_detect(results,'failure')]
+            
+            if (length(results) > 0) {
+              warning(str_c('Unable to transfer files: ',
+                            str_c(results,collapse = ', ')),call. = FALSE)
+            }
+          })
