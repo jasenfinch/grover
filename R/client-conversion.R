@@ -96,7 +96,7 @@ setMethod('convertDirectory',signature = 'GroverClient',
               total = length(files), clear = FALSE)
             pb$tick(0)
             
-            results <- map(1:length(files),~{
+            results <- map(seq_len(length(files)),~{
               file <- files[.]
               suppressMessages({
                 res <- convertFile(grover_client,instrument,directory,file,args,outDir)

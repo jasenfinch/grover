@@ -74,7 +74,7 @@ setMethod('transferDirectory',signature = 'GroverClient',
               total = length(files), clear = FALSE)
             pb$tick(0)
             
-            results <- map(1:length(files),~{
+            results <- map(seq_len(length(files)),~{
               suppressMessages({
                 res <- transferFile(grover_client,instrument,directory,files[.x],outDir)
               })
