@@ -1,4 +1,4 @@
-#' @importFrom fs dir_ls path_abs
+#' @importFrom fs dir_ls
 
 hostListFiles <- function(auth,instrument,directory){
   
@@ -13,7 +13,7 @@ hostListFiles <- function(auth,instrument,directory){
                           sep = '/'),
                     type = 'file',
                     recurse = FALSE) %>%
-      path_abs()
+      path_file()
   } else {
     stop('Incorrect authentication key')
   }
@@ -35,7 +35,7 @@ hostListRawFiles <- function(auth,instrument,directory){
                           sep = '/'),
                     type = 'file',
                     recurse = FALSE) %>%
-      path_abs()
+      path_file()
     
     raw_files <- files[str_detect(files,
                                   regex('[.]raw',ignore_case = TRUE))]

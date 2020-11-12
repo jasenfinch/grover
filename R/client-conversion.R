@@ -133,7 +133,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             walk(list.files(str_c(outDir,'/',directory),full.names = TRUE),~{
               f <- str_split(.,'/')[[1]]
               f <- f[length(f)]
-              file_move(.xstr_c(negDir,'/',f))
+              file_move(.x,str_c(negDir,'/',f))
             })
             
             dir_delete(str_c(outDir,'/',directory))

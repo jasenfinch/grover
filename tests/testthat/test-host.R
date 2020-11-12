@@ -45,7 +45,7 @@ test_that('hostSampleInfo fails',{
 
 test_that('hostTidy works',{
   result <- hostTidy(host_auth,'QC01.mzML')
-  expect_equal(result,0)
+  expect_equal(result,'QC01.mzML')
 })
 
 test_that('hostTidy fails',{

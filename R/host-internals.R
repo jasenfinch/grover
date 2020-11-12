@@ -22,7 +22,8 @@ hostTidy <- function(auth,file){
   tmp_dir <- tempdir()
   
   if (auth == host_auth){
-    file_delete(str_c(tmp_dir,file,sep = '/'))
+    file_delete(str_c(tmp_dir,file,sep = '/')) %>%
+      path_file()
   } else {
     stop('Incorrect authentication key')
   }

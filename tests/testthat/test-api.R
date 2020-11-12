@@ -15,7 +15,7 @@ grover_client <- grover(host = "127.0.0.1",
 
 api <- groverAPI(grover_host,background = TRUE)
 
-Sys.sleep(5)
+Sys.sleep(3)
 
 test_that('api is running',{
   expect_true(api$is_alive())
@@ -31,13 +31,13 @@ test_that('instruments can be listed',{
 })
 
 test_that('directories can be listed',{
-  instrument <- listDirectories(grover_client,'Thermo-Exactive')
-  expect_equal(instrument,'Experiment_1')
+  directory <- listDirectories(grover_client,'Thermo-Exactive')
+  expect_equal(directory,'Experiment_1')
 })
 
 test_that('files can be listed',{
-  instrument <- listFiles(grover_client,'Thermo-Exactive','Experiment_1')
-  expect_equal(instrument,'QC01.raw')
+  file <- listFiles(grover_client,'Thermo-Exactive','Experiment_1')
+  expect_equal(file,'QC01.raw')
 })
 
 test_that('raw files can be listed',{
