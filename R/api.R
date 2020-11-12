@@ -2,6 +2,7 @@
 #' @description Run the grover REST API for file conversion.
 #' @param grover_host S4 object of class Grover
 #' @param background Run as a background process.
+#' @param log_dir directory path for API logs
 #' @examples 
 #' \dontrun{
 #' grover_host <- grover(host = "127.0.0.1",
@@ -17,28 +18,44 @@
 #' @importFrom callr r_bg
 #' @export
 
-groverAPI <- function(grover_host,background = FALSE){
+groverAPI <- function(grover_host,background = FALSE,log_dir = '~/.grover/logs'){
   
   if (isFALSE(background)) {
     API(grover_host)
   } else {
-    api_bg <- r_bg(function(grover_host,API){
+    api_bg <- r_bg(function(grover_host,API,log_dir){
       requireNamespace('grover',quietly = TRUE)
-      API(grover_host)
+      API(grover_host,log_dir)
     },
-    args = list(grover_host = grover_host,API = API))
+    args = list(grover_host = grover_host,
+                API = API,
+                log_dir = log_dir))
     
     return(api_bg)
   }
   
 }
 
-API <- function(grover_host){
+#' @importFrom fs dir_exists
+#' @importFrom logger log_appender appender_tee log_info
+#' @importFrom tictoc tic toc
+#' @importFrom plumber pr_hook
+
+API <- function(grover_host,log_dir = '~/.grover/logs'){
   get_pwiz_container()
   
   writeGrover(grover_host,groverHostTemp())
   
+  if (!dir_exists(log_dir)) dir_create(log_dir)
+    
+  message('API logs can be found at ~/.grover/logs')
+  
+  log_appender(appender_tee(tempfile("plumber_", log_dir, ".log")))
+  
   api <- pr()
+  
+  api <- pr_hook(api,'preroute',host_preroute)
+  api <- pr_hook(api,'postroute',host_postroute)
   
   api <- pr_get(api,
                 '/convert',
