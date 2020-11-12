@@ -7,6 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
 Description: Convert raw mass spectromery data files using msconvert and a REST API.
+URL: https://jasenfinch.github.io/grover/
+BugReports: https://github.com/jasenfinch/grover/issues
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -16,6 +18,7 @@ Imports: callr,
         dplyr,
         fs,
         httr,
+        logger,
         magrittr,
         methods,
         msconverteR,
@@ -26,6 +29,7 @@ Imports: callr,
         rjson,
         stringr,
         tibble,
+        tictoc,
         yaml
 Suggests: 
     knitr,
