@@ -160,6 +160,32 @@ test_that('run information for a directory can be returned',{
   expect_s3_class(run_info,'tbl_df')
 })
 
+test_that('file information can be returned',{
+  file_info <- fileInfo(grover_client,
+                            'Thermo-Exactive',
+                            'Experiment_1',
+                            'QC01.raw')
+  expect_s3_class(file_info,'tbl_df')
+})
+
+test_that('directory file information can be returned',{
+  directory_info <- directoryFileInfo(grover_client,
+                        'Thermo-Exactive',
+                        'Experiment_1')
+  expect_s3_class(directory_info,'tbl_df')
+})
+
+test_that('instrument file information can be returned',{
+  instrument_info <- instrumentFileInfo(grover_client,
+                                      'Thermo-Exactive')
+  expect_s3_class(instrument_info,'tbl_df')
+})
+
+test_that('repository file information can be returned',{
+  repository_info <- repositoryFileInfo(grover_client)
+  expect_s3_class(repository_info,'tbl_df')
+})
+
 api$kill()
 
 test_that('client cannot detect api after it is killed',{

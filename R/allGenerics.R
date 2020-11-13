@@ -145,3 +145,28 @@ setGeneric('sampleInfo',function(grover_client,instrument,directory,file){
 setGeneric('runInfo',function(grover_client,instrument,directory){
   standardGeneric('runInfo')
 })
+
+#' @rdname fileInfo
+
+setGeneric('fileInfo',function(grover_client,instrument,directory,file){
+  standardGeneric('fileInfo')
+})
+
+#' @rdname directoryFileInfo
+
+setGeneric('directoryFileInfo',function(grover_client,instrument,directory){
+  standardGeneric('directoryFileInfo')
+})
+
+#' @rdname instrumentFileInfo
+
+setGeneric('instrumentFileInfo',function(grover_client,instrument){
+  standardGeneric('instrumentFileInfo')
+})
+
+#' @rdname repositoryFileInfo
+
+setGeneric('repositoryFileInfo',function(grover_client){
+  standardGeneric('repositoryFileInfo')
+})
+

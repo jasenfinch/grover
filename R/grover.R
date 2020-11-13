@@ -5,7 +5,8 @@ globalVariables(
     'Sample injection volume','Sample dilution factor',
     'Sample comment','User text 0','User text 1','User text 2',
     'User text 3','User text 4','Creation date','Instrument name',
-    'Instrument model','Serial number','Software version','.','Sample volume'),
+    'Instrument model','Serial number','Software version','.','Sample volume',
+    'type','path','extension','size','birth_time','instrument','directory'),
 )
 
 #' readGrover
