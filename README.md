@@ -2,25 +2,38 @@
 # grover
 
 <!-- badges: start -->
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![R build status](https://github.com/jasenfinch/grover/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/grover/actions)
+[![Codecov test coverage](https://codecov.io/gh/jasenfinch/grover/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/grover?branch=master)
 <!-- badges: end -->
 
-The goal of grover is to ...
+### Overview
 
-## Installation
+The `grover` package provides a web-based API framework for remote access to a mass spectrometry `.raw` data repository, implemented using the [`plumber`](https://www.rplumber.io/) R package
+API functionality includes:
 
-You can install the released version of grover from [CRAN](https://CRAN.R-project.org) with:
+* File **transfer**.
+* **File information** retrieval including file size and creation dates.
+* Raw mass spectrometry data file **conversion** to `.mzML` format.
+* Retrieval of **sample information** from `.raw` file headers.
 
-``` r
-install.packages("grover")
+The package functionality is platform independent with file conversion and sample information retrieval functionality available through use of the [`msconvereR`](https://github.com/wilsontom/msconverteR) and [`rawR`](https://github.com/fgcz/rawR) R packages.
+
+### Installation
+
+The package can be installed from GitHub using the following:
+
+```
+remotes::install_github('jasenfinch/grover',build_vignettes = TRUE)
 ```
 
-## Example
+### Learn more
 
-This is a basic example which shows you how to solve a common problem:
+The package documentation can be browsed online at <https://jasenfinch.github.io/grover/>. 
 
-``` r
-library(grover)
-## basic example code
-```
+If this is your first time using `grover` see the [Introduction to grover](https://jasenfinch.github.io/grover/articles/introduction.html) vignette for information on how to get started.
+
+If you believe you've found a bug in `grover`, please file a bug (and, if
+possible, a [reproducible example](https://reprex.tidyverse.org)) at
+<https://github.com/jasenfinch/grover/issues>.
 
