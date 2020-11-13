@@ -1,12 +1,12 @@
 Package: grover
-Title: REST API For Mass Spectrometry File Conversion
+Title: Web API For Mass Spectrometry Data Transfer
 Version: 0.4.0
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
-Description: Convert raw mass spectromery data files using msconvert and a REST API.
+Description: A web based API framework for hosting and interfacing a mass spectrometry raw data data repository. Transfer files, retrieve file information, convert raw mass spectromery data to .mzML format and retrieve sample information from .raw file headers.
 URL: https://jasenfinch.github.io/grover/
 BugReports: https://github.com/jasenfinch/grover/issues
 License: GPL-3
