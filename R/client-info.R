@@ -76,20 +76,25 @@ setMethod('runInfo',signature = 'GroverClient',
                     bold(yellow(length(files))),
                     '.raw files\n')
             
-            pb <- progress_bar$new(
-              format = "  retrieving [:bar] :percent eta: :eta",
-              total = length(files), clear = FALSE)
-            pb$tick(0)
-            sample_info <- files %>%
-              map(~{
-                suppressMessages({
-                  info <- sampleInfo(grover_client,instrument,directory,.x)  
-                })
-                pb$tick()
-                return(info)
-              }) %>%
-              bind_rows()
+            cmd <-  str_c(hostURL(grover_client),
+                          "/runInfo?", 
+                          "auth=",auth(grover_client), 
+                          "&instrument=",instrument,
+                          "&directory=",directory)
             
-            return(sample_info)
+            run_info <- cmd %>%
+              GET()
+            
+            if (run_info$status_code == 200) {
+              run_info <- run_info %>%
+                content() %>%
+                unlist() %>%
+                fromJSON() %>%
+                as_tibble()
+            } else {
+             stop(str_c('Failed to retrieve with status code ', run_info$status_code),call. = FALSE) 
+            }
+            
+            return(run_info)
           })
 
