@@ -30,17 +30,14 @@ test_that('hostConvertFile works',{
   expect_equal(basename(output_path),'QC01.mzML')
 })
 
-test_that('hostConvertFile fails',{
-  expect_error(hostConvertFile('incorrect',instrument,directory,sample))
-})
-
 test_that('hostSampleInfo works',{
   sample_info <- hostSampleInfo(host_auth,instrument,directory,sample)
   expect_equal(nchar(sample_info),1131)
 })
 
-test_that('hostSampleInfo fails',{
-  expect_error(hostSampleInfo('incorrect',instrument,directory,sample))
+test_that('hostRunInfo works',{
+  run_info <- hostRunInfo(host_auth,instrument,directory)
+  expect_equal(nchar(run_info),1131)
 })
 
 test_that('hostTidy works',{
@@ -48,17 +45,9 @@ test_that('hostTidy works',{
   expect_equal(result,'QC01.mzML')
 })
 
-test_that('hostTidy fails',{
-  expect_error(hostTidy('incorrect','QC01.mzML'))
-})
-
 test_that('hostListFiles works',{
   result <- hostListFiles(host_auth,instrument,directory)
   expect_equal(result,'QC01.raw')
-})
-
-test_that('hostListFiles fails',{
-  expect_error(hostListFiles('incorrect',instrument,directory))
 })
 
 test_that('hostListRawFiles works',{
@@ -66,17 +55,9 @@ test_that('hostListRawFiles works',{
   expect_equal(result,'QC01.raw')
 })
 
-test_that('hostListRawFiles fails',{
-  expect_error(hostListRawFiles('incorrect',instrument,directory))
-})
-
 test_that('hostListDirectories works',{
   result <- hostListDirectories(host_auth,instrument)
   expect_equal(result,'Experiment_1')
-})
-
-test_that('hostListDirectories fails',{
-  expect_error(hostListDirectories('incorrect',instrument))
 })
 
 test_that('hostListInstruments works',{
@@ -84,17 +65,9 @@ test_that('hostListInstruments works',{
   expect_equal(result,'Thermo-Exactive')
 })
 
-test_that('hostListInstruments fails',{
-  expect_error(hostListInstruments('incorrect'))
-})
-
 test_that('hostGetFile works',{
   raw_file <- hostGetFile(host_auth,instrument,directory,sample)
   expect_equal(class(raw_file),'raw')
-})
-
-test_that('hostGetFile authentication fails',{
-  expect_error(hostGetFile('incorrect',instrument,directory,sample))
 })
 
 test_that('hostGetFile fails with incorrect file specification',{

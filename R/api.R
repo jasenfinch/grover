@@ -74,6 +74,7 @@ API <- function(grover_host,log_dir = '~/.grover/logs'){
   api <- pr_get(api,'/listDirectories',hostListDirectories)
   api <- pr_get(api,'/listInstruments',hostListInstruments)
   api <- pr_get(api,'/sampleInfo',hostSampleInfo)
+  api <- pr_get(api,'/runInfo',hostRunInfo)
   api <- pr_put(api,'/tidy',hostTidy)
   
   api <- pr_get(api,'/fileInfo',hostFileInfo)
