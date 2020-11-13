@@ -35,7 +35,8 @@ Suggests:
     knitr,
     rmarkdown,
     prettydoc,
-    testthat
+    testthat,
+    covr
 Remotes: wilsontom/msconverteR,
         fgcz/rawR
 VignetteBuilder: knitr
