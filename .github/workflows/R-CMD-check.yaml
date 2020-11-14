@@ -69,6 +69,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
           install.packages('http://fgcz-ms.uzh.ch/~cpanse/rawR_0.1.0.tar.gz',repos = NULL)
+          remotes::install_github('jasenfinch/grover')
         shell: Rscript {0}
 
       - name: Check
