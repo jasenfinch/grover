@@ -1,137 +1,215 @@
 ---
-title: "Raw data conversion using the grover API"
-author: "Jasen Finch"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
-  prettydoc::html_pretty:
-    toc: true
-    highlight: github
-    theme: tactile
+title: "Accessing raw mass spectrometry data from a grover API"
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Raw data conversion}
+  %\VignetteIndexEntry{Accessing raw mass spectrometry data from a grover API}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
+  comment = "#>"
 )
 ```
 
-## Load repository host information
+## Overview
 
-Firstly load the grover library:
+This vignette outlines the `grover` package client-side functionality for accessing a raw mass spectrometry data repository hosted by grover API.
+This functionality includes repository contents querying, file transfer, file information retrieval, sample information retrieval and raw data conversion.
 
-```{r}
+To get started we can first load the `grover` package.
+
+```{r setup}
 library(grover)
 ```
 
-Next the grover API host information of needs to be loaded. 
-This should be a text file containing 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed.
-The default path for this file is `"~/grover.txt"`.
+## Example API
 
-```{r}
-grove <- readGrover()
+For this example we will run an example grover API provided by the package.
+This will run as a background process to allow us to interact with the API without having to use an alterative R console.
+To activate this run the following:
 
-print(grove)
+```{r grover_host}
+grover_host <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234",
+                     repository = system.file('repository',
+                                              package = 'grover'))
+
+api <- groverAPI(grover_host,
+                 background = TRUE,
+                 log_dir = paste0(tempdir(),'/logs'))
 ```
 
-This returns a `Grover` class object containing the host information.
-This information can be extracted from this object using the following methods:
+For further details on hosting a grover API see the [Hosting a grover API](hosting.html) vignette.
 
-```{r}
-host(grove)
+```{r wait, echo=FALSE}
+Sys.sleep(3)
 ```
 
-```{r}
-port(grove)
+## grover API host details
+
+In order to access the API, we need to first provide the host details of the grover API.
+There are two ways to do this.
+The primary method is through the use of a configuration file that can then be parsed and specified when the API is activated.
+This should be in YAML format and have the structure shown below:
+
+```{r grover_client_config,echo=FALSE,comment=''}
+config_file <- readLines(system.file('grover_client.yml',package = 'grover'))
+
+cat(stringr::str_c(config_file,collapse = '\n'))
 ```
 
-```{r}
-auth(grove)
+This specifies the host address, the port, and authentication key that matches the key with which the host has been configured.
+
+The package contains an example file that we can parse here using the `readGrover()` function.
+
+```{r grover_client_config_input}
+grover_client <- readGrover(system.file('grover_client.yml',package = 'grover'))
 ```
 
-Before using the grover API we can firstly that it is currently active and working:
+This returns an S4 object of class `GroverClient` that contains the API host information.
+The host information can be viewed by printing the object:
 
-```{r}
-checkGrover(grove)
+```{r print_grover_client}
+print(grover_client)
 ```
 
-## Query the repository
+The second method, and the method that will be used for this example, is to specify the host details directly using the `grover()` function like the following:
 
-We can query the repository using a number of functions to find what MS is availble.
-
-The availble instruments can be found using:
-
-```{r}
-instruments <- listInstruments(grove)
-
-instruments
+```{r grover_client}
+grover_client <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234")
 ```
 
-The available data directories for a specified instrument can be found using:
+This enables us to access the grover API hosting the example data repository included in the package.
 
-```{r}
-directories <- listDirectories(grove,instruments[1])
+Using this host information, we can first check that the API is running using the `extant()` function as shown below:
 
-tail(directories)
+```{r extant}
+extant(grover_client)
 ```
 
-The names of the raw data files for a give directory can be listed using:
+## Querying the data repository contents
 
-```{r}
-rawFiles <- listRawFiles(grove,instruments[1],directories[length(directories) - 1])
+We can list the instruments available within the data reposiroty using the following: 
 
-tail(rawFiles)
+```{r listInstruments}
+listInstruments(grover_client)
 ```
 
-## Convert files
+As can be seen above, there is a single instrument available named `r listInstruments(grover_client)`. 
+To list the experiment directories available for this instrument, we can use the code below.
 
-Files can be converted using a number of functions that query the grover API.
+```{r listDirectories}
+listDirectories(grover_client,'Thermo-Exactive')
+```
 
-A single specified raw file can be converted using the following:
+This shows a single experiment data directory available.
+We can then list the contents of this directory to identify the data files available:
 
-```{r,eval=FALSE}
-convertFile(grove,
-            instruments[1],
-            directories[length(directories) - 1],
-            rawFiles[length(rawFiles)],
+```{r listFiles}
+listFiles(grover_client,'Thermo-Exactive','Experiment_1')
+```
+
+We can see that there is a single raw data file available in this example repository.
+
+## File information
+
+File Information such as file size and creation date be retrieved. 
+We can see this for the example file `QC01.raw` using the following:
+
+```{r fileInfo}
+fileInfo(grover_client,'Thermo-Exactive','Experiment_1','QC01.raw')
+```
+
+This can also be done directory wide when multiple files are available.
+
+```{r directoryFileInfo}
+directoryFileInfo(grover_client,'Thermo-Exactive','Experiment_1')
+```
+
+## Transfer files
+
+Individual files can be transferred from the repository using `transferFile()`
+, stipulating the instrument, experiment directory and file name.
+The `outDir` argument allows us to declare where the file will be downloaded to.
+In the example below, the file will be transfered to the current working directory.
+
+```{r transferFile,eval=FALSE}
+transferFile(grover_client,
+             'Thermo-Exactive',
+             'Experiment_1',
+             'QC01.raw',
+             outDir = '.')
+```
+
+Similarly, we can transfer an entire directory:
+
+```{r transferDirectory,eval=FALSE}
+transferDirectory(grover_client,
+                  'Thermo-Exactive',
+                  'Experiment_1',
+                  outDir = '.')
+```
+
+## Sample information
+
+Thermo `.raw` mass spectrometry data files contain sample meta information within the file headers.
+This can be extracted and retrieved, in the form of a tibble, for a given file using:
+
+```{r sampleInfo}
+sampleInfo(grover_client,'Thermo-Exactive','Experiment_1','QC01.raw')
+```
+
+Similarly, the sample information for an entire experiment run can be retrieved with:
+
+```{r runInfo}
+runInfo(grover_client,'Thermo-Exactive','Experiment_1')
+```
+
+## Raw file conversion to .mzML format
+
+With `grover` it is also possible retrieve `.mzML` format data files, converted from the `.raw` files.
+This file conversion uses the command line tool [msconvert](http://proteowizard.sourceforge.net/tools.shtml), implemented in R by the [msconverteR](https://github.com/wilsontom/msconverteR) package.
+
+### File conversion
+
+To retrieve the example `.raw` file in `.mzML` format, the `convertFile()` function can be used.
+This takes similar inputs as `transferFile()` shown previously.
+
+```{r convertFile,eval=FALSE}
+convertFile(grover_client,
+            'Thermo-Exactive',
+            'Experiment_1',
+            'QC01.raw',
             outDir = '.')
 ```
 
-Alternatively, an entire directory can be converted using:
-
-```{r,eval=FALSE}
-convertDirectory(grove,
-                 instruments[1],
-                 directories[length(directories) - 1],
-                 outDir = '.')
+```{r convertDirectory,eval=FALSE}
+convertDirectory(grover_client,
+            'Thermo-Exactive',
+            'Experiment_1',
+            outDir = '.')
 ```
 
-In some cases it maybe that ionisation mode data needs to be converted separtely for a directory. The following can be used:
+### Conversion arguments
 
-```{r,eval=FALSE}
-convertDirectorySplitModes(grove,
-                           instruments[1],
-                           directories[length(directories) - 1],
-                           outDir = '.')
+The `args` argument can be supplied to these conversion functions pass specific conversion criterial to `msconvert`.
+The `grover` package contains a number of helper functions to simplify their use.
+The available functions are listed below.
+
+```{r conversion_functions,echo=FALSE,comment=''}
+package_ls <- lsf.str("package:grover") 
+conversion_functions <- package_ls[stringr::str_detect(package_ls,'conversion')]
+
+cat(conversion_functions, sep = '\n')
 ```
 
-## Conversion arguments
-
-A number of addition conversion argument functions are availble to customise the conversion.
-These functions are listed below.
-
-```{r,echo=FALSE}
-library(magrittr)
-
-lsf.str("package:grover") %>% .[stringr::str_detect(.,'conversion')]
-```
-
-When these functions are used, they simply return a string of the given argument that is to be passed to msconvert.
+Calling these functions return the appropriate string argument that is to be passed to msconvert.
 
 ```{r}
 conversionArgsPeakPick()
@@ -140,18 +218,25 @@ conversionArgsPeakPick()
 Mutiple functions can also be combined.
 
 ```{r}
-stringr::str_c(conversionArgsPeakPick(),conversionArgsNegativeMode(),sep = ' ')
+paste(conversionArgsPeakPick(),conversionArgsNegativeMode())
 ```
 
 A full list of the available msconvert arguments can be found [here](http://proteowizard.sourceforge.net/tools.shtml).
+The example below shows the use of the `conversionArgsPeakPick()` to retrieve a centroided data in `.mzML` format.
 
-The conversion arguments can the be used as follows:
-
-```{r,eval=FALSE}
-convertFile(grove,
-            instruments[1],
-            directories[length(directories) - 1],
-            rawFiles[length(rawFiles)],
-            args = conversionArgsPeakPick(),
+```{r convertFile_centroid,eval=FALSE}
+convertFile(grover_client,
+            'Thermo-Exactive',
+            'Experiment_1',
+            'QC01.raw',
+            args = conversionArgsPeakPick(), 
             outDir = '.')
+```
+
+## Conclusion
+
+To conclude, we can terminte the process running the example grover API instance.
+
+```{r kill}
+api$kill()
 ```
