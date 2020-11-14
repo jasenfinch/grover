@@ -37,7 +37,6 @@ Suggests:
     prettydoc,
     testthat,
     covr
-Remotes: wilsontom/msconverteR,
-        fgcz/rawR
+Remotes: wilsontom/msconverteR
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
