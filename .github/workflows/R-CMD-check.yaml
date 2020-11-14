@@ -66,7 +66,7 @@ jobs:
 
       - name: Install dependencies
         env: 
-          GITHUB_BRANCH: ${GITHUB_REF##*/}
+          GITHUB_BRANCH: ${{ env.GITHUB_REF }}
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
