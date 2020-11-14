@@ -2,12 +2,18 @@
 % Please edit documentation in R/allGenerics.R, R/client-transfer.R
 \name{transferFile}
 \alias{transferFile}
+\alias{transferDirectory}
 \alias{transferFile,GroverClient-method}
-\title{transferFile}
+\alias{transferDirectory,GroverClient-method}
+\title{Transfer files}
 \usage{
 transferFile(grover_client, instrument, directory, file, outDir = ".")
 
+transferDirectory(grover_client, instrument, directory, outDir = ".")
+
 \S4method{transferFile}{GroverClient}(grover_client, instrument, directory, file, outDir = ".")
+
+\S4method{transferDirectory}{GroverClient}(grover_client, instrument, directory, outDir = ".")
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
@@ -21,5 +27,5 @@ transferFile(grover_client, instrument, directory, file, outDir = ".")
 \item{outDir}{output directory path for transferred file}
 }
 \description{
-Transfer a file using the grover API.
+Transfer a file or directory using a grover API.
 }

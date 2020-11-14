@@ -1,4 +1,4 @@
-#' show-Grover
+#' Grover class show methods
 #' @rdname show-Grover
 #' @description Show method for class S4 Grover.
 #' @param object S4 object of class Grover

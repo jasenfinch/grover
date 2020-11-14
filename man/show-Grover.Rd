@@ -3,7 +3,7 @@
 \name{show,GroverClient-method}
 \alias{show,GroverClient-method}
 \alias{show,GroverHost-method}
-\title{show-Grover}
+\title{Grover class show methods}
 \usage{
 \S4method{show}{GroverClient}(object)
 

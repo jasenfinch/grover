@@ -9,7 +9,7 @@ globalVariables(
     'type','path','extension','size','birth_time','instrument','directory'),
 )
 
-#' readGrover
+#' Parse a grover configuration file
 #' @description Read grover API host information from a text file.
 #' @param path file path to text file containing host information
 #' @details The text file should contain 3 lines, the first the host address, 

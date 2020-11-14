@@ -1,6 +1,6 @@
-#' transferFile
-#' @rdname transferFile
-#' @description Transfer a file using the grover API.
+#' Transfer files
+#' @rdname transfer
+#' @description Transfer a file or directory using a grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -59,13 +59,7 @@ setMethod('transferFile',signature = 'GroverClient',
             }
           })
 
-#' transferDirectory
-#' @rdname transferDirectory
-#' @description Transfer a directory using the grover API.
-#' @param grover_client S4 object of class GroverClient
-#' @param instrument instrument name
-#' @param directory directory name
-#' @param outDir output directory path for converted files
+#' @rdname transfer
 #' @export
 
 setMethod('transferDirectory',signature = 'GroverClient',

@@ -1,4 +1,4 @@
-#' extant
+#' Check the existance of a grover API
 #' @rdname extant
 #' @description Check grover API is still extistant.
 #' @param grover_client S4 object of class GroverGlient

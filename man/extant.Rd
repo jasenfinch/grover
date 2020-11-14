@@ -3,7 +3,7 @@
 \name{extant}
 \alias{extant}
 \alias{extant,GroverClient-method}
-\title{extant}
+\title{Check the existance of a grover API}
 \usage{
 extant(grover_client)
 

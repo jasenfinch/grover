@@ -9,8 +9,8 @@ fileStatsResults <- function(cmd){
     mutate(size = fs::fs_bytes(size))
 }
 
-#' fileInfo
-#' @rdname fileInfo
+#' Retrieve file information
+#' @rdname stats
 #' @description Return file information for a given file using the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
@@ -30,13 +30,7 @@ setMethod('fileInfo',signature = 'GroverClient',
             fileStatsResults(cmd)
           })
 
-#' directoryFileInfo
-#' @rdname directoryFileInfo
-#' @description Return file information for all files in a given directory using 
-#' the grover API.
-#' @param grover_client S4 object of class GroverClient
-#' @param instrument instrument name
-#' @param directory directory name
+#' @rdname stats
 #' @export
 
 setMethod('directoryFileInfo',signature = 'GroverClient',
@@ -50,12 +44,7 @@ setMethod('directoryFileInfo',signature = 'GroverClient',
             fileStatsResults(cmd)
           })
 
-#' instrumentFileInfo
-#' @rdname instrumentFileInfo
-#' @description Return file information for all files in a given instrument directory 
-#' using the grover API.
-#' @param grover_client S4 object of class GroverClient
-#' @param instrument instrument name
+#' @rdname stats
 #' @export
 
 setMethod('instrumentFileInfo',signature = 'GroverClient',
@@ -68,11 +57,7 @@ setMethod('instrumentFileInfo',signature = 'GroverClient',
             fileStatsResults(cmd)
           })
 
-#' repositoryFileInfo
-#' @rdname repositoryFileInfo
-#' @description Return file information for all files in the data repository using 
-#' the grover API.
-#' @param grover_client S4 object of class GroverClient
+#' @rdname stats
 #' @export
 
 setMethod('repositoryFileInfo',signature = 'GroverClient',

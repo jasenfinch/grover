@@ -2,7 +2,7 @@
 % Please edit documentation in R/grover.R
 \name{readGrover}
 \alias{readGrover}
-\title{readGrover}
+\title{Parse a grover configuration file}
 \usage{
 readGrover(path = "grover.yml")
 }

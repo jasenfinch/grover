@@ -60,25 +60,25 @@ setGeneric('extant',function(grover_client){
   standardGeneric('extant')
 })
 
-#' @rdname listInstruments
+#' @rdname list
 
 setGeneric('listInstruments',function(grover_client){
   standardGeneric('listInstruments')
 })
 
-#' @rdname listDirectories
+#' @rdname list
 
 setGeneric('listDirectories',function(grover_client,instrument){
   standardGeneric('listDirectories')
 })
 
-#' @rdname listFiles
+#' @rdname list
 
 setGeneric('listFiles',function(grover_client,instrument,directory){
   standardGeneric('listFiles')
 })
 
-#' @rdname listFiles
+#' @rdname list
 
 setGeneric('listRawFiles',function(grover_client,instrument,directory){
   standardGeneric('listRawFiles')
@@ -115,7 +115,7 @@ setGeneric('convertDirectorySplitModes',function(grover_client,
   standardGeneric('convertDirectorySplitModes')
 })
 
-#' @rdname transferFile
+#' @rdname transfer
 
 setGeneric('transferFile',function(grover_client, 
                                    instrument,
@@ -125,7 +125,7 @@ setGeneric('transferFile',function(grover_client,
   standardGeneric('transferFile')
 })
 
-#' @rdname transferDirectory
+#' @rdname transfer
 
 setGeneric('transferDirectory',function(grover_client,
                                         instrument,
@@ -146,25 +146,25 @@ setGeneric('runInfo',function(grover_client,instrument,directory){
   standardGeneric('runInfo')
 })
 
-#' @rdname fileInfo
+#' @rdname stats
 
 setGeneric('fileInfo',function(grover_client,instrument,directory,file){
   standardGeneric('fileInfo')
 })
 
-#' @rdname directoryFileInfo
+#' @rdname stats
 
 setGeneric('directoryFileInfo',function(grover_client,instrument,directory){
   standardGeneric('directoryFileInfo')
 })
 
-#' @rdname instrumentFileInfo
+#' @rdname stats
 
 setGeneric('instrumentFileInfo',function(grover_client,instrument){
   standardGeneric('instrumentFileInfo')
 })
 
-#' @rdname repositoryFileInfo
+#' @rdname stats
 
 setGeneric('repositoryFileInfo',function(grover_client){
   standardGeneric('repositoryFileInfo')
