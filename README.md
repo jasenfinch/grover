@@ -12,8 +12,8 @@
 The `grover` package provides a web-based API framework for remote access to a mass spectrometry `.raw` data repository, implemented using the [`plumber`](https://www.rplumber.io/) R package
 API functionality includes:
 
-* File **transfer**.
 * **File information** retrieval including file size and creation dates.
+* File **transfer**.
 * Raw mass spectrometry data file **conversion** to `.mzML` format.
 * Retrieval of **sample information** from `.raw` file headers.
 
@@ -21,7 +21,10 @@ The package functionality is platform independent with file conversion and sampl
 
 ### Installation
 
-The package can be installed from GitHub using the following:
+This package requires the `rawR` package.
+Details of how to install the latest version can be found [here](https://github.com/fgcz/rawR/releases).
+
+The `grover` package can be installed from GitHub using the following:
 
 ```
 remotes::install_github('jasenfinch/grover',build_vignettes = TRUE)
