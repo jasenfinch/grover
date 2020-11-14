@@ -117,6 +117,8 @@ To test the API from the client side, the `extant()` function can be used to tes
 extant(grover_host)
 ```
 
+For further details on client-side access to the hosted mass spectrometry data, see the [Accessing raw mass spectrometry data from a grover API](client-usage.html) vignette.
+
 Finally, the background API process can be terminated using:
 
 ```{r kill}
