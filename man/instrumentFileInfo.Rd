@@ -15,5 +15,6 @@ instrumentFileInfo(grover_client, instrument)
 \item{instrument}{instrument name}
 }
 \description{
-Return file information for all files in a given instrument directory using the grover API.
+Return file information for all files in a given instrument directory 
+using the grover API.
 }

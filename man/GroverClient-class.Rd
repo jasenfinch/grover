@@ -3,10 +3,9 @@
 \docType{class}
 \name{GroverClient-class}
 \alias{GroverClient-class}
-\alias{GroverHost-class}
-\title{Grover}
+\title{GroverClient class}
 \description{
-A simple S4 class containing grover API host information
+A simple S4 class containing grover API host information for client-side use.
 }
 \section{Slots}{
 

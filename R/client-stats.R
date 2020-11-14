@@ -32,7 +32,8 @@ setMethod('fileInfo',signature = 'GroverClient',
 
 #' directoryFileInfo
 #' @rdname directoryFileInfo
-#' @description Return file information for all files in a given directory using the grover API.
+#' @description Return file information for all files in a given directory using 
+#' the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -51,7 +52,8 @@ setMethod('directoryFileInfo',signature = 'GroverClient',
 
 #' instrumentFileInfo
 #' @rdname instrumentFileInfo
-#' @description Return file information for all files in a given instrument directory using the grover API.
+#' @description Return file information for all files in a given instrument directory 
+#' using the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @export
@@ -68,7 +70,8 @@ setMethod('instrumentFileInfo',signature = 'GroverClient',
 
 #' repositoryFileInfo
 #' @rdname repositoryFileInfo
-#' @description Return file information for all files in the data repository using the grover API.
+#' @description Return file information for all files in the data repository using 
+#' the grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @export
 

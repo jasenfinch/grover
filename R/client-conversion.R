@@ -1,6 +1,6 @@
-#' convertFile
-#' @rdname convertFile
-#' @description Convert a raw MS file using the grover API.
+#' Convert raw files to mzML format
+#' @rdname convert
+#' @description Convert a raw MS file using a grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -11,6 +11,9 @@
 #' @importFrom stringr str_split
 #' @importFrom httr PUT
 #' @importFrom utils URLencode
+#' @importFrom fs dir_create
+#' @importFrom progress progress_bar
+#' @importFrom crayon yellow bold
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',
@@ -83,17 +86,7 @@ setMethod('convertFile',signature = 'GroverClient',
             }
           })
 
-#' convertDirectory
-#' @rdname convertDirectory
-#' @description Convert a directory of raw files using the grover API.
-#' @param grover_client S4 object of class GroverClient
-#' @param instrument instrument name
-#' @param directory directory name
-#' @param args arguments to pass to msconverteR::convert_files
-#' @param outDir output directory path for converted files
-#' @importFrom progress progress_bar
-#' @importFrom crayon bold yellow
-#' @importFrom fs dir_create
+#' @rdname convert
 #' @export
 
 setMethod('convertDirectory',signature = 'GroverClient',
@@ -143,18 +136,10 @@ setMethod('convertDirectory',signature = 'GroverClient',
             }
           })
 
-#' convertDirectorySplitModes
-#' @rdname convertDirectorySplitModes
-#' @description Convert a directory of raw files, splitting positive 
-#' and negative mode data using the grover API.
-#' @param grover_client S4 object of class GroverClient
-#' @param instrument instrument name
-#' @param directory directory name
-#' @param args arguments to pass to msconverteR::convert_files
-#' @param outDir output directory path for converted files
-#' @importFrom crayon red
-#' @importFrom fs file_move dir_delete
+#' @rdname convert
 #' @importFrom purrr walk
+#' @importFrom fs dir_delete file_move
+#' @importFrom crayon red
 #' @export
 
 setMethod('convertDirectorySplitModes',signature = 'GroverClient',
@@ -209,56 +194,56 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             dir_delete(str_c(outDir,'/',directory))
           })
 
-#' conversionArgsPeakPick
-#' @description msconvert args for peak picking.
+#' Conversion arguments
+#' @rdname conversionArgs
+#' @description Helper functions for msconvert arguments for raw data conversion.
+#' @details 
+#' These functions return character strings suitable for supplying to the \code{args} 
+#' argument of \code{convertFile} for passing to msconvert.
+#' @examples 
+#' conversionArgsPeakPick()
 #' @export
 
 conversionArgsPeakPick <- function(){
   '--filter "peakPicking true 1-"'
 }
 
-#' conversionArgsNegativeMode
-#' @description msconvert args to convert only positive mode data.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsNegativeMode <- function(){
   '--filter "polarity negative"'
 }
 
-#' conversionArgsPositiveMode
-#' @description msconvert args to convert only negative mode data.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsPositiveMode <- function(){
   '--filter "polarity positive"'
 }
 
-#' conversionArgsIgnoreUnknownInstrumentError
-#' @description msconvert args to ignore the unkown instrument error.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsIgnoreUnknownInstrumentError <- function(){
   '--ignoreUnknownInstrumentError'
 }
 
-#' conversionArgsMSlevel1
-#' @description msconvert args to convert only MS level 1.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel1 <- function(){
   '--filter "msLevel 1"'
 }
 
-#' conversionArgsMSlevel2
-#' @description msconvert args to convert only MS level 2.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel2 <- function(){
   '--filter "msLevel 2"'
 }
 
-#' conversionArgsMSlevel3
-#' @description msconvert args to convert only MS level 3.
+#' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel3 <- function(){

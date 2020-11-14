@@ -1,7 +1,7 @@
-#' sampleInfo
-#' @rdname sampleInfo
-#' @description get sample header information for a given raw file using 
-#' the grover API.
+#' Retrieve sample raw file header information
+#' @rdname info
+#' @description Get sample header information for a given raw file or directory using 
+#' a grover API.
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
@@ -55,13 +55,7 @@ setMethod('sampleInfo',signature = 'GroverClient',
             return(info)
           })
 
-#' runInfo
-#' @rdname runInfo
-#' @description Get sample meta information for a directory run using the 
-#' grover API.
-#' @param grover_client S4 object of class Grover
-#' @param instrument instrument name
-#' @param directory directory name
+#' @rdname info
 #' @importFrom dplyr bind_rows rename
 #' @importFrom purrr map
 #' @export
@@ -92,7 +86,8 @@ setMethod('runInfo',signature = 'GroverClient',
                 fromJSON() %>%
                 as_tibble()
             } else {
-             stop(str_c('Failed to retrieve with status code ', run_info$status_code),call. = FALSE) 
+             stop(str_c('Failed to retrieve with status code ', 
+                        run_info$status_code),call. = FALSE) 
             }
             
             return(run_info)

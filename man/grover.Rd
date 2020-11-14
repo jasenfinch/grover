@@ -2,7 +2,7 @@
 % Please edit documentation in R/grover.R
 \name{grover}
 \alias{grover}
-\title{grover}
+\title{GroverClient and GroverHost class constructor}
 \usage{
 grover(host, port, auth, repository = NULL)
 }
@@ -16,7 +16,7 @@ grover(host, port, auth, repository = NULL)
 \item{repository}{data repository directory path}
 }
 \description{
-Create a GroverClient or GroverHost object containing 
+Create a GroverClient or GroverHost class object containing 
 API host information.
 }
 \examples{

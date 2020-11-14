@@ -2,12 +2,18 @@
 % Please edit documentation in R/allGenerics.R, R/client-info.R
 \name{sampleInfo}
 \alias{sampleInfo}
+\alias{runInfo}
 \alias{sampleInfo,GroverClient-method}
-\title{sampleInfo}
+\alias{runInfo,GroverClient-method}
+\title{Retrieve sample raw file header information}
 \usage{
 sampleInfo(grover_client, instrument, directory, file)
 
+runInfo(grover_client, instrument, directory)
+
 \S4method{sampleInfo}{GroverClient}(grover_client, instrument, directory, file)
+
+\S4method{runInfo}{GroverClient}(grover_client, instrument, directory)
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
@@ -19,6 +25,6 @@ sampleInfo(grover_client, instrument, directory, file)
 \item{file}{file name}
 }
 \description{
-get sample header information for a given raw file using 
-the grover API.
+Get sample header information for a given raw file or directory using 
+a grover API.
 }

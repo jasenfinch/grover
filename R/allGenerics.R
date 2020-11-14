@@ -1,48 +1,48 @@
-#' @rdname host
+#' @rdname GroverClient-accessors
 
-setGeneric('host',function(grove){
+setGeneric('host',function(grover_client){
   standardGeneric('host')
 })
 
-#' @rdname host
+#' @rdname GroverClient-accessors
 
-setGeneric('host<-',function(grove,value){
+setGeneric('host<-',function(grover_client,value){
   standardGeneric('host<-')
 })
 
-#' @rdname port
+#' @rdname GroverClient-accessors
 
-setGeneric('port',function(grove){
+setGeneric('port',function(grover_client){
   standardGeneric('port')
 })
 
-#' @rdname port
+#' @rdname GroverClient-accessors
 
-setGeneric('port<-',function(grove,value){
+setGeneric('port<-',function(grover_client,value){
   standardGeneric('port<-')
 })
 
-#' @rdname auth
+#' @rdname GroverClient-accessors
 
-setGeneric('auth',function(grove){
+setGeneric('auth',function(grover_client){
   standardGeneric('auth')
 })
 
-#' @rdname auth
+#' @rdname GroverClient-accessors
 
-setGeneric('auth<-',function(grove,value){
+setGeneric('auth<-',function(grover_client,value){
   standardGeneric('auth<-')
 })
 
-#' @rdname repository
+#' @rdname GroverHost-accessors
 
-setGeneric('repository',function(grove){
+setGeneric('repository',function(grover_host){
   standardGeneric('repository')
 })
 
-#' @rdname repository
+#' @rdname GroverHost-accessors
 
-setGeneric('repository<-',function(grove,value){
+setGeneric('repository<-',function(grover_host,value){
   standardGeneric('repository<-')
 })
 
@@ -84,7 +84,7 @@ setGeneric('listRawFiles',function(grover_client,instrument,directory){
   standardGeneric('listRawFiles')
 })
 
-#' @rdname convertFile
+#' @rdname convert
 
 setGeneric('convertFile',function(grover_client, 
                                   instrument, 
@@ -95,7 +95,7 @@ setGeneric('convertFile',function(grover_client,
   standardGeneric('convertFile')
 })
 
-#' @rdname convertDirectory
+#' @rdname convert
 
 setGeneric('convertDirectory',function(grover_client, 
                                        instrument, 
@@ -105,7 +105,7 @@ setGeneric('convertDirectory',function(grover_client,
   standardGeneric('convertDirectory')
 })
 
-#' @rdname convertDirectorySplitModes
+#' @rdname convert
 
 setGeneric('convertDirectorySplitModes',function(grover_client, 
                                                  instrument, 
@@ -134,13 +134,13 @@ setGeneric('transferDirectory',function(grover_client,
   standardGeneric('transferDirectory')
 })
 
-#' @rdname sampleInfo
+#' @rdname info
 
 setGeneric('sampleInfo',function(grover_client,instrument,directory,file){
   standardGeneric('sampleInfo')
 })
 
-#' @rdname runInfo
+#' @rdname info
 
 setGeneric('runInfo',function(grover_client,instrument,directory){
   standardGeneric('runInfo')

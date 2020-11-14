@@ -17,5 +17,6 @@ directoryFileInfo(grover_client, instrument, directory)
 \item{directory}{directory name}
 }
 \description{
-Return file information for all files in a given directory using the grover API.
+Return file information for all files in a given directory using 
+the grover API.
 }

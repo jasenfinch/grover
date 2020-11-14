@@ -13,5 +13,6 @@ repositoryFileInfo(grover_client)
 \item{grover_client}{S4 object of class GroverClient}
 }
 \description{
-Return file information for all files in the data repository using the grover API.
+Return file information for all files in the data repository using 
+the grover API.
 }
