@@ -54,12 +54,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/client-usage.html">Raw data conversion using the grover API</a>
+    </li>
+    <li>
       <a href="../articles/data-conversion.html">Raw data conversion using the grover API</a>
+    </li>
+    <li>
+      <a href="../articles/hosting.html">Hosting a grover API</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to grover</a>
     </li>
   </ul>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/jasenfinch/grover/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -76,9 +92,9 @@
       <h1 data-toc-skip>Raw data conversion using the grover API</h1>
                         <h4 class="author">Jasen Finch</h4>
             
-            <h4 class="date">11 November, 2020</h4>
+            <h4 class="date">13 November, 2020</h4>
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/jasenfinch/grover/blob/master/vignettes/data-conversion.Rmd"><code>vignettes/data-conversion.Rmd</code></a></small>
       <div class="hidden name"><code>data-conversion.Rmd</code></div>
 
     </div>
@@ -90,7 +106,7 @@
 <a href="#load-repository-host-information" class="anchor"></a>Load repository host information</h2>
 <p>Firstly load the grover library:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">grover</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jasenfinch.github.io/grover/">grover</a></span><span class="op">)</span></code></pre></div>
 <p>Next the grover API host information of needs to be loaded. This should be a text file containing 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed. The default path for this file is <code>"~/grover.txt"</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">grove</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readGrover.html">readGrover</a></span><span class="op">(</span><span class="op">)</span>

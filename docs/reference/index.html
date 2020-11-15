@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -94,13 +94,24 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/data-conversion.html">Raw data conversion using the grover API</a>
+      <a href="../articles/client-usage.html">Accessing raw mass spectrometry data from a grover API</a>
+    </li>
+    <li>
+      <a href="../articles/hosting.html">Hosting a grover API</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to grover</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/jasenfinch/grover/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -140,87 +151,51 @@
       <tr>
         
         <td>
-          <p><code><a href="Grover-class.html">GroverClient-class</a></code> </p>
+          <p><code><a href="GroverClient-accessors.html">host()</a></code> <code><a href="GroverClient-accessors.html">`host&lt;-`()</a></code> <code><a href="GroverClient-accessors.html">port()</a></code> <code><a href="GroverClient-accessors.html">`port&lt;-`()</a></code> <code><a href="GroverClient-accessors.html">auth()</a></code> <code><a href="GroverClient-accessors.html">`auth&lt;-`()</a></code> </p>
         </td>
-        <td><p>Grover</p></td>
+        <td><p>GroverClient get and set methods</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="auth.html">auth()</a></code> <code><a href="auth.html">`auth&lt;-`()</a></code> </p>
+          <p><code><a href="GroverClient-class.html">GroverClient-class</a></code> </p>
         </td>
-        <td><p>auth</p></td>
+        <td><p>GroverClient class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="conversionArgsIgnoreUnknownInstrumentError.html">conversionArgsIgnoreUnknownInstrumentError()</a></code> </p>
+          <p><code><a href="GroverHost-accessors.html">repository()</a></code> <code><a href="GroverHost-accessors.html">`repository&lt;-`()</a></code> </p>
         </td>
-        <td><p>conversionArgsIgnoreUnknownInstrumentError</p></td>
+        <td><p>GroverHost get and set methods</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="conversionArgsMSlevel1.html">conversionArgsMSlevel1()</a></code> </p>
+          <p><code><a href="GroverHost-class.html">GroverHost-class</a></code> </p>
         </td>
-        <td><p>conversionArgsMSlevel1</p></td>
+        <td><p>GroverHost class</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="conversionArgsMSlevel2.html">conversionArgsMSlevel2()</a></code> </p>
+          <p><code><a href="conversionArgs.html">conversionArgsPeakPick()</a></code> <code><a href="conversionArgs.html">conversionArgsNegativeMode()</a></code> <code><a href="conversionArgs.html">conversionArgsPositiveMode()</a></code> <code><a href="conversionArgs.html">conversionArgsIgnoreUnknownInstrumentError()</a></code> <code><a href="conversionArgs.html">conversionArgsMSlevel1()</a></code> <code><a href="conversionArgs.html">conversionArgsMSlevel2()</a></code> <code><a href="conversionArgs.html">conversionArgsMSlevel3()</a></code> </p>
         </td>
-        <td><p>conversionArgsMSlevel2</p></td>
+        <td><p>Conversion arguments</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="conversionArgsMSlevel3.html">conversionArgsMSlevel3()</a></code> </p>
+          <p><code><a href="convert.html">convertFile()</a></code> <code><a href="convert.html">convertDirectory()</a></code> <code><a href="convert.html">convertDirectorySplitModes()</a></code> </p>
         </td>
-        <td><p>conversionArgsMSlevel3</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conversionArgsNegativeMode.html">conversionArgsNegativeMode()</a></code> </p>
-        </td>
-        <td><p>conversionArgsNegativeMode</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conversionArgsPeakPick.html">conversionArgsPeakPick()</a></code> </p>
-        </td>
-        <td><p>conversionArgsPeakPick</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="conversionArgsPositiveMode.html">conversionArgsPositiveMode()</a></code> </p>
-        </td>
-        <td><p>conversionArgsPositiveMode</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="convertDirectory.html">convertDirectory()</a></code> </p>
-        </td>
-        <td><p>convertDirectory</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="convertDirectorySplitModes.html">convertDirectorySplitModes()</a></code> </p>
-        </td>
-        <td><p>convertDirectorySplitModes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="convertFile.html">convertFile()</a></code> </p>
-        </td>
-        <td><p>convertFile</p></td>
+        <td><p>Convert raw files to mzML format</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="extant.html">extant()</a></code> </p>
         </td>
-        <td><p>extant</p></td>
+        <td><p>Check the existance of a grover API</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="grover.html">grover()</a></code> </p>
         </td>
-        <td><p>grover</p></td>
+        <td><p>GroverClient and GroverHost class constructor</p></td>
       </tr><tr>
         
         <td>
@@ -230,81 +205,39 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="host.html">host()</a></code> <code><a href="host.html">`host&lt;-`()</a></code> </p>
+          <p><code><a href="info.html">sampleInfo()</a></code> <code><a href="info.html">runInfo()</a></code> </p>
         </td>
-        <td><p>host</p></td>
+        <td><p>Retrieve sample raw file header information</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="listDirectories.html">listDirectories()</a></code> </p>
+          <p><code><a href="list.html">listInstruments()</a></code> <code><a href="list.html">listDirectories()</a></code> <code><a href="list.html">listFiles()</a></code> <code><a href="list.html">listRawFiles()</a></code> </p>
         </td>
-        <td><p>listDirectories</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="listFiles.html">listFiles()</a></code> <code><a href="listFiles.html">listRawFiles()</a></code> </p>
-        </td>
-        <td><p>listFiles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="listInstruments.html">listInstruments()</a></code> </p>
-        </td>
-        <td><p>listInstruments</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="listRawFiles.html">listRawFiles(<i>&lt;GroverClient&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>listRawFiles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="port.html">port()</a></code> <code><a href="port.html">`port&lt;-`()</a></code> </p>
-        </td>
-        <td><p>port</p></td>
+        <td><p>List raw data repository contents</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="readGrover.html">readGrover()</a></code> </p>
         </td>
-        <td><p>readGrover</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="repository.html">repository()</a></code> <code><a href="repository.html">`repository&lt;-`()</a></code> </p>
-        </td>
-        <td><p>repository</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="runInfo.html">runInfo()</a></code> </p>
-        </td>
-        <td><p>runInfo</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sampleInfo.html">sampleInfo()</a></code> </p>
-        </td>
-        <td><p>sampleInfo</p></td>
+        <td><p>Parse a grover configuration file</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="show-Grover.html">show(<i>&lt;GroverClient&gt;</i>)</a></code> <code><a href="show-Grover.html">show(<i>&lt;GroverHost&gt;</i>)</a></code> </p>
         </td>
-        <td><p>show-Grover</p></td>
+        <td><p>Grover class show methods</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="transferDirectory.html">transferDirectory()</a></code> </p>
+          <p><code><a href="stats.html">fileInfo()</a></code> <code><a href="stats.html">directoryFileInfo()</a></code> <code><a href="stats.html">instrumentFileInfo()</a></code> <code><a href="stats.html">repositoryFileInfo()</a></code> </p>
         </td>
-        <td><p>transferDirectory</p></td>
+        <td><p>Retrieve file information</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="transferFile.html">transferFile()</a></code> </p>
+          <p><code><a href="transfer.html">transferFile()</a></code> <code><a href="transfer.html">transferDirectory()</a></code> </p>
         </td>
-        <td><p>transferFile</p></td>
+        <td><p>Transfer files</p></td>
       </tr>
     </tbody>
     </table>

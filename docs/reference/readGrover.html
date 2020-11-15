@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>readGrover — readGrover • grover</title>
+<title>Parse a grover configuration file — readGrover • grover</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="readGrover — readGrover" />
+<meta property="og:title" content="Parse a grover configuration file — readGrover" />
 <meta property="og:description" content="Read grover API host information from a text file." />
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -95,13 +95,24 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/data-conversion.html">Raw data conversion using the grover API</a>
+      <a href="../articles/client-usage.html">Accessing raw mass spectrometry data from a grover API</a>
+    </li>
+    <li>
+      <a href="../articles/hosting.html">Hosting a grover API</a>
+    </li>
+    <li>
+      <a href="../articles/introduction.html">Introduction to grover</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/jasenfinch/grover/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -115,8 +126,8 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>readGrover</h1>
-    
+    <h1>Parse a grover configuration file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jasenfinch/grover/blob/master/R/grover.R'><code>R/grover.R</code></a></small>
     <div class="hidden name"><code>readGrover.Rd</code></div>
     </div>
 
@@ -137,7 +148,9 @@
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed</p>
+    <p>The text file should contain 3 lines, the first the host address, 
+the second the port on which it is hosted and lastly the authentication
+ key needed</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Grover client</span>
