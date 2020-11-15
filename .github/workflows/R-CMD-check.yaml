@@ -65,13 +65,11 @@ jobs:
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
 
       - name: Install dependencies
-        env: 
-          GITHUB_BRANCH: ${{ env.GITHUB_REF }}
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
           install.packages('http://fgcz-ms.uzh.ch/~cpanse/rawR_0.1.0.tar.gz',repos = NULL)
-          remotes::install_github(paste0('jasenfinch/grover@',Sys.getenv('GITHUB_BRANCH')))
+          remotes::install_github(paste0('jasenfinch/grover',ref = Sys.getenv('GITHUB_REF')))
         shell: Rscript {0}
 
       - name: Check
