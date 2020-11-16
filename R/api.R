@@ -25,7 +25,7 @@ groverAPI <- function(grover_host,
   if (isFALSE(background)) {
     API(grover_host)
   } else {
-    api_bg <- r_bg(function(grover_hostlog_dir){
+    api_bg <- r_bg(function(grover_host,log_dir){
       requireNamespace('grover',quietly = TRUE)
       API(grover_host,log_dir)
     },
