@@ -46,7 +46,7 @@ setGeneric('repository<-',function(grover_host,value){
   standardGeneric('repository<-')
 })
 
-setGeneric('hostURL',function(grove){
+setGeneric('hostURL',function(grover_client){
   standardGeneric('hostURL')
 })
 

@@ -115,7 +115,7 @@ setMethod('port',signature = 'GroverClient',
 setMethod('port<-',signature = 'GroverClient',
           function(grover_client, value){
             grover_client@port <- value
-            return(grove)
+            return(grover_client)
           }
 )
 
@@ -134,7 +134,7 @@ setMethod('auth',signature = 'GroverClient',
 setMethod('auth<-',signature = 'GroverClient',
           function(grover_client,value){
             grover_client@auth <- value
-            return(grove)
+            return(grover_client)
           }
 )
 
@@ -165,11 +165,11 @@ setMethod('repository<-',signature = 'GroverHost',
 #' @importFrom stringr str_c
 
 setMethod('hostURL',signature = 'GroverClient',
-          function(grove){
-            if (port(grove) != 80) {
-              url <- str_c('http://',host(grove),':',port(grove)) 
+          function(grover_client){
+            if (port(grover_client) != 80) {
+              url <- str_c('http://',host(grover_client),':',port(grover_client)) 
             } else {
-              url <- str_c('http://',host(grove))
+              url <- str_c('http://',host(grover_client))
             }
             return(url)          
           }
