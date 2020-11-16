@@ -1,18 +1,32 @@
 #' @importFrom fs file_delete
 
-setMethod('writeGrover',signature = 'GroverHost',
-          function(grover_host,out = 'grover_host.yml'){
-            writeLines(c(
-              str_c('host: ',host(grover_host)),
-              str_c('port: ',port(grover_host)),
-              str_c('auth: ',auth(grover_host)),
-              str_c('repository: ',repository(grover_host))
-            ),
-            out)
-          })
+writeGrover <- function(host,
+                        port,
+                        auth,
+                        repository,
+                        out = 'grover_host.yml',
+                        env = parent.frame()){
+  
+  e <- new.env(parent = env)
+  e$host <- host
+  e$port <- port
+  e$auth <- auth
+  e$repository <- repository
+  e$out <- out
+  
+  evalq(
+    writeLines(c(
+      stringr::str_c('host: ',host),
+      stringr::str_c('port: ',port),
+      stringr::str_c('auth: ',auth),
+      stringr::str_c('repository: ',repository)
+    ),
+    out),
+    e)
+}
 
 groverHostTemp <- function(){
-  str_c(tempdir(),'grover_host.yml',sep = '/')
+  stringr::str_c(tempdir(),'grover_host.yml',sep = '/')
 }
 
 checkAuth <- function(auth,host_auth){

@@ -23,15 +23,38 @@ groverAPI <- function(grover_host,
                       log_dir = '~/.grover/logs'){
   
   if (isFALSE(background)) {
-    API(grover_host)
+    API(host(grover_host),
+        port(grover_host),
+        auth(grover_host),
+        repository(grover_host),
+        log_dir = log_dir)
   } else {
-    api_bg <- r_bg(function(grover_host,API,log_dir){
-      requireNamespace('grover',quietly = TRUE)
-      API(grover_host,log_dir)
+    
+    env <- 'package:grover' %>%
+      as.environment() %>%
+      as.list()
+    
+    env$host <- host(grover_host)
+    env$port <- port(grover_host)
+    env$auth <- auth(grover_host)
+    env$repository <- repository(grover_host)
+    env$log_dir <- log_dir
+    
+    
+    env_path <- paste0(tempdir(),'/environment.rds')
+    
+    saveRDS(env,env_path)
+    
+    api_bg <- r_bg(function(env_path){
+      
+      e <- readRDS(env_path)
+      e <- list2env(e)
+      
+      evalq(API(host,port,auth,repository,log_dir),e)
+      
+      print('helloworld')
     },
-    args = list(grover_host = grover_host,
-                API = API,
-                log_dir = log_dir))
+    args = list(env_path))
     
     return(api_bg)
   }
@@ -43,46 +66,62 @@ groverAPI <- function(grover_host,
 #' @importFrom tictoc tic toc
 #' @importFrom plumber pr_hook
 
-API <- function(grover_host,log_dir = '~/.grover/logs'){
-  get_pwiz_container()
+API <- function(host,
+                port,
+                auth,
+                repository,
+                log_dir = '~/.grover/logs',
+                env = parent.frame()){
   
-  writeGrover(grover_host,groverHostTemp())
+  e <- new.env(parent = env)
+  e$host <- host
+  e$port <- port
+  e$auth <- auth
+  e$repository <- repository
+  e$log_dir <- log_dir
   
-  if (!dir_exists(log_dir)) dir_create(log_dir)
-  
-  message('API logs can be found at ~/.grover/logs')
-  
-  log_appender(appender_tee(tempfile("plumber_", log_dir, ".log")))
-  
-  api <- pr()
-  
-  api <- pr_hook(api,'preroute',host_preroute)
-  api <- pr_hook(api,'postroute',host_postroute)
-  
-  api <- pr_get(api,
-                '/convert',
-                hostConvertFile,
-                serializer = serializer_content_type('application/xml'))
-  api <- pr_get(api,'/extant',hostExtant)
-  api <- pr_get(
-    api,
-    '/getFile',
-    hostGetFile,
-    serializer = serializer_content_type('application/octet-stream'))
-  api <- pr_get(api,'/listFiles',hostListFiles)
-  api <- pr_get(api,'/listRawFiles',hostListRawFiles)
-  api <- pr_get(api,'/listDirectories',hostListDirectories)
-  api <- pr_get(api,'/listInstruments',hostListInstruments)
-  api <- pr_get(api,'/sampleInfo',hostSampleInfo)
-  api <- pr_get(api,'/runInfo',hostRunInfo)
-  api <- pr_put(api,'/tidy',hostTidy)
-  
-  api <- pr_get(api,'/fileInfo',hostFileInfo)
-  api <- pr_get(api,'/directoryFileInfo',hostDirectoryFileInfo)
-  api <- pr_get(api,'/instrumentFileInfo',hostInsturmentFileInfo)
-  api <- pr_get(api,'/repositoryFileInfo',hostRepositoryFileInfo)
-  
-  pr_run(api,
-         host = host(grover_host),
-         port = port(grover_host))  
+  evalq({
+    msconverteR::get_pwiz_container()
+    
+    writeGrover(host,port,auth,repository,groverHostTemp())
+    
+    if (!dir_exists(log_dir)) dir_create(log_dir)
+    
+    message('API logs can be found at ~/.grover/logs')
+    
+    log_appender(appender_tee(tempfile("plumber_", log_dir, ".log")))
+    
+    api <- pr()
+    
+    api <- pr_hook(api,'preroute',host_preroute)
+    api <- pr_hook(api,'postroute',host_postroute)
+    
+    api <- pr_get(api,
+                  '/convert',
+                  hostConvertFile,
+                  serializer = serializer_content_type('application/xml'))
+    api <- pr_get(api,'/extant',hostExtant)
+    api <- pr_get(
+      api,
+      '/getFile',
+      hostGetFile,
+      serializer = serializer_content_type('application/octet-stream'))
+    api <- pr_get(api,'/listFiles',hostListFiles)
+    api <- pr_get(api,'/listRawFiles',hostListRawFiles)
+    api <- pr_get(api,'/listDirectories',hostListDirectories)
+    api <- pr_get(api,'/listInstruments',hostListInstruments)
+    api <- pr_get(api,'/sampleInfo',hostSampleInfo)
+    api <- pr_get(api,'/runInfo',hostRunInfo)
+    api <- pr_put(api,'/tidy',hostTidy)
+    
+    api <- pr_get(api,'/fileInfo',hostFileInfo)
+    api <- pr_get(api,'/directoryFileInfo',hostDirectoryFileInfo)
+    api <- pr_get(api,'/instrumentFileInfo',hostInsturmentFileInfo)
+    api <- pr_get(api,'/repositoryFileInfo',hostRepositoryFileInfo)
+    
+    pr_run(api,
+           host = host,
+           port = port)  
+  },e)
+    
 }
