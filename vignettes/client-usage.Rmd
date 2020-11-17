@@ -166,10 +166,18 @@ This can be extracted and retrieved, in the form of a tibble, for a given file u
 sampleInfo(grover_client,'Thermo-Exactive','Experiment_1','QC01.raw')
 ```
 
+```{r}
+message(api$read_output())
+```
+
 Similarly, the sample information for an entire experiment run can be retrieved with:
 
 ```{r runInfo}
 runInfo(grover_client,'Thermo-Exactive','Experiment_1')
+```
+
+```{r}
+message(api$read_output())
 ```
 
 ## Raw file conversion to .mzML format
