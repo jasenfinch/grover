@@ -147,37 +147,37 @@ test_that('a directory can be transfered',{
 
 test_that('sample information can be returned',{
   sample_info <- sampleInfo(grover_client,
-                    'Thermo-Exactive',
-                    'Experiment_1',
-                    'QC01.raw')
+                            'Thermo-Exactive',
+                            'Experiment_1',
+                            'QC01.raw')
   expect_s3_class(sample_info,'tbl_df')
 })
 
 test_that('run information for a directory can be returned',{
   run_info <- runInfo(grover_client,
-                            'Thermo-Exactive',
-                            'Experiment_1')
+                      'Thermo-Exactive',
+                      'Experiment_1')
   expect_s3_class(run_info,'tbl_df')
 })
 
 test_that('file information can be returned',{
   file_info <- fileInfo(grover_client,
-                            'Thermo-Exactive',
-                            'Experiment_1',
-                            'QC01.raw')
+                        'Thermo-Exactive',
+                        'Experiment_1',
+                        'QC01.raw')
   expect_s3_class(file_info,'tbl_df')
 })
 
 test_that('directory file information can be returned',{
   directory_info <- directoryFileInfo(grover_client,
-                        'Thermo-Exactive',
-                        'Experiment_1')
+                                      'Thermo-Exactive',
+                                      'Experiment_1')
   expect_s3_class(directory_info,'tbl_df')
 })
 
 test_that('instrument file information can be returned',{
   instrument_info <- instrumentFileInfo(grover_client,
-                                      'Thermo-Exactive')
+                                        'Thermo-Exactive')
   expect_s3_class(instrument_info,'tbl_df')
 })
 

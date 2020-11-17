@@ -5,7 +5,8 @@ fileStatsResults <- function(cmd){
     GET()
   
   if (res$status_code == 200){
-    res <- content() %>%
+    res <- res %>%
+      content() %>%
       unlist() %>%
       fromJSON() %>%
       as_tibble() %>%

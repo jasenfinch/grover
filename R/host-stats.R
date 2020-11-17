@@ -18,11 +18,12 @@ hostFileInfo <- function(auth,instrument,directory,file){
     sep = '/'
   )
   info <- fs::file_info(info)
-  info <- dplyr::mutate(info,
-                        instrument = instrument,
-                        directory = directory,
-                        file = file,
-                        extension = fs::path_ext(path))
+  
+  info$instrument <- instrument
+  info$directory <- directory
+  info$file <- file
+  info$extension <- fs::path_ext(info$path)
+
   info <- dplyr::select(info,
                         instrument,
                         directory,
@@ -55,11 +56,12 @@ hostDirectoryFileInfo <- function(auth,instrument,directory){
   info <- fs::dir_ls(info,recurse = TRUE)
   info <- fs::file_info(info)
   info <- dplyr::filter(info,type == 'file')
-  info <- dplyr::mutate(info,
-                        instrument = instrument,
-                        directory = directory,
-                        file = fs::path_file(path),
-                        extension = fs::path_ext(path))
+  
+  info$instrument <- instrument
+  info$directory <- directory
+  info$file <-  fs::path_file(info$path)
+  info$extension <- fs::path_ext(info$path)
+  
   info <- dplyr::select(info,
                         instrument,
                         directory,
@@ -94,10 +96,12 @@ hostInsturmentFileInfo <- function(auth,instrument){
   info <- fs::dir_ls(info,recurse = TRUE)
   info <- fs::file_info(info)
   info <- dplyr::filter(info,type == 'file')
-  info <- dplyr::mutate(info,instrument = instrument, 
-           directory = fs::path_file(fs::path_dir(path)),
-           file = fs::path_file(path),
-           extension = fs::path_ext(path))
+  
+  info$instrument <- instrument
+  info$directory <- fs::path_file(fs::path_dir(info$path))
+  info$file <-  fs::path_file(info$path)
+  info$extension <- fs::path_ext(info$path)
+  
   info <- dplyr::select(info,
                         instrument,
                         directory,
@@ -128,10 +132,12 @@ hostRepositoryFileInfo <- function(auth){
   info <- fs::dir_ls(info,recurse = TRUE)
   info <- fs::file_info(info)
   info <- dplyr::filter(info,type == 'file')
-  info <- dplyr::mutate(info,instrument = fs::path_file(fs::path_dir(fs::path_dir(path))), 
-                        directory = fs::path_file(fs::path_dir(path)),
-                        file = fs::path_file(path),
-                        extension = fs::path_ext(path))
+  
+  info$instrument <- fs::path_file(fs::path_dir(fs::path_dir(info$path)))
+  info$directory <- fs::path_file(fs::path_dir(info$path))
+  info$file <-  fs::path_file(info$path)
+  info$extension <- fs::path_ext(info$path)
+  
   info <- dplyr::select(info,
                         instrument,
                         directory,

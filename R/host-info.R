@@ -26,13 +26,13 @@ hostSampleInfo <- function(auth,instrument,directory,file){
   
   sample_info <- tibble::as_tibble(sample_info)
   sample_info <- dplyr::slice(sample_info,1)
-  sample_info <- dplyr::mutate(sample_info,directory = directory)
+  sample_info$directory <- directory
   
   scan_filters <- rawR::readIndex(path)$scanType
   scan_filters <- unique(scan_filters)
   scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
-    
-  sample_info <- dplyr::mutate(sample_info,`Scan filters` = scan_filters)
+  
+  sample_info$`Scan filters` <- scan_filters
   sample_info <- rjson::toJSON(sample_info)
   
   return(sample_info)
@@ -54,8 +54,8 @@ hostRunInfo <- function(auth,instrument,directory){
                           type = 'file',
                           recurse = FALSE)
   raw_files <- raw_files[stringr::str_detect(raw_files,
-                                 stringr::regex('[.]raw',
-                                                ignore_case = TRUE))]
+                                             stringr::regex('[.]raw',
+                                                            ignore_case = TRUE))]
   
   run_info <- purrr::map(raw_files,~{
     sample_info <- rawR::readFileHeader(
@@ -65,16 +65,16 @@ hostRunInfo <- function(auth,instrument,directory){
     
     sample_info <- tibble::as_tibble(sample_info)
     sample_info <- dplyr::slice(sample_info,1)
-    sample_info <- dplyr::mutate(sample_info,directory = directory)
+    sample_info$directory <- directory
     
     scan_filters <- rawR::readIndex(.x)$scanType
     scan_filters <- unique(scan_filters)
     scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
     
-    sample_info <- dplyr::mutate(sample_info,`Scan filters` = scan_filters)
-      
-      return(sample_info)
-    }) 
+    sample_info$`Scan filters` <- scan_filters
+    
+    return(sample_info)
+  }) 
   run_info <- dplyr::bind_rows(run_info)
   run_info <- rjson::toJSON(run_info)
   
