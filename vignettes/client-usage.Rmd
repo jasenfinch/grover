@@ -47,7 +47,7 @@ api <- groverAPI(grover_host,
 For further details on hosting a grover API see the [Hosting a grover API](hosting.html) vignette.
 
 ```{r wait, echo=FALSE}
-Sys.sleep(30)
+Sys.sleep(60)
 ```
 
 ## grover API host details
@@ -103,7 +103,7 @@ message(api$read_output())
 ```
 
 ```{r}
-message(api$get_result())
+# message(api$get_result())
 ```
 
 ## Querying the data repository contents
