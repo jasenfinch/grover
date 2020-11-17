@@ -2,19 +2,25 @@
 
 hostListFiles <- function(auth,instrument,directory){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  files <- dir_ls(str_c(host_repository,
-                        instrument,
-                        directory,
-                        sep = '/'),
-                  type = 'file',
-                  recurse = FALSE) %>%
-    path_file()
+  if (auth != host_auth){
+    stop('Incorrect authentication key',call. = FALSE)
+  }
+  
+  files <- fs::dir_ls(stringr::str_c(host_repository,
+                                     instrument,
+                                     directory,
+                                     sep = '/'),
+                      type = 'file',
+                      recurse = FALSE)
+  files <- fs::path_file(files)
   
   return(files)
 }
@@ -23,22 +29,27 @@ hostListFiles <- function(auth,instrument,directory){
 
 hostListRawFiles <- function(auth,instrument,directory){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  checkAuth(auth,host_auth)
+  if (auth != host_auth){
+    stop('Incorrect authentication key',call. = FALSE)
+  }
   
-  files <- dir_ls(str_c(host_repository,
-                        instrument,
-                        directory,
-                        sep = '/'),
-                  type = 'file',
-                  recurse = FALSE) %>%
-    path_file()
+  files <- fs::dir_ls(stringr::str_c(host_repository,
+                                     instrument,
+                                     directory,
+                                     sep = '/'),
+                      type = 'file',
+                      recurse = FALSE)
+  files <- fs::path_file(files)
   
-  raw_files <- files[str_detect(files,
-                                regex('[.]raw',ignore_case = TRUE))]
+  raw_files <- files[stringr::str_detect(files,
+                                         stringr::regex('[.]raw',ignore_case = TRUE))]
   
   return(raw_files)
   
@@ -48,27 +59,40 @@ hostListRawFiles <- function(auth,instrument,directory){
 
 hostListDirectories <- function(auth,instrument){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  checkAuth(auth,host_auth)
+  if (auth != host_auth){
+    stop('Incorrect authentication key',call. = FALSE)
+  }
   
-  dir_ls(str_c(host_repository,instrument,sep = '/'),
-         type = 'directory') %>%
-    path_file()
+  directories <- fs::dir_ls(stringr::str_c(host_repository,instrument,sep = '/'),
+             type = 'directory')
+  directories <- fs::path_file(directories)
   
+  return(directories)
 }
 
 hostListInstruments <- function(auth){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  checkAuth(auth,host_auth)
+  if (auth != host_auth){
+    stop('Incorrect authentication key',call. = FALSE)
+  }
   
-  dir_ls(host_repository,
-         type = 'directory') %>%
-    path_file()
+  instruments <- fs::dir_ls(host_repository,
+                            type = 'directory')
+  instruments <- fs::path_file(instruments)
+  
+  return(instruments)
 }
