@@ -2,59 +2,74 @@
 
 hostFileInfo <- function(auth,instrument,directory,file){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  str_c(
+  info <- stringr::str_c(
     host_repository,
     instrument,
     directory,
     file,
     sep = '/'
-  ) %>%
-    file_info() %>%
-    mutate(instrument = instrument,
-           directory = directory,
-           file = file,
-           extension = path_ext(path)) %>%
-    select(instrument,
-           directory,
-           file,
-           extension,
-           size,
-           birth_time) %>%
-    toJSON()
+  )
+  info <- fs::file_info(info)
+  info <- dplyr::mutate(info,
+                        instrument = instrument,
+                        directory = directory,
+                        file = file,
+                        extension = fs::path_ext(path))
+  info <- dplyr::select(info,
+                        instrument,
+                        directory,
+                        file,
+                        extension,
+                        size,
+                        birth_time)
+  info <- rjson::toJSON(info)
+  
+  return(info)
 }
 
 hostDirectoryFileInfo <- function(auth,instrument,directory){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  str_c(host_repository,
-        instrument,
-        directory,
-        sep = '/') %>%
-    dir_ls(recurse = TRUE) %>%
-    file_info() %>%
-    filter(type == 'file') %>%
-    mutate(instrument = instrument,
-           directory = directory,
-           file = path_file(path),
-           extension = path_ext(path)) %>%
-    select(instrument,
-           directory,
-           file,
-           extension,
-           size,
-           birth_time) %>%
-    toJSON()
+  info <- stringr::str_c(
+    host_repository,
+    instrument,
+    directory,
+    sep = '/'
+  )
+  
+  info <- fs::dir_ls(info,recurse = TRUE)
+  info <- fs::file_info(info)
+  info <- dplyr::filter(info,type == 'file')
+  info <- dplyr::mutate(info,
+                        instrument = instrument,
+                        directory = directory,
+                        file = fs::path_file(path),
+                        extension = fs::path_ext(path))
+  info <- dplyr::select(info,
+                        instrument,
+                        directory,
+                        file,
+                        extension,
+                        size,
+                        birth_time)
+  info <- rjson::toJSON(info)
+  
+  return(info)
 }
 
 #' @importFrom dplyr filter
@@ -62,63 +77,69 @@ hostDirectoryFileInfo <- function(auth,instrument,directory){
 
 hostInsturmentFileInfo <- function(auth,instrument){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  str_c(host_repository,
-        instrument,
-        sep = '/') %>%
-    dir_ls(recurse = TRUE) %>%
-    file_info() %>%
-    filter(type == 'file') %>%
-    mutate(instrument = path %>%
-             path_dir() %>%
-             path_dir() %>%
-             path_file(),
-           directory = path %>%
-             path_dir() %>%
-             path_file(),
-           file = path_file(path),
-           extension = path_ext(path)) %>%
-    select(instrument,
-           directory,
-           file,
-           extension,
-           size,
-           birth_time) %>%
-    toJSON()
+  info <- stringr::str_c(
+    host_repository,
+    instrument,
+    sep = '/'
+  )
+  
+  info <- fs::dir_ls(info,recurse = TRUE)
+  info <- fs::file_info(info)
+  info <- dplyr::filter(info,type == 'file')
+  info <- dplyr::mutate(info,instrument = instrument, 
+           directory = fs::path_file(fs::path_dir(path)),
+           file = fs::path_file(path),
+           extension = fs::path_ext(path))
+  info <- dplyr::select(info,
+                        instrument,
+                        directory,
+                        file,
+                        extension,
+                        size,
+                        birth_time)
+  info <- rjson::toJSON(info)
+  
+  return(info)
 }
 
 hostRepositoryFileInfo <- function(auth){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  str_c(host_repository,
-        sep = '/') %>%
-    dir_ls(recurse = TRUE) %>%
-    file_info() %>%
-    filter(type == 'file') %>%
-    mutate(instrument = path %>%
-             path_dir() %>%
-             path_dir() %>%
-             path_file(),
-           directory = path %>%
-             path_dir() %>%
-             path_file(),
-           file = path_file(path),
-           extension = path_ext(path)) %>%
-    select(instrument,
-           directory,
-           file,
-           extension,
-           size,
-           birth_time) %>%
-    toJSON()
+  info <- stringr::str_c(
+    host_repository,
+    sep = '/'
+  )
+  
+  info <- fs::dir_ls(info,recurse = TRUE)
+  info <- fs::file_info(info)
+  info <- dplyr::filter(info,type == 'file')
+  info <- dplyr::mutate(info,instrument = fs::path_file(fs::path_dir(fs::path_dir(path))), 
+                        directory = fs::path_file(fs::path_dir(path)),
+                        file = fs::path_file(path),
+                        extension = fs::path_ext(path))
+  info <- dplyr::select(info,
+                        instrument,
+                        directory,
+                        file,
+                        extension,
+                        size,
+                        birth_time)
+  info <- rjson::toJSON(info)
+  
+  return(info)
 }

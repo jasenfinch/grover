@@ -1,23 +1,3 @@
-
-fileSampleInfo <- function(path,directory){
-  sample_info <- readFileHeader(path,
-                                exe = system.file('exec/rawR.exe',
-                                                  package = 'rawR')) %>%
-    as_tibble() %>%
-    slice(1) %>%
-    mutate(directory = directory)
-  
-  scan_filters <- readIndex(path) %>%
-    .$scanType %>%
-    unique() %>%
-    str_c(collapse = ';;;')
-  
-  sample_info <- sample_info %>%
-    mutate(`Scan filters` = scan_filters)
-  
-  return(sample_info)
-}
-
 #' @importFrom rawR readFileHeader readIndex
 #' @importFrom dplyr slice mutate select
 #' @importFrom rjson toJSON
@@ -25,44 +5,78 @@ fileSampleInfo <- function(path,directory){
 
 hostSampleInfo <- function(auth,instrument,directory,file){
   
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  path <- str_c(host_repository,instrument,directory,file,sep = '/')
+  if (auth != host_auth){
+    stop('Incorrect authentication key',call. = FALSE)
+  } 
   
-  sample_info <- path %>%
-    fileSampleInfo(directory) %>%
-    toJSON()
+  path <- stringr::str_c(host_repository,instrument,directory,file,sep = '/')
+  
+  sample_info <- rawR::readFileHeader(
+    path,
+    exe = system.file('exec/rawR.exe',package = 'rawR')
+  )
+  
+  sample_info <- tibble::as_tibble(sample_info)
+  sample_info <- dplyr::slice(sample_info,1)
+  sample_info <- dplyr::mutate(sample_info,directory = directory)
+  
+  scan_filters <- rawR::readIndex(path)$scanType
+  scan_filters <- unique(scan_filters)
+  scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
+    
+  sample_info <- dplyr::mutate(sample_info,`Scan filters` = scan_filters)
+  sample_info <- rjson::toJSON(sample_info)
   
   return(sample_info)
 }
 
 hostRunInfo <- function(auth,instrument,directory){
-  grover_host <- readGrover(groverHostTemp())
-  host_auth <- auth(grover_host)
-  host_repository <- repository(grover_host)
+  grover_host <-  yaml::read_yaml(
+    stringr::str_c(tempdir(),
+                   'grover_host.yml',
+                   sep = '/'))
   
-  checkAuth(auth,host_auth)
+  host_auth <- grover_host$auth
+  host_repository <- grover_host$repository
   
-  raw_files <- dir_ls(str_c(host_repository,
-                            instrument,
-                            directory,
-                            sep = '/'),
-                      type = 'file',
-                      recurse = FALSE) %>%
-    {
-      . <- .[str_detect(.,
-                        regex('[.]raw',ignore_case = TRUE))]
-      return(.)
-    }
+  raw_files <- fs::dir_ls(stringr::str_c(host_repository,
+                                         instrument,
+                                         directory,
+                                         sep = '/'),
+                          type = 'file',
+                          recurse = FALSE)
+  raw_files <- raw_files[stringr::str_detect(raw_files,
+                                 stringr::regex('[.]raw',
+                                                ignore_case = TRUE))]
   
-  run_info <- raw_files %>%
-    map(fileSampleInfo,directory = directory) %>%
-    bind_rows() %>%
-    toJSON()
+  run_info <- purrr::map(raw_files,~{
+    sample_info <- rawR::readFileHeader(
+      .x,
+      exe = system.file('exec/rawR.exe',package = 'rawR')
+    )
+    
+    sample_info <- tibble::as_tibble(sample_info)
+    sample_info <- dplyr::slice(sample_info,1)
+    sample_info <- dplyr::mutate(sample_info,directory = directory)
+    
+    scan_filters <- rawR::readIndex(.x)$scanType
+    scan_filters <- unique(scan_filters)
+    scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
+    
+    sample_info <- dplyr::mutate(sample_info,`Scan filters` = scan_filters)
+      
+      return(sample_info)
+    }) 
+  run_info <- dplyr::bind_rows(run_info)
+  run_info <- rjson::toJSON(run_info)
   
   return(run_info)
 }
