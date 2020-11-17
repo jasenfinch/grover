@@ -40,6 +40,26 @@ groverAPI <- function(grover_host,
     env$repository <- repository(grover_host)
     env$log_dir <- log_dir
     
+    env$API <- API
+    env$writeGrover <- writeGrover
+    
+    env$host_preroute <- host_preroute
+    env$host_postroute <- host_postroute
+    
+    env$hostConvertFile <- hostConvertFile
+    env$hostExtant <- hostExtant
+    env$hostGetFile <- hostGetFile
+    env$hostListFiles <- hostListFiles
+    env$hostListRawFiles <- hostListRawFiles
+    env$hostListDirectories <- hostListDirectories
+    env$hostListInstruments <- hostListInstruments
+    env$hostSampleInfo <- hostSampleInfo
+    env$hostRunInfo <- hostRunInfo
+    env$hostTidy <- hostTidy
+    env$hostFileInfo <- hostFileInfo
+    env$hostDirectoryFileInfo <- hostDirectoryFileInfo
+    env$hostInsturmentFileInfo <- hostInsturmentFileInfo
+    env$hostRepositoryFileInfo <- hostRepositoryFileInfo
     
     env_path <- paste0(tempdir(),'/environment.rds')
     
@@ -89,41 +109,41 @@ API <- function(host,
                 repository,
                 stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
-    if (!dir_exists(log_dir)) dir_create(log_dir)
+    if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)
     
     message('API logs can be found at ~/.grover/logs')
     
-    log_appender(appender_tee(tempfile("plumber_", log_dir, ".log")))
+    logger::log_appender(logger::appender_tee(tempfile("plumber_", log_dir, ".log")))
     
-    api <- pr()
+    api <- plumber::pr()
     
-    api <- pr_hook(api,'preroute',host_preroute)
-    api <- pr_hook(api,'postroute',host_postroute)
+    api <- plumber::pr_hook(api,'preroute',host_preroute)
+    api <- plumber::pr_hook(api,'postroute',host_postroute)
     
-    api <- pr_get(api,
+    api <- plumber::pr_get(api,
                   '/convert',
                   hostConvertFile,
-                  serializer = serializer_content_type('application/xml'))
-    api <- pr_get(api,'/extant',hostExtant)
-    api <- pr_get(
+                  serializer = plumber::serializer_content_type('application/xml'))
+    api <- plumber::pr_get(api,'/extant',hostExtant)
+    api <- plumber::pr_get(
       api,
       '/getFile',
       hostGetFile,
-      serializer = serializer_content_type('application/octet-stream'))
-    api <- pr_get(api,'/listFiles',hostListFiles)
-    api <- pr_get(api,'/listRawFiles',hostListRawFiles)
-    api <- pr_get(api,'/listDirectories',hostListDirectories)
-    api <- pr_get(api,'/listInstruments',hostListInstruments)
-    api <- pr_get(api,'/sampleInfo',hostSampleInfo)
-    api <- pr_get(api,'/runInfo',hostRunInfo)
-    api <- pr_put(api,'/tidy',hostTidy)
+      serializer = plumber::serializer_content_type('application/octet-stream'))
+    api <- plumber::pr_get(api,'/listFiles',hostListFiles)
+    api <- plumber::pr_get(api,'/listRawFiles',hostListRawFiles)
+    api <- plumber::pr_get(api,'/listDirectories',hostListDirectories)
+    api <- plumber::pr_get(api,'/listInstruments',hostListInstruments)
+    api <- plumber::pr_get(api,'/sampleInfo',hostSampleInfo)
+    api <- plumber::pr_get(api,'/runInfo',hostRunInfo)
+    api <- plumber::pr_put(api,'/tidy',hostTidy)
     
-    api <- pr_get(api,'/fileInfo',hostFileInfo)
-    api <- pr_get(api,'/directoryFileInfo',hostDirectoryFileInfo)
-    api <- pr_get(api,'/instrumentFileInfo',hostInsturmentFileInfo)
-    api <- pr_get(api,'/repositoryFileInfo',hostRepositoryFileInfo)
+    api <- plumber::pr_get(api,'/fileInfo',hostFileInfo)
+    api <- plumber::pr_get(api,'/directoryFileInfo',hostDirectoryFileInfo)
+    api <- plumber::pr_get(api,'/instrumentFileInfo',hostInsturmentFileInfo)
+    api <- plumber::pr_get(api,'/repositoryFileInfo',hostRepositoryFileInfo)
     
-    pr_run(api,
+    plumber::pr_run(api,
            host = host,
            port = port)  
   },e)
