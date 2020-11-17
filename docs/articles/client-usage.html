@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -177,14 +177,14 @@ auth: 1234</code></pre>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605380946.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605624269.</span></code></pre></div>
 <p>This can also be done directory wide when multiple files are available.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fileInfo.html">directoryFileInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605380946.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605624269.</span></code></pre></div>
 </div>
 <div id="transfer-files" class="section level2">
 <h2 class="hasAnchor">
