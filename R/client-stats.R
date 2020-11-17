@@ -1,12 +1,21 @@
+#' @importFrom fs fs_bytes
 
 fileStatsResults <- function(cmd){
-  cmd %>%
-    GET() %>%
-    content() %>%
-    unlist() %>%
-    fromJSON() %>%
-    as_tibble() %>%
-    mutate(size = fs::fs_bytes(size))
+  res <- cmd %>%
+    GET()
+  
+  if (res$status_code == 200){
+    res <- content() %>%
+      unlist() %>%
+      fromJSON() %>%
+      as_tibble() %>%
+      mutate(size = fs_bytes(size))
+  } else {
+    stop(str_c('Failed to retrieve with status code', 
+               res$status_code),call. = FALSE) 
+  }
+    
+  return(res)
 }
 
 #' Retrieve file information
