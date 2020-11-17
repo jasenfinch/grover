@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  message = FALSE
 )
 ```
 
@@ -91,6 +92,14 @@ Using this host information, we can first check that the API is running using th
 
 ```{r extant}
 extant(grover_client)
+```
+
+```{r}
+message(api$is_alive())
+```
+
+```{r}
+message(api$get_result())
 ```
 
 ## Querying the data repository contents
