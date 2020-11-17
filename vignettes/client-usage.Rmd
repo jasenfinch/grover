@@ -47,7 +47,7 @@ api <- groverAPI(grover_host,
 For further details on hosting a grover API see the [Hosting a grover API](hosting.html) vignette.
 
 ```{r wait, echo=FALSE}
-Sys.sleep(5)
+Sys.sleep(10)
 ```
 
 ## grover API host details
