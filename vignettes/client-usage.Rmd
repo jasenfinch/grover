@@ -94,18 +94,6 @@ Using this host information, we can first check that the API is running using th
 extant(grover_client)
 ```
 
-```{r}
-message(api$is_alive())
-```
-
-```{r}
-message(api$read_output())
-```
-
-```{r}
-# message(api$get_result())
-```
-
 ## Querying the data repository contents
 
 We can list the instruments available within the data reposiroty using the following: 
@@ -202,11 +190,19 @@ convertFile(grover_client,
             outDir = '.')
 ```
 
+```{r}
+message(api$read_output())
+```
+
 ```{r convertDirectory,eval=FALSE}
 convertDirectory(grover_client,
             'Thermo-Exactive',
             'Experiment_1',
             outDir = '.')
+```
+
+```{r}
+message(api$read_output())
 ```
 
 ### Conversion arguments
