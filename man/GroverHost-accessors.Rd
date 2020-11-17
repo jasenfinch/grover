@@ -16,9 +16,9 @@ repository(grover_host) <- value
 \S4method{repository}{GroverHost}(grover_host) <- value
 }
 \arguments{
-\item{value}{new host value to set}
+\item{grover_host}{S4 object of class GroverHost}
 
-\item{grover_client}{S4 object of class GroverHost}
+\item{value}{new host value to set}
 }
 \description{
 Retrieve or set host information for GroverHost objects.

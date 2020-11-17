@@ -141,7 +141,7 @@ setMethod('auth<-',signature = 'GroverClient',
 #' GroverHost get and set methods
 #' @rdname GroverHost-accessors
 #' @description Retrieve or set host information for GroverHost objects.
-#' @param grover_client S4 object of class GroverHost
+#' @param grover_host S4 object of class GroverHost
 #' @param value new host value to set
 #' @export
 

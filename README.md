@@ -9,7 +9,7 @@
 
 ### Overview
 
-The `grover` package provides a web-based API framework for remote access to a mass spectrometry `.raw` data repository, implemented using the [`plumber`](https://www.rplumber.io/) R package
+The `grover` package provides a web-based API framework for remote access to a mass spectrometry `.raw` data repository, implemented using the [`plumber`](https://www.rplumber.io/) R package.
 API functionality includes:
 
 * **File information** retrieval including file size and creation dates.

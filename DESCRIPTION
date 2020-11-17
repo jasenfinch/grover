@@ -1,5 +1,5 @@
 Package: grover
-Title: Web API For Mass Spectrometry Data Transfer
+Title: Web API Framework for Mass Spectrometry Data Transfer
 Version: 1.0.0
 Authors@R: 
     person(given = "Jasen",
