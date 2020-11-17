@@ -8,13 +8,12 @@ instrument <- 'Thermo-Exactive'
 directory <- 'Experiment_1'
 sample <- 'QC01.raw'
 
-writeGrover(
-  grover(host = "127.0.0.1",
-         port = 8000,
-         auth = host_auth,
-         repository = host_repository
-  ),
-  out = groverHostTemp())
+writeGrover("127.0.0.1",
+            8000,
+            host_auth,
+            host_repository,
+            out = stringr::str_c(tempdir(),
+                                 'grover_host.yml',sep = '/'))
 
 test_that('hostExtant works',{
   result <- hostExtant(host_auth)
