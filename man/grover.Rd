@@ -2,9 +2,9 @@
 % Please edit documentation in R/grover.R
 \name{grover}
 \alias{grover}
-\title{grover}
+\title{GroverClient and GroverHost class constructor}
 \usage{
-grover(host, port, auth)
+grover(host, port, auth, repository = NULL)
 }
 \arguments{
 \item{host}{host address}
@@ -12,10 +12,23 @@ grover(host, port, auth)
 \item{port}{port on which the API is hosted}
 
 \item{auth}{authentication key}
+
+\item{repository}{data repository directory path}
 }
 \description{
-Create a Grover object containing API host information.
+Create a GroverClient or GroverHost class object containing 
+API host information.
 }
 \examples{
-grove <- grover('127.0.0.1',8000,'1234')
+## Grover client 
+grover_client <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234")
+
+## Grover host
+grover_host <- grover(host = "127.0.0.1",
+                     port = 8000,
+                     auth = "1234",
+                     repository = system.file('repository',
+                                               package = 'grover'))
 }

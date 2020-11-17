@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - devel
   pull_request:
     branches:
       - main
@@ -66,13 +67,23 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("rcmdcheck")
+          remotes::install_cran(c("rcmdcheck","goodpractice"))
+          install.packages('http://fgcz-ms.uzh.ch/~cpanse/rawR_0.1.1.tar.gz',repos = NULL)
+          msconverteR::get_pwiz_container()
         shell: Rscript {0}
 
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
         run: rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
+        shell: Rscript {0}
+        
+      - name: Good practice
+        run: goodpractice::goodpractice()
+        shell: Rscript {0}
+        
+      - name: Test coverage
+        run: covr::codecov()
         shell: Rscript {0}
 
       - name: Upload check results

@@ -1,103 +1,176 @@
 
-globalVariables(c('grove'))
+globalVariables(
+  c('host_auth','host_repository','Sample row number','Sample type',
+    'RAW file','Sample id','Instrument method','Sample vial',
+    'Sample injection volume','Sample dilution factor',
+    'Sample comment','User text 0','User text 1','User text 2',
+    'User text 3','User text 4','Creation date','Instrument name',
+    'Instrument model','Serial number','Software version','.','Sample volume',
+    'type','path','extension','size','birth_time','instrument','directory'),
+)
 
-globalVariables(c('V1','V2','Date','Time','Sample','.','sample_order',
-                  'sample_name','inj_order','creation_date','file_name',
-                  'instrument_method','path','inj_vol','sample_wt','sample_vol',
-                  'dilution','fileName'))
-
-#' readGrover
+#' Parse a grover configuration file
 #' @description Read grover API host information from a text file.
 #' @param path file path to text file containing host information
-#' @details The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
+#' @details The text file should contain 3 lines, the first the host address, 
+#' the second the port on which it is hosted and lastly the authentication
+#'  key needed
 #' @examples 
-#' \dontrun{
-#' grove <- readGrover('~/grover.txt')
-#' }
-#' @importFrom readr read_lines
+#' ## Grover client
+#' grover_client <- system.file('grover_client.yml',
+#'                               package = 'grover')
+#' grover_client <- readGrover(grover_client)
+#' 
+#' ## Grover host
+#' grover_host <- system.file('grover_host.yml',
+#'                               package = 'grover')
+#' grover_host <- readGrover(grover_host)
+#' @importFrom yaml read_yaml
 #' @export
 
-readGrover <- function(path = '~/grover.txt'){
-  details <- readr::read_lines(path)
-  grover(details[[1]],details[[2]] %>% as.numeric(),details[[3]])
+readGrover <- function(path = 'grover.yml'){
+  details <- read_yaml(path)
+  grover(details$host,
+         details$port,
+         as.character(details$auth),
+         details$repository)
 }
 
-#' grover
-#' @description Create a Grover object containing API host information.
+#' GroverClient and GroverHost class constructor
+#' @description Create a GroverClient or GroverHost class object containing 
+#' API host information.
 #' @param host host address
 #' @param port port on which the API is hosted
 #' @param auth authentication key
+#' @param repository data repository directory path
 #' @importFrom methods new
-#' @examples 
-#' grove <- grover('127.0.0.1',8000,'1234')
+#' @examples
+#' ## Grover client 
+#' grover_client <- grover(host = "127.0.0.1",
+#'                      port = 8000,
+#'                      auth = "1234")
+#' 
+#' ## Grover host
+#' grover_host <- grover(host = "127.0.0.1",
+#'                      port = 8000,
+#'                      auth = "1234",
+#'                      repository = system.file('repository',
+#'                                                package = 'grover'))
 #' @export
 
-grover <- function(host,port,auth){
-  new('Grover',
-      host = host,
-      port = port,
-      auth = auth)
-}
-
-#' host
-#' @rdname host
-#' @description Retrieve host information from a Grover object.
-#' @param grove S4 object of class Grover 
-#' @export
-
-setMethod('host',signature = 'Grover',
-          function(grove){
-            grove@host
-          }
-)
-
-#' port
-#' @rdname port
-#' @description Retrieve port information from a Grover object.
-#' @param grove S4 object of class Grover
-#' @export
-
-setMethod('port',signature = 'Grover',
-          function(grove){
-            grove@port
-          }
-)
-
-#' auth
-#' @rdname auth
-#' @description Retrieve authentication key from a Grover object.
-#' @param grove S4 object of class Grover
-#' @export
-
-setMethod('auth',signature = 'Grover',
-          function(grove){
-            grove@auth
-          }
-)
-
-#' checkGrover
-#' @description Check grover API is active.
-#' @param grove S4 object of class Grover
-#' @importFrom stringr str_c
-#' @export
-
-checkGrover <- function(grove){
-  cmd <- str_c(hostURL(grove),'/extant?','authKey=',auth(grove))
-  answer <- try({cmd %>%
-      GET() %>%
-      content() %>%
-      unlist()},silent = T)
-  if (answer != "I'm still here!") {
-    answer <- 'grover is MIA!'
-  }
-  return(answer)
-}
-
-hostURL <- function(grove){
-  if (port(grove) != 80) {
-    url <- str_c('http://',host(grove),':',port(grove)) 
+grover <- function(host,port,auth,repository = NULL){
+  
+  if (is.null(repository)) {
+    grove <- new('GroverClient',
+                 host = host,
+                 port = port,
+                 auth = auth)  
   } else {
-    url <- str_c('http://',host(grove))
+    grove <- new('GroverHost',
+                 host = host,
+                 port = port,
+                 auth = auth,
+                 repository = repository
+    )
   }
-  return(url)
+  return(grove)
 }
+
+#' GroverClient get and set methods
+#' @rdname GroverClient-accessors
+#' @description Retrieve or set host information for a GroverClient objects.
+#' @param grover_client S4 object of class GroverClient
+#' @param value new host value to set
+#' @export
+
+setMethod('host',signature = 'GroverClient',
+          function(grover_client){
+            grover_client@host
+          }
+)
+
+#' @rdname GroverClient-accessors
+#' @export
+
+setMethod('host<-',signature = 'GroverClient',
+          function(grover_client,value){
+            grover_client@host <- value
+            return(grover_client)
+          }
+)
+
+
+#' @rdname GroverClient-accessors
+#' @export
+
+setMethod('port',signature = 'GroverClient',
+          function(grover_client){
+            grover_client@port
+          }
+)
+
+#' @rdname GroverClient-accessors
+#' @export
+
+setMethod('port<-',signature = 'GroverClient',
+          function(grover_client, value){
+            grover_client@port <- value
+            return(grover_client)
+          }
+)
+
+#' @rdname GroverClient-accessors
+#' @export
+
+setMethod('auth',signature = 'GroverClient',
+          function(grover_client){
+            grover_client@auth
+          }
+)
+
+#' @rdname GroverClient-accessors
+#' @export
+
+setMethod('auth<-',signature = 'GroverClient',
+          function(grover_client,value){
+            grover_client@auth <- value
+            return(grover_client)
+          }
+)
+
+#' GroverHost get and set methods
+#' @rdname GroverHost-accessors
+#' @description Retrieve or set host information for GroverHost objects.
+#' @param grover_host S4 object of class GroverHost
+#' @param value new host value to set
+#' @export
+
+setMethod('repository',signature = 'GroverHost',
+          function(grover_host){
+            grover_host@repository
+          }
+)
+
+
+#' @rdname GroverHost-accessors
+#' @export
+
+setMethod('repository<-',signature = 'GroverHost',
+          function(grover_host,value){
+            grover_host@repository <- value
+            return(grover_host)
+          }
+)
+
+#' @importFrom stringr str_c
+
+setMethod('hostURL',signature = 'GroverClient',
+          function(grover_client){
+            if (port(grover_client) != 80) {
+              url <- str_c('http://',host(grover_client),':',port(grover_client)) 
+            } else {
+              url <- str_c('http://',host(grover_client))
+            }
+            return(url)          
+          }
+)

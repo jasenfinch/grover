@@ -2,9 +2,9 @@
 % Please edit documentation in R/grover.R
 \name{readGrover}
 \alias{readGrover}
-\title{readGrover}
+\title{Parse a grover configuration file}
 \usage{
-readGrover(path = "~/grover.txt")
+readGrover(path = "grover.yml")
 }
 \arguments{
 \item{path}{file path to text file containing host information}
@@ -13,10 +13,18 @@ readGrover(path = "~/grover.txt")
 Read grover API host information from a text file.
 }
 \details{
-The text file should contain 3 lines, the first the host address, the second the port on which it is hosted and lastly the authentication key needed
+The text file should contain 3 lines, the first the host address, 
+the second the port on which it is hosted and lastly the authentication
+ key needed
 }
 \examples{
-\dontrun{
-grove <- readGrover('~/grover.txt')
-}
+## Grover client
+grover_client <- system.file('grover_client.yml',
+                              package = 'grover')
+grover_client <- readGrover(grover_client)
+
+## Grover host
+grover_host <- system.file('grover_host.yml',
+                              package = 'grover')
+grover_host <- readGrover(grover_host)
 }
