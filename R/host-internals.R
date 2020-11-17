@@ -41,8 +41,6 @@ host_postroute <- function(req, res) {
   
   end <- tictoc::toc(quiet = TRUE)
   
-  print (req)
-  
   logger::log_info(stringr::str_c(
     convert_empty(req$REQUEST_METHOD),
     convert_empty(req$PATH_INFO),
