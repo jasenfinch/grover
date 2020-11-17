@@ -72,7 +72,6 @@ groverAPI <- function(grover_host,
       
       evalq(API(host,port,auth,repository,log_dir),e)
       
-      print('helloworld')
     },
     args = list(env_path))
     
