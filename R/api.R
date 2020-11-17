@@ -83,7 +83,11 @@ API <- function(host,
   evalq({
     msconverteR::get_pwiz_container()
     
-    writeGrover(host,port,auth,repository,groverHostTemp())
+    writeGrover(host,
+                port,
+                auth,
+                repository,
+                stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
     if (!dir_exists(log_dir)) dir_create(log_dir)
     

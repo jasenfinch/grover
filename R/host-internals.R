@@ -25,16 +25,6 @@ writeGrover <- function(host,
     e)
 }
 
-groverHostTemp <- function(){
-  stringr::str_c(tempdir(),'grover_host.yml',sep = '/')
-}
-
-checkAuth <- function(auth,host_auth){
-  if (auth != host_auth){
-    stop('Incorrect authentication key',call. = FALSE)
-  }
-}
-
 host_preroute <-  function(req) {
   tictoc::tic()
 }
