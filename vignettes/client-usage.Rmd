@@ -99,6 +99,10 @@ message(api$is_alive())
 ```
 
 ```{r}
+message(api$read_output())
+```
+
+```{r}
 message(api$get_result())
 ```
 
