@@ -1,3 +1,4 @@
+#' @importFrom readr read_file
 #' @importFrom msconverteR convert_files
 
 hostConvertFile <- function(auth,instrument,directory,file,args = ''){
