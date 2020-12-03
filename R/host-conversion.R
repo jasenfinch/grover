@@ -22,7 +22,8 @@ hostConvertFile <- function(auth,instrument,directory,file,args = ''){
                               file,
                               sep = '/'),
                 outpath = tmp_dir,
-                args = args)
+                msconvert_args = args,
+                docker_args = '--privileged')
   
   out_file <- stringr::str_c(tmp_dir,
                     stringr::str_c(tools::file_path_sans_ext(file),
