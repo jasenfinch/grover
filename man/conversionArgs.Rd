@@ -4,7 +4,6 @@
 \alias{conversionArgsPeakPick}
 \alias{conversionArgsNegativeMode}
 \alias{conversionArgsPositiveMode}
-\alias{conversionArgsIgnoreUnknownInstrumentError}
 \alias{conversionArgsMSlevel1}
 \alias{conversionArgsMSlevel2}
 \alias{conversionArgsMSlevel3}
@@ -15,8 +14,6 @@ conversionArgsPeakPick()
 conversionArgsNegativeMode()
 
 conversionArgsPositiveMode()
-
-conversionArgsIgnoreUnknownInstrumentError()
 
 conversionArgsMSlevel1()
 

@@ -28,6 +28,8 @@ hostConvertFile <- function(auth,instrument,directory,file,args = ''){
                           '.mzML'),
                     sep = '/')
   
+out_file <- readr::read_file(out_file)
+  
   return(out_file)
   
 }

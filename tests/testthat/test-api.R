@@ -74,16 +74,6 @@ test_that('a directory can be converted with peak picking argument',{
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
-test_that('a directory can be converted with ignore unknown error argument',{
-  convertDirectory(grover_client,
-                   'Thermo-Exactive',
-                   'Experiment_1',
-                   args = conversionArgsIgnoreUnknownInstrumentError(),
-                   outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
-  unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
-})
-
 test_that('a directory can be converted with MS level 1 argument',{
   convertDirectory(grover_client,
                    'Thermo-Exactive',

@@ -21,7 +21,7 @@ setMethod('convertFile',signature = 'GroverClient',
                    instrument, 
                    directory, 
                    file, 
-                   args = '', 
+                   args = NULL, 
                    outDir = '.'){
             
             converted_file <- file %>%
@@ -40,9 +40,11 @@ setMethod('convertFile',signature = 'GroverClient',
                          '&file=',file,
                          '&args=')
             
-            if (args != '') {
-              cmd <- str_c(cmd,args)
+            if (is.null(args)) {
+             args <- ''
             }
+            
+            cmd <- str_c(cmd,args)
             
             fileName <- str_split(file,'[.]')[[1]][1]
             
@@ -154,7 +156,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             
             message('\n',red('Negative Mode'),sep = '')
             
-            negArgs <- str_c(args,conversionArgsNegativeMode(),sep = ' ')
+            negArgs <- c(args,conversionArgsNegativeMode())
             
             convertDirectory(grover_client,
                              instrument,
@@ -175,7 +177,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
             
             message('\n',red('Positive Mode'),sep = '')
             
-            posArgs <- str_c(args,conversionArgsPositiveMode(),sep = ' ')
+            posArgs <- c(args,conversionArgsPositiveMode())
             
             convertDirectory(grover_client,
                              instrument,
@@ -205,47 +207,40 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
 #' @export
 
 conversionArgsPeakPick <- function(){
-  '--filter "peakPicking true 1-"'
+  'peakPicking true1-'
 }
 
 #' @rdname conversionArgs
 #' @export
 
 conversionArgsNegativeMode <- function(){
-  '--filter "polarity negative"'
+  'polarity negative'
 }
 
 #' @rdname conversionArgs
 #' @export
 
 conversionArgsPositiveMode <- function(){
-  '--filter "polarity positive"'
-}
-
-#' @rdname conversionArgs
-#' @export
-
-conversionArgsIgnoreUnknownInstrumentError <- function(){
-  '--ignoreUnknownInstrumentError'
+  'polarity positive'
 }
 
 #' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel1 <- function(){
-  '--filter "msLevel 1"'
+  'msLevel 1'
 }
 
 #' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel2 <- function(){
-  '--filter "msLevel 2"'
+  'msLevel 2'
 }
 
 #' @rdname conversionArgs
 #' @export
 
 conversionArgsMSlevel3 <- function(){
-  '--filter "msLevel 3"'
+  'msLevel 3'
 }
