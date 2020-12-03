@@ -33,7 +33,7 @@ convertDirectorySplitModes(
   instrument,
   directory,
   file,
-  args = "",
+  args = NULL,
   outDir = "."
 )
 

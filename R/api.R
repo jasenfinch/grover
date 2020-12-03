@@ -110,7 +110,7 @@ API <- function(host,
     
     if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)
     
-    message('API logs can be found at ~/.grover/logs')
+    message(stringr::str_c('API logs can be found at ',log_dir))
     
     logger::log_appender(logger::appender_tee(tempfile("plumber_", log_dir, ".log")))
     

@@ -25,8 +25,8 @@ test_that('hostExtant fails',{
 })
 
 test_that('hostConvertFile works',{
-  output_path <- hostConvertFile(host_auth,instrument,directory,sample)
-  expect_equal(basename(output_path),'QC01.mzML')
+  output <- hostConvertFile(host_auth,instrument,directory,sample)
+  expect_equal(nchar(output),24979028)
 })
 
 test_that('hostSampleInfo works',{
