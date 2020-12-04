@@ -4,7 +4,7 @@
 \alias{grover}
 \title{GroverClient and GroverHost class constructor}
 \usage{
-grover(host, port, auth, repository = NULL)
+grover(host, port, auth, repository = NULL, temp = NULL)
 }
 \arguments{
 \item{host}{host address}
@@ -14,6 +14,8 @@ grover(host, port, auth, repository = NULL)
 \item{auth}{authentication key}
 
 \item{repository}{data repository directory path}
+
+\item{temp}{optional directory path for grover hosts where temporary converted files can be saved}
 }
 \description{
 Create a GroverClient or GroverHost class object containing 

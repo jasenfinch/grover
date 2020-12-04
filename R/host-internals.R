@@ -4,6 +4,7 @@ writeGrover <- function(host,
                         port,
                         auth,
                         repository,
+                        temp,
                         out = 'grover_host.yml',
                         env = parent.frame()){
   
@@ -12,6 +13,7 @@ writeGrover <- function(host,
   e$port <- port
   e$auth <- auth
   e$repository <- repository
+  e$temp <- temp
   e$out <- out
   
   evalq(
@@ -19,7 +21,8 @@ writeGrover <- function(host,
       stringr::str_c('host: ',host),
       stringr::str_c('port: ',port),
       stringr::str_c('auth: ',auth),
-      stringr::str_c('repository: ',repository)
+      stringr::str_c('repository: ',repository),
+      stringr::str_c('temp: ',temp)
     ),
     out),
     e)

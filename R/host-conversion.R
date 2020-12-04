@@ -9,19 +9,22 @@ hostConvertFile <- function(auth,instrument,directory,file,args = ''){
                    sep = '/'))
   host_auth <- grover_host$auth
   host_repository <- grover_host$repository
+  host_temp <- grover_host$temp
   
   if (auth != host_auth){
     stop('Incorrect authentication key',call. = FALSE)
   }
   
-  tmp_dir <- tempdir()
+  if (length(host_temp) == 0) {
+    host_temp <- tempdir() 
+  }
   
   msconverteR::convert_files(files = stringr::str_c(host_repository,
                               instrument,
                               directory,
                               file,
                               sep = '/'),
-                outpath = tmp_dir,
+                outpath = host_temp,
                 msconvert_args = args,
                 docker_args = '--privileged')
   

@@ -20,5 +20,7 @@ This class inherits from the GroverClient class so GroverClient accessor methods
 \item{\code{auth}}{authentication key}
 
 \item{\code{repository}}{directory path to the raw mass spectrometry data repository}
+
+\item{\code{temp}}{optional directory path where converted files can temporarily be saved}
 }}
 

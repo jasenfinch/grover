@@ -27,6 +27,7 @@ groverAPI <- function(grover_host,
         port(grover_host),
         auth(grover_host),
         repository(grover_host),
+        temp(grover_host),
         log_dir = log_dir)
   } else {
     
@@ -38,6 +39,7 @@ groverAPI <- function(grover_host,
     env$port <- port(grover_host)
     env$auth <- auth(grover_host)
     env$repository <- repository(grover_host)
+    env$temp <- temp(grover_host)
     env$log_dir <- log_dir
     
     env$API <- API
@@ -89,6 +91,7 @@ API <- function(host,
                 port,
                 auth,
                 repository,
+                temp,
                 log_dir = '~/.grover/logs',
                 env = parent.frame()){
   
@@ -97,6 +100,7 @@ API <- function(host,
   e$port <- port
   e$auth <- auth
   e$repository <- repository
+  e$temp <- temp
   e$log_dir <- log_dir
   
   evalq({
@@ -106,6 +110,7 @@ API <- function(host,
                 port,
                 auth,
                 repository,
+                temp,
                 stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
     if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)

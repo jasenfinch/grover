@@ -33,7 +33,8 @@ readGrover <- function(path = 'grover.yml'){
   grover(details$host,
          details$port,
          as.character(details$auth),
-         details$repository)
+         details$repository,
+         details$temp)
 }
 
 #' GroverClient and GroverHost class constructor
@@ -43,6 +44,7 @@ readGrover <- function(path = 'grover.yml'){
 #' @param port port on which the API is hosted
 #' @param auth authentication key
 #' @param repository data repository directory path
+#' @param temp optional directory path for grover hosts where temporary converted files can be saved
 #' @importFrom methods new
 #' @examples
 #' ## Grover client 
@@ -58,19 +60,29 @@ readGrover <- function(path = 'grover.yml'){
 #'                                                package = 'grover'))
 #' @export
 
-grover <- function(host,port,auth,repository = NULL){
+grover <- function(host,port,auth,repository = NULL,temp = NULL){
   
-  if (is.null(repository)) {
+  if (is.null(repository) & is.null(temp)) {
     grove <- new('GroverClient',
                  host = host,
                  port = port,
                  auth = auth)  
   } else {
+    if (is.null(repository)) {
+      stop('Argument repository needs to be set for grover a host.',
+           call. = FALSE)
+    }
+    
+    if (is.null(temp)) {
+      temp <- character()
+    }
+    
     grove <- new('GroverHost',
                  host = host,
                  port = port,
                  auth = auth,
-                 repository = repository
+                 repository = repository,
+                 temp = temp
     )
   }
   return(grove)
@@ -151,7 +163,6 @@ setMethod('repository',signature = 'GroverHost',
           }
 )
 
-
 #' @rdname GroverHost-accessors
 #' @export
 
@@ -161,6 +172,27 @@ setMethod('repository<-',signature = 'GroverHost',
             return(grover_host)
           }
 )
+
+#' @rdname GroverHost-accessors
+#' @export
+
+setMethod('temp',signature = 'GroverHost',
+          function(grover_host){
+            grover_host@temp
+          }
+)
+
+
+#' @rdname GroverHost-accessors
+#' @export
+
+setMethod('temp<-',signature = 'GroverHost',
+          function(grover_host,value){
+            grover_host@temp <- value
+            return(grover_host)
+          }
+)
+
 
 #' @importFrom stringr str_c
 
