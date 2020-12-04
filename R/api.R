@@ -3,6 +3,7 @@
 #' @param grover_host S4 object of class Grover
 #' @param background Run as a background process.
 #' @param log_dir directory path for API logs
+#' @param temp_dir temporary directory for converted files
 #' @examples 
 #' \dontrun{
 #' grover_host <- grover(host = "127.0.0.1",
@@ -20,14 +21,16 @@
 
 groverAPI <- function(grover_host,
                       background = FALSE,
-                      log_dir = '~/.grover/logs'){
+                      log_dir = '~/.grover/logs',
+                      temp_dir = '~/.grover/temp'){
   
   if (isFALSE(background)) {
     API(host(grover_host),
         port(grover_host),
         auth(grover_host),
         repository(grover_host),
-        log_dir = log_dir)
+        log_dir = log_dir,
+        temp_dir = temp_dir)
   } else {
     
     env <- 'package:grover' %>%
@@ -39,6 +42,7 @@ groverAPI <- function(grover_host,
     env$auth <- auth(grover_host)
     env$repository <- repository(grover_host)
     env$log_dir <- log_dir
+    env$temp_dir <- temp_dir
     
     env$API <- API
     env$writeGrover <- writeGrover
@@ -70,7 +74,7 @@ groverAPI <- function(grover_host,
       e <- readRDS(env_path)
       e <- list2env(e)
       
-      evalq(API(host,port,auth,repository,log_dir),e)
+      evalq(API(host,port,auth,repository,log_dir,temp_dir),e)
       
     },
     args = list(env_path))
@@ -90,6 +94,7 @@ API <- function(host,
                 auth,
                 repository,
                 log_dir = '~/.grover/logs',
+                temp_dir = '~/.grover/temp',
                 env = parent.frame()){
   
   e <- new.env(parent = env)
@@ -98,6 +103,7 @@ API <- function(host,
   e$auth <- auth
   e$repository <- repository
   e$log_dir <- log_dir
+  e$temp_dir <- temp_dir
   
   evalq({
     msconverteR::get_pwiz_container()
@@ -106,6 +112,7 @@ API <- function(host,
                 port,
                 auth,
                 repository,
+                temp_dir,
                 stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
     if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)

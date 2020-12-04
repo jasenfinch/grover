@@ -104,7 +104,7 @@ setMethod('convertDirectory',signature = 'GroverClient',
                     bold(blue(directory)),
                     ' containing ',
                     bold(yellow(length(files))),
-                    '.raw files\n')
+                    ' .raw files\n')
             
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)

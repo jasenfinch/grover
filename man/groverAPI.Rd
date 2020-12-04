@@ -4,7 +4,12 @@
 \alias{groverAPI}
 \title{Grover API}
 \usage{
-groverAPI(grover_host, background = FALSE, log_dir = "~/.grover/logs")
+groverAPI(
+  grover_host,
+  background = FALSE,
+  log_dir = "~/.grover/logs",
+  temp_dir = "~/.grover/temp"
+)
 }
 \arguments{
 \item{grover_host}{S4 object of class Grover}
@@ -12,6 +17,8 @@ groverAPI(grover_host, background = FALSE, log_dir = "~/.grover/logs")
 \item{background}{Run as a background process.}
 
 \item{log_dir}{directory path for API logs}
+
+\item{temp_dir}{temporary directory for converted files}
 }
 \description{
 Run the grover REST API for file conversion.

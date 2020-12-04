@@ -66,6 +66,7 @@ grover <- function(host,port,auth,repository = NULL){
                  port = port,
                  auth = auth)  
   } else {
+    
     grove <- new('GroverHost',
                  host = host,
                  port = port,
@@ -150,7 +151,6 @@ setMethod('repository',signature = 'GroverHost',
             grover_host@repository
           }
 )
-
 
 #' @rdname GroverHost-accessors
 #' @export
