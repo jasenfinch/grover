@@ -6,14 +6,17 @@ hostTidy <- function(auth,file){
                    'grover_host.yml',
                    sep = '/'))
   host_auth <- grover_host$auth
+  host_temp <- grover_host$temp
   
   if (auth != host_auth){
     stop('Incorrect authentication key',call. = FALSE)
   }
   
-  tmp_dir <- tempdir()
+  if (length(host_temp) == 0) {
+    host_temp <- tempdir() 
+  }
   
-  fd <- fs::file_delete(stringr::str_c(tmp_dir,file,sep = '/'))
+  fd <- fs::file_delete(stringr::str_c(host_temp,file,sep = '/'))
   fd <-  fs::path_file(fd)
   
   return(fd)

@@ -55,6 +55,10 @@ test_that('hostTidy works',{
   expect_equal(result,'QC01.mzML')
 })
 
+test_that('hostTidy errors with incorrect auth',{
+  expect_error(hostTidy('incorrect','QC01.mzML'))
+})
+
 test_that('hostListFiles works',{
   result <- hostListFiles(host_auth,instrument,directory)
   expect_equal(result,'QC01.raw')
