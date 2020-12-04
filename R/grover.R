@@ -69,7 +69,7 @@ grover <- function(host,port,auth,repository = NULL,temp = NULL){
                  auth = auth)  
   } else {
     if (is.null(repository)) {
-      stop('Argument repository needs to be set for grover a host.',
+      stop('Argument repository needs to be set for a grover host.',
            call. = FALSE)
     }
     
