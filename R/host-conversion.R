@@ -28,7 +28,7 @@ hostConvertFile <- function(auth,instrument,directory,file,args = ''){
                 msconvert_args = args,
                 docker_args = '--privileged')
   
-  out_file <- stringr::str_c(tmp_dir,
+  out_file <- stringr::str_c(host_temp,
                     stringr::str_c(tools::file_path_sans_ext(file),
                           '.mzML'),
                     sep = '/')
