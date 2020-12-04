@@ -12,30 +12,19 @@ test_that('grover constructors and accessors work',{
   port(grove_client) <- 8000
   auth(grove_client) <- '1234'
   repository(grove_host) <- './data'
-  temp(grove_host) <- '.'
   h <- host(grove_client)
   p <- port(grove_client)
   a <- auth(grove_client)
   r <- repository(grove_host)
-  t <- temp(grove_host)
   
   expect_s4_class(grove_client,'GroverClient')
   expect_equal(h,'localhost')
   expect_equal(p,8000)
   expect_equal(a,'1234')
   expect_equal(r,'./data')
-  expect_equal(t,'.')
   
   expect_output(print(grove_client),'Grover Information')
   expect_output(print(grove_host),'Repository:')
-})
-
-test_that('grover errors when host details incorrect',{
-  expect_error(grover('localhost',
-                      8000,
-                      '1234',
-                      NULL,
-                      '.'))
 })
 
 test_that('host URL constructed correclty',{

@@ -46,18 +46,6 @@ setGeneric('repository<-',function(grover_host,value){
   standardGeneric('repository<-')
 })
 
-#' @rdname GroverHost-accessors
-
-setGeneric('temp',function(grover_host){
-  standardGeneric('temp')
-})
-
-#' @rdname GroverHost-accessors
-
-setGeneric('temp<-',function(grover_host,value){
-  standardGeneric('temp<-')
-})
-
 setGeneric('hostURL',function(grover_client){
   standardGeneric('hostURL')
 })

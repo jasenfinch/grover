@@ -4,7 +4,7 @@
 \alias{grover}
 \title{GroverClient and GroverHost class constructor}
 \usage{
-grover(host, port, auth, repository = NULL, temp = NULL)
+grover(host, port, auth, repository = NULL)
 }
 \arguments{
 \item{host}{host address}

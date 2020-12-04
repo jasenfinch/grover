@@ -19,12 +19,10 @@ setClass('GroverClient',
 #' @slot port port on which the API is hosted
 #' @slot auth authentication key
 #' @slot repository directory path to the raw mass spectrometry data repository
-#' @slot temp optional directory path where converted files can temporarily be saved
 #' @details This class inherits from the GroverClient class so GroverClient accessor methods are applicable.
 #' @export
 
 setClass('GroverHost',
          slots = list(
-           repository = 'character',
-           temp = 'character'
+           repository = 'character'
          ),contains = 'GroverClient')

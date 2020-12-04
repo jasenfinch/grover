@@ -33,8 +33,7 @@ readGrover <- function(path = 'grover.yml'){
   grover(details$host,
          details$port,
          as.character(details$auth),
-         details$repository,
-         details$temp)
+         details$repository)
 }
 
 #' GroverClient and GroverHost class constructor
@@ -60,29 +59,20 @@ readGrover <- function(path = 'grover.yml'){
 #'                                                package = 'grover'))
 #' @export
 
-grover <- function(host,port,auth,repository = NULL,temp = NULL){
+grover <- function(host,port,auth,repository = NULL){
   
-  if (is.null(repository) & is.null(temp)) {
+  if (is.null(repository)) {
     grove <- new('GroverClient',
                  host = host,
                  port = port,
                  auth = auth)  
   } else {
-    if (is.null(repository)) {
-      stop('Argument repository needs to be set for a grover host.',
-           call. = FALSE)
-    }
-    
-    if (is.null(temp)) {
-      temp <- character()
-    }
     
     grove <- new('GroverHost',
                  host = host,
                  port = port,
                  auth = auth,
-                 repository = repository,
-                 temp = temp
+                 repository = repository
     )
   }
   return(grove)
@@ -172,27 +162,6 @@ setMethod('repository<-',signature = 'GroverHost',
             return(grover_host)
           }
 )
-
-#' @rdname GroverHost-accessors
-#' @export
-
-setMethod('temp',signature = 'GroverHost',
-          function(grover_host){
-            grover_host@temp
-          }
-)
-
-
-#' @rdname GroverHost-accessors
-#' @export
-
-setMethod('temp<-',signature = 'GroverHost',
-          function(grover_host,value){
-            grover_host@temp <- value
-            return(grover_host)
-          }
-)
-
 
 #' @importFrom stringr str_c
 

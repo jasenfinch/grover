@@ -3,29 +3,17 @@
 \name{repository}
 \alias{repository}
 \alias{repository<-}
-\alias{temp}
-\alias{temp<-}
 \alias{repository,GroverHost-method}
 \alias{repository<-,GroverHost-method}
-\alias{temp,GroverHost-method}
-\alias{temp<-,GroverHost-method}
 \title{GroverHost get and set methods}
 \usage{
 repository(grover_host)
 
 repository(grover_host) <- value
 
-temp(grover_host)
-
-temp(grover_host) <- value
-
 \S4method{repository}{GroverHost}(grover_host)
 
 \S4method{repository}{GroverHost}(grover_host) <- value
-
-\S4method{temp}{GroverHost}(grover_host)
-
-\S4method{temp}{GroverHost}(grover_host) <- value
 }
 \arguments{
 \item{grover_host}{S4 object of class GroverHost}
