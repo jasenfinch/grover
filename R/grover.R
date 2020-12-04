@@ -43,7 +43,6 @@ readGrover <- function(path = 'grover.yml'){
 #' @param port port on which the API is hosted
 #' @param auth authentication key
 #' @param repository data repository directory path
-#' @param temp optional directory path for grover hosts where temporary converted files can be saved
 #' @importFrom methods new
 #' @examples
 #' ## Grover client 

@@ -14,8 +14,6 @@ grover(host, port, auth, repository = NULL)
 \item{auth}{authentication key}
 
 \item{repository}{data repository directory path}
-
-\item{temp}{optional directory path for grover hosts where temporary converted files can be saved}
 }
 \description{
 Create a GroverClient or GroverHost class object containing 
