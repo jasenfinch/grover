@@ -1,4 +1,4 @@
-#' @importFrom rawR readFileHeader readIndex
+#' @importFrom rawrr readFileHeader readIndex
 #' @importFrom dplyr slice mutate select
 #' @importFrom rjson toJSON
 #' @importFrom tibble as_tibble
@@ -19,16 +19,16 @@ hostSampleInfo <- function(auth,instrument,directory,file){
   
   path <- stringr::str_c(host_repository,instrument,directory,file,sep = '/')
   
-  sample_info <- rawR::readFileHeader(
+  sample_info <- rawrr::readFileHeader(
     path,
-    exe = system.file('exec/rawR.exe',package = 'rawR')
+    exe = system.file('exec/rawrr.exe',package = 'rawrr')
   )
   
   sample_info <- tibble::as_tibble(sample_info)
   sample_info <- dplyr::slice(sample_info,1)
   sample_info$directory <- directory
   
-  scan_filters <- rawR::readIndex(path)$scanType
+  scan_filters <- rawrr::readIndex(path)$scanType
   scan_filters <- unique(scan_filters)
   scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
   
@@ -58,16 +58,16 @@ hostRunInfo <- function(auth,instrument,directory){
                                                             ignore_case = TRUE))]
   
   run_info <- purrr::map(raw_files,~{
-    sample_info <- rawR::readFileHeader(
+    sample_info <- rawrr::readFileHeader(
       .x,
-      exe = system.file('exec/rawR.exe',package = 'rawR')
+      exe = system.file('exec/rawrr.exe',package = 'rawrr')
     )
     
     sample_info <- tibble::as_tibble(sample_info)
     sample_info <- dplyr::slice(sample_info,1)
     sample_info$directory <- directory
     
-    scan_filters <- rawR::readIndex(.x)$scanType
+    scan_filters <- rawrr::readIndex(.x)$scanType
     scan_filters <- unique(scan_filters)
     scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
     
