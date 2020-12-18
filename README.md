@@ -17,12 +17,12 @@ API functionality includes:
 * Raw mass spectrometry data file **conversion** to `.mzML` format.
 * Retrieval of **sample information** from `.raw` file headers.
 
-The package functionality is platform independent with file conversion and sample information retrieval functionality available through use of the [`msconvereR`](https://github.com/wilsontom/msconverteR) and [`rawR`](https://github.com/fgcz/rawR) R packages.
+The package functionality is platform independent with file conversion and sample information retrieval functionality available through use of the [`msconvereR`](https://github.com/wilsontom/msconverteR) and [`rawrr`](https://github.com/fgcz/rawrr) R packages.
 
 ### Installation
 
-This package requires the `rawR` package.
-Details of how to install the latest version can be found [here](https://github.com/fgcz/rawR/releases).
+This package requires the `rawrr` package.
+Details of how to install the latest version can be found [here](https://github.com/fgcz/rawrr/releases).
 
 The `grover` package can be installed from GitHub using the following:
 
