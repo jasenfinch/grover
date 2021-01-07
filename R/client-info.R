@@ -6,6 +6,7 @@
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param file file name
+#' @param time_out maximum request time in seconds. This may need to be increased for larger directories.
 #' @importFrom rjson fromJSON
 #' @export
 
@@ -58,10 +59,11 @@ setMethod('sampleInfo',signature = 'GroverClient',
 #' @rdname info
 #' @importFrom dplyr bind_rows rename
 #' @importFrom purrr map
+#' @importFrom httr timeout
 #' @export
 
 setMethod('runInfo',signature = 'GroverClient',
-          function(grover_client, instrument, directory) {
+          function(grover_client, instrument, directory,time_out = 100) {
             files <- listRawFiles(grover_client, instrument, directory)
             
             message('\nGenrating run info table for ',
@@ -76,8 +78,7 @@ setMethod('runInfo',signature = 'GroverClient',
                           "&instrument=",instrument,
                           "&directory=",directory)
             
-            run_info <- cmd %>%
-              GET()
+            run_info <- GET(cmd,timeout(time_out))
             
             if (run_info$status_code == 200) {
               run_info <- run_info %>%
