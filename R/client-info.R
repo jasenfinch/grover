@@ -68,7 +68,7 @@ setMethod('runInfo',signature = 'GroverClient',
                     bold(blue(directory)),
                     ' containing ',
                     bold(yellow(length(files))),
-                    '.raw files\n')
+                    ' .raw files\n')
             
             cmd <-  str_c(hostURL(grover_client),
                           "/runInfo?", 
