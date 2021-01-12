@@ -73,7 +73,7 @@ a grover API." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -81,7 +81,7 @@ a grover API." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,11 +106,14 @@ a grover API." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jasenfinch/grover/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,13 +142,13 @@ a grover API.</p>
 
     <pre class="usage"><span class='fu'>sampleInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span>, <span class='va'>file</span><span class='op'>)</span>
 
-<span class='fu'>runInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span><span class='op'>)</span>
+<span class='fu'>runInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span>, time_out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
 
 <span class='co'># S4 method for GroverClient</span>
 <span class='fu'>sampleInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span>, <span class='va'>file</span><span class='op'>)</span>
 
 <span class='co'># S4 method for GroverClient</span>
-<span class='fu'>runInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span><span class='op'>)</span></pre>
+<span class='fu'>runInfo</span><span class='op'>(</span><span class='va'>grover_client</span>, <span class='va'>instrument</span>, <span class='va'>directory</span>, time_out <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,6 +168,10 @@ a grover API.</p>
     <tr>
       <th>file</th>
       <td><p>file name</p></td>
+    </tr>
+    <tr>
+      <th>time_out</th>
+      <td><p>maximum request time in seconds. This may need to be increased for larger directories.</p></td>
     </tr>
     </table>
 
