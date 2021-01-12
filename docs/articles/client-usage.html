@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -64,11 +64,14 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/jasenfinch/grover/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,8 +85,7 @@
 
       
 
-      </header><script src="client-usage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="client-usage_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="client-usage_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="client-usage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Accessing raw mass spectrometry data from a grover API</h1>
@@ -117,7 +119,9 @@
 
 <span class="va">api</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groverAPI.html">groverAPI</a></span><span class="op">(</span><span class="va">grover_host</span>,
                  background <span class="op">=</span> <span class="cn">TRUE</span>,
-                 log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+                 log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/Rtmpjdv3Xr/logs": No such file</span>
+<span class="co">#&gt; or directory</span></code></pre></div>
 <p>For further details on hosting a grover API see the <a href="hosting.html">Hosting a grover API</a> vignette.</p>
 </div>
 <div id="grover-api-host-details" class="section level2">
@@ -177,14 +181,14 @@ auth: 1234</code></pre>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605624269.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1610450982.</span></code></pre></div>
 <p>This can also be done directory wide when multiple files are available.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fileInfo.html">directoryFileInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1605624269.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1610450982.</span></code></pre></div>
 </div>
 <div id="transfer-files" class="section level2">
 <h2 class="hasAnchor">
@@ -230,7 +234,7 @@ auth: 1234</code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sampleInfo.html">runInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Genrating run info table for Experiment_1 containing 1.raw files</span>
+<span class="co">#&gt; Genrating run info table for Experiment_1 containing 1 .raw files</span>
 <span class="co">#&gt; # A tibble: 1 x 39</span>
 <span class="co">#&gt;   `RAW file` `RAW file versi… `Creation date` Operator `Number of inst…</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;               &lt;dbl&gt;</span>
@@ -272,8 +276,7 @@ auth: 1234</code></pre>
 <h3 class="hasAnchor">
 <a href="#conversion-arguments" class="anchor"></a>Conversion arguments</h3>
 <p>The <code>args</code> argument can be supplied to these conversion functions pass specific conversion criterial to <code>msconvert</code>. The <code>grover</code> package contains a number of helper functions to simplify their use. The available functions are listed below.</p>
-<pre><code>conversionArgsIgnoreUnknownInstrumentError
-conversionArgsMSlevel1
+<pre><code>conversionArgsMSlevel1
 conversionArgsMSlevel2
 conversionArgsMSlevel3
 conversionArgsNegativeMode
@@ -282,11 +285,11 @@ conversionArgsPositiveMode</code></pre>
 <p>Calling these functions return the appropriate string argument that is to be passed to msconvert.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "--filter \"peakPicking true 1-\""</span></code></pre></div>
+<span class="co">#&gt; [1] "peakPicking true1-"</span></code></pre></div>
 <p>Mutiple functions can also be combined.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick</a></span><span class="op">(</span><span class="op">)</span>,<span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsNegativeMode</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "--filter \"peakPicking true 1-\" --filter \"polarity negative\""</span></code></pre></div>
+<span class="co">#&gt; [1] "peakPicking true1- polarity negative"</span></code></pre></div>
 <p>A full list of the available msconvert arguments can be found <a href="http://proteowizard.sourceforge.net/tools.shtml">here</a>. The example below shows the use of the <code><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick()</a></code> to retrieve a centroided data in <code>.mzML</code> format.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/convertFile.html">convertFile</a></span><span class="op">(</span><span class="va">grover_client</span>,

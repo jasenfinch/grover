@@ -138,7 +138,7 @@ setGeneric('sampleInfo',function(grover_client,instrument,directory,file){
 
 #' @rdname info
 
-setGeneric('runInfo',function(grover_client,instrument,directory){
+setGeneric('runInfo',function(grover_client,instrument,directory,time_out = 100){
   standardGeneric('runInfo')
 })
 

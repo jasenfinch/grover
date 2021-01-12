@@ -9,11 +9,11 @@
 \usage{
 sampleInfo(grover_client, instrument, directory, file)
 
-runInfo(grover_client, instrument, directory)
+runInfo(grover_client, instrument, directory, time_out = 100)
 
 \S4method{sampleInfo}{GroverClient}(grover_client, instrument, directory, file)
 
-\S4method{runInfo}{GroverClient}(grover_client, instrument, directory)
+\S4method{runInfo}{GroverClient}(grover_client, instrument, directory, time_out = 100)
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
@@ -23,6 +23,8 @@ runInfo(grover_client, instrument, directory)
 \item{directory}{directory name}
 
 \item{file}{file name}
+
+\item{time_out}{maximum request time in seconds. This may need to be increased for larger directories.}
 }
 \description{
 Get sample header information for a given raw file or directory using 
