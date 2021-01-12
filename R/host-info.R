@@ -19,10 +19,7 @@ hostSampleInfo <- function(auth,instrument,directory,file){
   
   path <- stringr::str_c(host_repository,instrument,directory,file,sep = '/')
   
-  sample_info <- rawrr::readFileHeader(
-    path,
-    exe = system.file('exec/rawrr.exe',package = 'rawrr')
-  )
+  sample_info <- rawrr::readFileHeader(path)
   
   sample_info <- tibble::as_tibble(sample_info)
   sample_info <- dplyr::slice(sample_info,1)
@@ -58,23 +55,28 @@ hostRunInfo <- function(auth,instrument,directory){
                                                             ignore_case = TRUE))]
   
   run_info <- purrr::map(raw_files,~{
-    sample_info <- rawrr::readFileHeader(
-      .x,
-      exe = system.file('exec/rawrr.exe',package = 'rawrr')
-    )
     
-    sample_info <- tibble::as_tibble(sample_info)
-    sample_info <- dplyr::slice(sample_info,1)
-    sample_info$directory <- directory
+    try({
+      sample_info <- rawrr::readFileHeader(.x)
+    })
     
-    scan_filters <- rawrr::readIndex(.x)$scanType
-    scan_filters <- unique(scan_filters)
-    scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
-    
-    sample_info$`Scan filters` <- scan_filters
-    
-    return(sample_info)
+    if (exists('sample_info')) {
+      sample_info <- tibble::as_tibble(sample_info)
+      sample_info <- dplyr::slice(sample_info,1)
+      sample_info$directory <- directory
+      
+      scan_filters <- rawrr::readIndex(.x)$scanType
+      scan_filters <- unique(scan_filters)
+      scan_filters <- stringr::str_c(scan_filters,collapse = ';;;')
+      
+      sample_info$`Scan filters` <- scan_filters
+      
+      return(sample_info)
+    } else {
+      return(NULL)
+    }
   }) 
+  
   run_info <- dplyr::bind_rows(run_info)
   run_info <- rjson::toJSON(run_info)
   
