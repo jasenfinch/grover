@@ -17,7 +17,7 @@ API functionality includes:
 * Raw mass spectrometry data file **conversion** to `.mzML` format.
 * Retrieval of **sample information** from `.raw` file headers.
 
-The package functionality is platform independent with file conversion and sample information retrieval functionality available through use of the [`msconvereR`](https://github.com/wilsontom/msconverteR) and [`rawrr`](https://github.com/fgcz/rawrr) R packages.
+The package functionality is platform independent with file conversion and sample information retrieval functionality available through use of the [`msconverteR`](https://github.com/wilsontom/msconverteR) and [`rawrr`](https://github.com/fgcz/rawrr) R packages.
 
 ### Installation
 
