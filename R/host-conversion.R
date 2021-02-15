@@ -1,7 +1,7 @@
 #' @importFrom readr read_file
 #' @importFrom msconverteR convert_files
 
-hostConvertFile <- function(auth,instrument,directory,file,args = ''){
+hostConvertFile <- function(auth,instrument,directory,file,args = NULL){
   
   grover_host <-  yaml::read_yaml(
     stringr::str_c(tempdir(),
