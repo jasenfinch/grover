@@ -1,3 +1,7 @@
+# grover 1.0.4
+
+* [`grover::conversionArgsPeakPick`](https://jasenfinch.github.io/grover/reference/conversionArgs.html) fix to ensure conversion argument is correctly passed to `msconverteR`.
+
 # grover 1.0.3
 
 * `rawR` dependency updated to [`rawrr`](https://github.com/fgcz/rawrr) with package name change.
