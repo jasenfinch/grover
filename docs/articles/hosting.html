@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="hosting_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="hosting_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Hosting a grover API</h1>
@@ -155,7 +155,7 @@ repository: ./data</code></pre>
 <code class="sourceCode R"><span class="va">api</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groverAPI.html">groverAPI</a></span><span class="op">(</span><span class="va">grover_host</span>,
                  background <span class="op">=</span> <span class="cn">TRUE</span>,
                  log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmpNnVrHL/logs": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmpVBWfor/logs": No such file</span>
 <span class="co">#&gt; or directory</span></code></pre></div>
 <p>The <code>log_dir</code> argument has also been specified. See the final section for details on request logging by the API.</p>
 <p>Running the API in the background returns a <code>callr</code> package <code>process</code> object. We can test the status of the background process in which the API is running using:</p>
@@ -180,11 +180,11 @@ repository: ./data</code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">logs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span>,full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">logs</span>
-<span class="co">#&gt; [1] "/tmp/RtmpNnVrHL/logs/plumber_c06e5f1c99ad.log"</span></code></pre></div>
+<span class="co">#&gt; [1] "/tmp/RtmpVBWfor/logs/plumber_4e3312e92859.log"</span></code></pre></div>
 <p>The contents of this log file can be access as below:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="va">logs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] "INFO [2021-01-12 11:30:10] GET /extant 1234 200 0.068"</span></code></pre></div>
+<span class="co">#&gt; [1] "INFO [2021-02-15 13:20:31] GET /extant 1234 200 0.097"</span></code></pre></div>
 <p>The log entry above shows our single request using <code><a href="../reference/extant.html">extant()</a></code> whilst the API was live. This log entry also includes, in order of appearance, the data and time of the request, the request type, the requested function, the <code>auth</code> argument specified, the status of the request and the processing time of the request.</p>
 </div>
   </div>

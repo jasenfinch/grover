@@ -207,7 +207,7 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
 #' @export
 
 conversionArgsPeakPick <- function(){
-  'peakPicking true1-'
+  'peakPicking true 1-'
 }
 
 #' @rdname conversionArgs
