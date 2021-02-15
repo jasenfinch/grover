@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="client-usage_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="client-usage_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Accessing raw mass spectrometry data from a grover API</h1>
@@ -120,7 +120,7 @@
 <span class="va">api</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/groverAPI.html">groverAPI</a></span><span class="op">(</span><span class="va">grover_host</span>,
                  background <span class="op">=</span> <span class="cn">TRUE</span>,
                  log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/Rtmpjdv3Xr/logs": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmppmFGjx/logs": No such file</span>
 <span class="co">#&gt; or directory</span></code></pre></div>
 <p>For further details on hosting a grover API see the <a href="hosting.html">Hosting a grover API</a> vignette.</p>
 </div>
@@ -181,14 +181,14 @@ auth: 1234</code></pre>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1610450982.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1613395200.</span></code></pre></div>
 <p>This can also be done directory wide when multiple files are available.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fileInfo.html">directoryFileInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1610450982.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1613395200.</span></code></pre></div>
 </div>
 <div id="transfer-files" class="section level2">
 <h2 class="hasAnchor">
@@ -211,25 +211,25 @@ auth: 1234</code></pre>
 <h2 class="hasAnchor">
 <a href="#sample-information" class="anchor"></a>Sample information</h2>
 <p>Thermo <code>.raw</code> mass spectrometry data files contain sample meta information within the file headers. This can be extracted and retrieved, in the form of a tibble, for a given file using:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">sampleInfo</span>(grover_client,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span>,<span class="st">'QC01.raw'</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; </span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>QC01.raw ✓</span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; # A tibble: 1 x 39</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt;   `RAW file` `RAW file versi… `Creation date` Operator `Number of inst…</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;               &lt;dbl&gt;</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; 1 QC01.raw   64               25/04/2017 21:… Thermo                  2</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; # … with 34 more variables: Description &lt;chr&gt;, `Instrument model` &lt;chr&gt;,</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; #   `Instrument name` &lt;chr&gt;, `Instrument method` &lt;chr&gt;, `Serial number` &lt;chr&gt;,</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; #   `Software version` &lt;chr&gt;, `Firmware version` &lt;chr&gt;, Units &lt;chr&gt;, `Mass</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; #   resolution` &lt;chr&gt;, `Number of scans` &lt;dbl&gt;, `Number of ms2 scans` &lt;dbl&gt;,</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; #   `Scan range` &lt;dbl&gt;, `Time range` &lt;dbl&gt;, `Mass range` &lt;dbl&gt;, `Scan filter</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; #   (first scan)` &lt;chr&gt;, `Scan filter (last scan)` &lt;chr&gt;, `Total number of</span></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; #   filters` &lt;chr&gt;, `Sample name` &lt;chr&gt;, `Sample id` &lt;chr&gt;, `Sample</span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; #   type` &lt;chr&gt;, `Sample comment` &lt;chr&gt;, `Sample vial` &lt;chr&gt;, `Sample</span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; #   volume` &lt;chr&gt;, `Sample injection volume` &lt;chr&gt;, `Sample row number` &lt;chr&gt;,</span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; #   `Sample dilution factor` &lt;chr&gt;, `Sample barcode` &lt;chr&gt;, `User text</span></span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; #   0` &lt;chr&gt;, `User text 1` &lt;chr&gt;, `User text 2` &lt;chr&gt;, `User text 3` &lt;chr&gt;,</span></span>
-<span id="cb15-19"><a href="#cb15-19"></a><span class="co">#&gt; #   `User text 4` &lt;chr&gt;, directory &lt;chr&gt;, `Scan filters` &lt;chr&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sampleInfo</span>(grover_client,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span>,<span class="st">'QC01.raw'</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>QC01.raw ✓</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1 x 39</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   `RAW file` `RAW file versi… `Creation date` Operator `Number of inst…</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;               &lt;dbl&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 QC01.raw   64               25/04/2017 21:… Thermo                  2</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 34 more variables: Description &lt;chr&gt;, `Instrument model` &lt;chr&gt;,</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `Instrument name` &lt;chr&gt;, `Instrument method` &lt;chr&gt;, `Serial number` &lt;chr&gt;,</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `Software version` &lt;chr&gt;, `Firmware version` &lt;chr&gt;, Units &lt;chr&gt;, `Mass</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   resolution` &lt;chr&gt;, `Number of scans` &lt;dbl&gt;, `Number of ms2 scans` &lt;dbl&gt;,</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `Scan range` &lt;dbl&gt;, `Time range` &lt;dbl&gt;, `Mass range` &lt;dbl&gt;, `Scan filter</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   (first scan)` &lt;chr&gt;, `Scan filter (last scan)` &lt;chr&gt;, `Total number of</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   filters` &lt;chr&gt;, `Sample name` &lt;chr&gt;, `Sample id` &lt;chr&gt;, `Sample</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   type` &lt;chr&gt;, `Sample comment` &lt;chr&gt;, `Sample vial` &lt;chr&gt;, `Sample</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   volume` &lt;chr&gt;, `Sample injection volume` &lt;chr&gt;, `Sample row number` &lt;chr&gt;,</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `Sample dilution factor` &lt;chr&gt;, `Sample barcode` &lt;chr&gt;, `User text</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   0` &lt;chr&gt;, `User text 1` &lt;chr&gt;, `User text 2` &lt;chr&gt;, `User text 3` &lt;chr&gt;,</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; #   `User text 4` &lt;chr&gt;, directory &lt;chr&gt;, `Scan filters` &lt;chr&gt;</span></span></code></pre></div>
 <p>Similarly, the sample information for an entire experiment run can be retrieved with:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/sampleInfo.html">runInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
@@ -285,11 +285,11 @@ conversionArgsPositiveMode</code></pre>
 <p>Calling these functions return the appropriate string argument that is to be passed to msconvert.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] "peakPicking true1-"</span></code></pre></div>
+<span class="co">#&gt; [1] "peakPicking true 1-"</span></code></pre></div>
 <p>Mutiple functions can also be combined.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick</a></span><span class="op">(</span><span class="op">)</span>,<span class="fu"><a href="../reference/conversionArgsPeakPick.html">conversionArgsNegativeMode</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; [1] "peakPicking true1- polarity negative"</span></code></pre></div>
+<span class="co">#&gt; [1] "peakPicking true 1- polarity negative"</span></code></pre></div>
 <p>A full list of the available msconvert arguments can be found <a href="http://proteowizard.sourceforge.net/tools.shtml">here</a>. The example below shows the use of the <code><a href="../reference/conversionArgsPeakPick.html">conversionArgsPeakPick()</a></code> to retrieve a centroided data in <code>.mzML</code> format.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/convertFile.html">convertFile</a></span><span class="op">(</span><span class="va">grover_client</span>,
