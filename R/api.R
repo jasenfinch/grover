@@ -55,6 +55,7 @@ groverAPI <- function(grover_host,
     
     env$hostConvertFile <- hostConvertFile
     env$hostExtant <- hostExtant
+    env$hostVersion <- hostVersion
     env$hostGetFile <- hostGetFile
     env$hostListFiles <- hostListFiles
     env$hostListRawFiles <- hostListRawFiles
@@ -119,6 +120,7 @@ API <- function(host,
                 stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
     if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)
+    if (!fs::dir_exists(temp_dir)) fs::dir_create(temp_dir)
     
     message(stringr::str_c('API logs can be found at ',log_dir))
     
@@ -134,6 +136,7 @@ API <- function(host,
                   hostConvertFile,
                   serializer = plumber::serializer_content_type('application/xml'))
     api <- plumber::pr_get(api,'/extant',hostExtant)
+    api <- plumber::pr_get(api,'/version',hostVersion)
     api <- plumber::pr_get(
       api,
       '/getFile',

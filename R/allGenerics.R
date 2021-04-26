@@ -87,7 +87,8 @@ setGeneric('convertFile',function(grover_client,
                                   directory, 
                                   file, 
                                   args = '',
-                                  outDir = '.'){
+                                  outDir = '.',
+                                  zip = TRUE){
   standardGeneric('convertFile')
 })
 
@@ -97,7 +98,8 @@ setGeneric('convertDirectory',function(grover_client,
                                        instrument, 
                                        directory, 
                                        args = '', 
-                                       outDir = '.'){
+                                       outDir = '.',
+                                       zip = TRUE){
   standardGeneric('convertDirectory')
 })
 
@@ -107,7 +109,8 @@ setGeneric('convertDirectorySplitModes',function(grover_client,
                                                  instrument, 
                                                  directory, 
                                                  args = '', 
-                                                 outDir = '.'){
+                                                 outDir = '.',
+                                                 zip = TRUE){
   standardGeneric('convertDirectorySplitModes')
 })
 

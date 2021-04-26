@@ -40,7 +40,8 @@ grover_host <- grover(host = "127.0.0.1",
 
 api <- groverAPI(grover_host,
                  background = TRUE,
-                 log_dir = paste0(tempdir(),'/logs'))
+                 log_dir = paste0(tempdir(),'/logs'),
+                 temp_dir = paste0(tempdir(),'/temp'))
 ```
 
 For further details on hosting a grover API see the [Hosting a grover API](hosting.html) vignette.

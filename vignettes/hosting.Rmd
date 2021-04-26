@@ -94,7 +94,8 @@ Run the following to start the API:
 ```{r groverAPI}
 api <- groverAPI(grover_host,
                  background = TRUE,
-                 log_dir = paste0(tempdir(),'/logs'))
+                 log_dir = paste0(tempdir(),'/logs'),
+                 temp_dir = paste0(tempdir(),'/temp'))
 ```
 
 The `log_dir` argument has also been specified.

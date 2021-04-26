@@ -15,17 +15,26 @@ convertFile(
   directory,
   file,
   args = "",
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 
-convertDirectory(grover_client, instrument, directory, args = "", outDir = ".")
+convertDirectory(
+  grover_client,
+  instrument,
+  directory,
+  args = "",
+  outDir = ".",
+  zip = TRUE
+)
 
 convertDirectorySplitModes(
   grover_client,
   instrument,
   directory,
   args = "",
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 
 \S4method{convertFile}{GroverClient}(
@@ -34,17 +43,26 @@ convertDirectorySplitModes(
   directory,
   file,
   args = NULL,
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 
-\S4method{convertDirectory}{GroverClient}(grover_client, instrument, directory, args = "", outDir = ".")
+\S4method{convertDirectory}{GroverClient}(
+  grover_client,
+  instrument,
+  directory,
+  args = "",
+  outDir = ".",
+  zip = TRUE
+)
 
 \S4method{convertDirectorySplitModes}{GroverClient}(
   grover_client,
   instrument,
   directory,
   args = "",
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 }
 \arguments{
@@ -59,6 +77,11 @@ convertDirectorySplitModes(
 \item{args}{arguments to pass to msconverteR::convert_files}
 
 \item{outDir}{output directory path for converted files}
+
+\item{zip}{zip converted file}
+}
+\value{
+A vector of file paths to converted data files.
 }
 \description{
 Convert a raw MS file using a grover API.
