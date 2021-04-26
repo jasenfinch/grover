@@ -1,3 +1,13 @@
+# grover 1.0.5
+
+* File conversion methods [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) and [`grover::convertDirectory`](https://jasenfinch.github.io/grover/reference/convert.html) now return the file path of the converted file.
+
+* Zipping of converted files for reduced storage requirements can now be specified using the `zip` argument and is now the default of the conversion methods such as [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html).
+
+* Added [`grover::version`](https://jasenfinch.github.io/grover/reference/version.html) to query the version number of a grover API.
+
+* [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) now ensures that the specified `temp_dir` is created if not already extant.
+
 # grover 1.0.4
 
 * [`grover::conversionArgsPeakPick`](https://jasenfinch.github.io/grover/reference/conversionArgs.html) fix to ensure conversion argument is correctly passed to `msconverteR`.
