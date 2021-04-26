@@ -27,10 +27,6 @@ groverAPI <- function(grover_host,
   log_dir <- normalizePath(log_dir)
   temp_dir <- normalizePath(temp_dir)
   
-  if (!dir.exists(temp_dir)){
-    dir.create(temp_dir)
-  }
-  
   if (isFALSE(background)) {
     API(host(grover_host),
         port(grover_host),
@@ -124,6 +120,7 @@ API <- function(host,
                 stringr::str_c(tempdir(),'grover_host.yml',sep = '/'))
     
     if (!fs::dir_exists(log_dir)) fs::dir_create(log_dir)
+    if (!fs::dir_exists(temp_dir)) fs::dir_create(temp_dir)
     
     message(stringr::str_c('API logs can be found at ',log_dir))
     
