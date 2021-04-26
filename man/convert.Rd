@@ -60,6 +60,9 @@ convertDirectorySplitModes(
 
 \item{outDir}{output directory path for converted files}
 }
+\value{
+A vector of file paths to converted data files.
+}
 \description{
 Convert a raw MS file using a grover API.
 }

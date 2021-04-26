@@ -46,11 +46,13 @@ test_that('raw files can be listed',{
 })
 
 test_that('a file can be converted',{
-  convertFile(grover_client,
+  converted_file <- convertFile(grover_client,
               'Thermo-Exactive',
               'Experiment_1',
               'QC01.raw',
               outDir = out_dir)
+  
+  expect_type(converted_file,'character')
   expect_true(file.exists(str_c(out_dir,'/QC01.mzML')))
   unlink(str_c(out_dir,'/QC01.mzML'))
 })

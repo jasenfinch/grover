@@ -7,6 +7,7 @@
 #' @param file file name
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
+#' @return A vector of file paths to converted data files.
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
 #' @importFrom httr PUT
@@ -64,28 +65,27 @@ setMethod('convertFile',signature = 'GroverClient',
                                '&directory=',directory
               )
               tidycmd %>% PUT()
-              success <- 1
+              success <- str_c(outDir,'/',fileName,'.mzML')
             } else {
-              success <- 0
+              success <- NA
             }
-            if (success == 1) {
+            if (!is.na(success)) {
               message('\r',
                       file,
                       ' ',
                       crayon::green(cli::symbol$tick),
                       '\n',
                       sep = '')
-              return('success')
-            }
-            if (success == 0) {
+            } else {
               message('\r',
                       file,
                       ' ',
                       crayon::red(cli::symbol$cross),
                       '\n',
                       sep = '')
-              return('failure')
             }
+            
+            return(success)
           })
 
 #' @rdname convert
@@ -130,12 +130,14 @@ setMethod('convertDirectory',signature = 'GroverClient',
             
             message()
             
-            results <- files[str_detect(results,'failure')]
+            failed <- files[is.na(results)]
             
-            if (length(results) > 0) {
+            if (length(failed) > 0) {
               warning(str_c('Unable to convert files: ',
-                            str_c(results,collapse = ', ')),call. = FALSE)
+                            str_c(failed,collapse = ', ')),call. = FALSE)
             }
+            
+            return(results)
           })
 
 #' @rdname convert
