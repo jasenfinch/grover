@@ -25,6 +25,12 @@ test_that('client can detect api',{
   expect_equal(extant(grover_client),"I'm still here!")
 })
 
+test_that('the api version is returned',{
+  expect_equal(version(grover_client),
+               packageVersion('grover') %>% 
+                 as.character())
+})
+
 test_that('instruments can be listed',{
   instrument <- listInstruments(grover_client)
   expect_equal(instrument,'Thermo-Exactive')

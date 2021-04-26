@@ -24,3 +24,30 @@ setMethod('extant',signature = 'GroverClient',
             return(answer)
           }
 )
+
+#' Return the version of a grover API
+#' @rdname version
+#' @description Return the version number of a grover API.
+#' @param grover_client
+#' @return the version number of the grover API
+#' @export
+
+setGeneric('version',
+           function(grover_client)
+             standardGeneric('version'))
+
+#' @rdname 
+
+setMethod('version',signature = 'GroverClient',
+          function(grover_client){
+            cmd <- str_c(hostURL(grover_client),
+                         '/version?',
+                         'auth=',auth(grover_client))
+            
+            grover_version <- try({cmd %>%
+                GET() %>%
+                content() %>%
+                unlist()},silent = TRUE)
+            
+            return(grover_version)
+          })

@@ -55,6 +55,7 @@ groverAPI <- function(grover_host,
     
     env$hostConvertFile <- hostConvertFile
     env$hostExtant <- hostExtant
+    env$hostversion <- hostVersion
     env$hostGetFile <- hostGetFile
     env$hostListFiles <- hostListFiles
     env$hostListRawFiles <- hostListRawFiles
@@ -134,6 +135,7 @@ API <- function(host,
                   hostConvertFile,
                   serializer = plumber::serializer_content_type('application/xml'))
     api <- plumber::pr_get(api,'/extant',hostExtant)
+    api <- plumber::pr_get(api,'/version',hostVersion)
     api <- plumber::pr_get(
       api,
       '/getFile',
