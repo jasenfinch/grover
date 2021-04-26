@@ -55,7 +55,7 @@ groverAPI <- function(grover_host,
     
     env$hostConvertFile <- hostConvertFile
     env$hostExtant <- hostExtant
-    env$hostversion <- hostVersion
+    env$hostVersion <- hostVersion
     env$hostGetFile <- hostGetFile
     env$hostListFiles <- hostListFiles
     env$hostListRawFiles <- hostListRawFiles

@@ -102,7 +102,7 @@ The `log_dir` argument has also been specified.
 See the final section for details on request logging by the API.
 
 ```{r wait,echo=FALSE}
-Sys.sleep(5)
+Sys.sleep(3)
 ```
 
 Running the API in the background returns a `callr` package `process` object. 
