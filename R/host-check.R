@@ -14,6 +14,7 @@ hostExtant <- function(auth){
   return("I'm still here!")
 }
 
+#' @importFrom utils packageVersion
 
 hostVersion <- function(auth){
   grover_host <- yaml::read_yaml(
