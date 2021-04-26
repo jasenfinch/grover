@@ -27,6 +27,10 @@ groverAPI <- function(grover_host,
   log_dir <- normalizePath(log_dir)
   temp_dir <- normalizePath(temp_dir)
   
+  if (!dir.exists(temp_dir)){
+    dir.create(temp_dir)
+  }
+  
   if (isFALSE(background)) {
     API(host(grover_host),
         port(grover_host),
