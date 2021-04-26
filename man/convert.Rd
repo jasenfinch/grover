@@ -19,14 +19,22 @@ convertFile(
   zip = TRUE
 )
 
-convertDirectory(grover_client, instrument, directory, args = "", outDir = ".")
+convertDirectory(
+  grover_client,
+  instrument,
+  directory,
+  args = "",
+  outDir = ".",
+  zip = TRUE
+)
 
 convertDirectorySplitModes(
   grover_client,
   instrument,
   directory,
   args = "",
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 
 \S4method{convertFile}{GroverClient}(
@@ -39,14 +47,22 @@ convertDirectorySplitModes(
   zip = TRUE
 )
 
-\S4method{convertDirectory}{GroverClient}(grover_client, instrument, directory, args = "", outDir = ".")
+\S4method{convertDirectory}{GroverClient}(
+  grover_client,
+  instrument,
+  directory,
+  args = "",
+  outDir = ".",
+  zip = TRUE
+)
 
 \S4method{convertDirectorySplitModes}{GroverClient}(
   grover_client,
   instrument,
   directory,
   args = "",
-  outDir = "."
+  outDir = ".",
+  zip = TRUE
 )
 }
 \arguments{

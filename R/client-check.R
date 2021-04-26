@@ -28,15 +28,15 @@ setMethod('extant',signature = 'GroverClient',
 #' Return the version of a grover API
 #' @rdname version
 #' @description Return the version number of a grover API.
-#' @param grover_client
-#' @return the version number of the grover API
+#' @param grover_client S4 object of class GroverGlient
+#' @return The version number of the grover API.
 #' @export
 
 setGeneric('version',
            function(grover_client)
              standardGeneric('version'))
 
-#' @rdname 
+#' @rdname version
 
 setMethod('version',signature = 'GroverClient',
           function(grover_client){
