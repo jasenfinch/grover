@@ -59,8 +59,8 @@ test_that('a file can be converted',{
               outDir = out_dir)
   
   expect_type(converted_file,'character')
-  expect_true(file.exists(str_c(out_dir,'/QC01.mzML')))
-  unlink(str_c(out_dir,'/QC01.mzML'))
+  expect_true(file.exists(str_c(out_dir,'/QC01.mzML.gz')))
+  unlink(str_c(out_dir,'/QC01.mzML.gz'))
 })
 
 test_that('a directory can be converted',{
@@ -68,7 +68,7 @@ test_that('a directory can be converted',{
               'Thermo-Exactive',
               'Experiment_1',
               outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
@@ -78,7 +78,7 @@ test_that('a directory can be converted with peak picking argument',{
                    'Experiment_1',
                    args = conversionArgsPeakPick(),
                    outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
@@ -88,7 +88,7 @@ test_that('a directory can be converted with MS level 1 argument',{
                    'Experiment_1',
                    args = conversionArgsMSlevel1(),
                    outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
@@ -98,7 +98,7 @@ test_that('a directory can be converted with MS level 2 argument',{
                    'Experiment_1',
                    args = conversionArgsMSlevel2(),
                    outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
@@ -108,7 +108,7 @@ test_that('a directory can be converted with MS level 3 argument',{
                    'Experiment_1',
                    args = conversionArgsMSlevel3(),
                    outDir = out_dir)
-  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML')))
+  expect_true(file.exists(str_c(out_dir,'/Experiment_1/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 
@@ -118,9 +118,9 @@ test_that('a directory can be converted with split modes',{
                    'Experiment_1',
                    outDir = out_dir)
   expect_true(file.exists(str_c(out_dir,
-                                '/Experiment_1/Experiment_1-neg/QC01.mzML')))
+                                '/Experiment_1/Experiment_1-neg/QC01.mzML.gz')))
   expect_true(file.exists(str_c(out_dir,
-                                '/Experiment_1/Experiment_1-pos/QC01.mzML')))
+                                '/Experiment_1/Experiment_1-pos/QC01.mzML.gz')))
   unlink(str_c(out_dir,'/Experiment_1'),recursive = TRUE)
 })
 

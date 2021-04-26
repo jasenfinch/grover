@@ -7,12 +7,13 @@
 #' @param file file name
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
+#' @param zip zip converted file 
 #' @return A vector of file paths to converted data files.
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
 #' @importFrom httr PUT
 #' @importFrom utils URLencode
-#' @importFrom fs dir_create
+#' @importFrom fs dir_create file_delete
 #' @importFrom progress progress_bar
 #' @importFrom crayon yellow bold
 #' @export
@@ -23,7 +24,8 @@ setMethod('convertFile',signature = 'GroverClient',
                    directory, 
                    file, 
                    args = NULL, 
-                   outDir = '.'){
+                   outDir = '.',
+                   zip = TRUE){
             
             converted_file <- file %>%
               file_path_sans_ext() %>%
@@ -57,7 +59,21 @@ setMethod('convertFile',signature = 'GroverClient',
               convertedFile <- convertedFile %>%
                 content(as = 'text',encoding = 'UTF-8')
               
-              writeLines(convertedFile,str_c(outDir,'/',fileName,'.mzML'))
+              converted_file_path <- str_c(outDir,'/',fileName,'.mzML')
+              
+              writeLines(convertedFile,converted_file_path)
+              
+              if (isTRUE(zip)){
+                zipped_file_path <- str_c(outDir,'/',fileName,'.mzML.gz')
+                
+                zip(zipped_file_path,
+                    converted_file_path,
+                    flags = '-q')
+                
+                fs::file_delete(converted_file_path)
+                
+                converted_file_path <- zipped_file_path
+              }
               
               tidycmd <- str_c(hostURL(grover_client),'/tidyup?',
                                'auth=',auth(grover_client),
@@ -65,7 +81,7 @@ setMethod('convertFile',signature = 'GroverClient',
                                '&directory=',directory
               )
               tidycmd %>% PUT()
-              success <- str_c(outDir,'/',fileName,'.mzML')
+              success <- converted_file_path
             } else {
               success <- NA
             }
@@ -96,7 +112,8 @@ setMethod('convertDirectory',signature = 'GroverClient',
                    instrument, 
                    directory, 
                    args = '', 
-                   outDir = '.'){
+                   outDir = '.',
+                   zip = TRUE){
             
             files <- listRawFiles(grover_client,instrument,directory)
             
@@ -122,7 +139,8 @@ setMethod('convertDirectory',signature = 'GroverClient',
                                    directory,
                                    file,
                                    args,
-                                   outDir)
+                                   outDir,
+                                   zip)
               })
               pb$tick()
               return(res)
@@ -151,7 +169,8 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
                    instrument, 
                    directory, 
                    args = '', 
-                   outDir = '.'){
+                   outDir = '.',
+                   zip = TRUE){
             
             outDir <- str_c(outDir,directory,sep = '/')
             dir_create(outDir)
@@ -164,7 +183,8 @@ setMethod('convertDirectorySplitModes',signature = 'GroverClient',
                              instrument,
                              directory,
                              negArgs,
-                             outDir)
+                             outDir,
+                             zip)
             
             negDir <- str_c(outDir,'/',directory,'-neg')
             dir_create(negDir)
