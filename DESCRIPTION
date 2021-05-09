@@ -1,6 +1,6 @@
 Package: grover
 Title: Web API Framework for Mass Spectrometry Data Transfer
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: 
     person(given = "Jasen",
            family = "Finch",
@@ -26,8 +26,9 @@ Imports: callr,
         progress,
         purrr,
         rawrr,
-        rjson,
         readr,
+        rjson,
+        R.utils,
         stringr,
         tibble,
         tictoc,

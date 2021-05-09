@@ -1,3 +1,9 @@
+# grover 1.0.6
+
+* [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) creates the output directory if it doesn't already exist.
+
+* converted files now correctly zipped by [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) to ensure they are readable by the [`mzR`](https://www.bioconductor.org/packages/release/bioc/html/mzR.html) package.
+
 # grover 1.0.5
 
 * File conversion methods [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) and [`grover::convertDirectory`](https://jasenfinch.github.io/grover/reference/convert.html) now return the file path of the converted file.

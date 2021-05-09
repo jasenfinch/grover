@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grover</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.6</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
       
 
-      </header><script src="client-usage_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="client-usage_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Accessing raw mass spectrometry data from a grover API</h1>
@@ -121,9 +121,9 @@
                  background <span class="op">=</span> <span class="cn">TRUE</span>,
                  log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span>,
                  temp_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/temp'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmpcfotPB/logs": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmpfuOsk9/logs": No such file</span>
 <span class="co">#&gt; or directory</span>
-<span class="co">#&gt; Warning in normalizePath(temp_dir): path[1]="/tmp/RtmpcfotPB/temp": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(temp_dir): path[1]="/tmp/RtmpfuOsk9/temp": No such file</span>
 <span class="co">#&gt; or directory</span></code></pre></div>
 <p>For further details on hosting a grover API see the <a href="hosting.html">Hosting a grover API</a> vignette.</p>
 </div>
@@ -184,14 +184,14 @@ auth: 1234</code></pre>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1619479794.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1620559969.</span></code></pre></div>
 <p>This can also be done directory wide when multiple files are available.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fileInfo.html">directoryFileInfo</a></span><span class="op">(</span><span class="va">grover_client</span>,<span class="st">'Thermo-Exactive'</span>,<span class="st">'Experiment_1'</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   instrument      directory    file     extension        size  birth_time</span>
 <span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;fs::bytes&gt;       &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1619479794.</span></code></pre></div>
+<span class="co">#&gt; 1 Thermo-Exactive Experiment_1 QC01.raw raw             6.88M 1620559969.</span></code></pre></div>
 </div>
 <div id="transfer-files" class="section level2">
 <h2 class="hasAnchor">
