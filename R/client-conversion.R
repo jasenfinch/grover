@@ -16,6 +16,7 @@
 #' @importFrom fs dir_create file_delete
 #' @importFrom progress progress_bar
 #' @importFrom crayon yellow bold
+#' @importFrom R.utils gzip
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',
@@ -59,6 +60,10 @@ setMethod('convertFile',signature = 'GroverClient',
               convertedFile <- convertedFile %>%
                 content(as = 'text',encoding = 'UTF-8')
               
+              if (!dir.exists(outDir)){
+                dir_create(outDir)
+              }
+              
               converted_file_path <- str_c(outDir,'/',fileName,'.mzML')
               
               writeLines(convertedFile,converted_file_path)
@@ -66,11 +71,8 @@ setMethod('convertFile',signature = 'GroverClient',
               if (isTRUE(zip)){
                 zipped_file_path <- str_c(outDir,'/',fileName,'.mzML.gz')
                 
-                zip(zipped_file_path,
-                    converted_file_path,
-                    flags = '-q')
-                
-                fs::file_delete(converted_file_path)
+                R.utils::gzip(converted_file_path,
+                              zipped_file_path)
                 
                 converted_file_path <- zipped_file_path
               }
