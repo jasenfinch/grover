@@ -110,20 +110,20 @@ test_that('hostGetFile fails with incorrect auth',{
 
 test_that('hostFileInfo works',{
   file_info <- hostFileInfo(host_auth,instrument,directory,sample)
-  expect_equal(nchar(file_info),140)
+  expect_true(stringr::str_detect(file_info,'Thermo-Exactive'))
 })
 
 test_that('hostDirectoryFileInfo works',{
   directory_info <- hostDirectoryFileInfo(host_auth,instrument,directory)
-  expect_equal(nchar(directory_info),140)
+  expect_true(stringr::str_detect(directory_info,'Thermo-Exactive'))
 })
 
 test_that('hostInstrumentFileInfo works',{
   instrument_info <- hostInsturmentFileInfo(host_auth,instrument)
-  expect_equal(nchar(instrument_info),140)
+  expect_true(stringr::str_detect(instrument_info,'Thermo-Exactive'))
 })
 
 test_that('hostRepositoryFileInfo works',{
   repository_info <- hostRepositoryFileInfo(host_auth)
-  expect_equal(nchar(repository_info),140)
+  expect_true(stringr::str_detect(repository_info,'Thermo-Exactive'))
 })
