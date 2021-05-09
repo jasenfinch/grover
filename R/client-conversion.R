@@ -45,7 +45,7 @@ setMethod('convertFile',signature = 'GroverClient',
                          '&args=')
             
             if (is.null(args)) {
-             args <- ''
+              args <- ''
             }
             
             cmd <- str_c(cmd,args)
@@ -71,8 +71,8 @@ setMethod('convertFile',signature = 'GroverClient',
               if (isTRUE(zip)){
                 zipped_file_path <- str_c(outDir,'/',fileName,'.mzML.gz')
                 
-                R.utils::gzip(converted_file_path,
-                              zipped_file_path)
+                gzip(converted_file_path,
+                     zipped_file_path)
                 
                 converted_file_path <- zipped_file_path
               }
