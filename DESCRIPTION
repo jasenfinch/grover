@@ -38,7 +38,8 @@ Suggests:
     rmarkdown,
     prettydoc,
     testthat,
-    covr
+    covr,
+    reticulate
 Remotes: wilsontom/msconverteR
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
