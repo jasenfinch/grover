@@ -20,20 +20,20 @@ hostConvertFile <- function(auth,instrument,directory,file,args = NULL){
   }
   
   msconverteR::convert_files(files = stringr::str_c(host_repository,
-                              instrument,
-                              directory,
-                              file,
-                              sep = '/'),
-                outpath = host_temp,
-                msconvert_args = args,
-                docker_args = '--privileged')
+                                                    instrument,
+                                                    directory,
+                                                    file,
+                                                    sep = '/'),
+                             outpath = host_temp,
+                             msconvert_args = args,
+                             docker_args = '--privileged')
   
   out_file <- stringr::str_c(host_temp,
-                    stringr::str_c(tools::file_path_sans_ext(file),
-                          '.mzML'),
-                    sep = '/')
+                             stringr::str_c(tools::file_path_sans_ext(file),
+                                            '.mzML'),
+                             sep = '/')
   
-out_file <- readr::read_file(out_file)
+  out_file <- readr::read_file(out_file)
   
   return(out_file)
   
