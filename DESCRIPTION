@@ -7,6 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jsf9@aber.ac.uk")
 Description: A web based API framework for hosting and interfacing a mass spectrometry raw data data repository. Transfer files, retrieve file information, convert raw mass spectromery data to .mzML format and retrieve sample information from .raw file headers.
+biocViews: MassSpectrometry, Metabolomics
 URL: https://jasenfinch.github.io/grover/
 BugReports: https://github.com/jasenfinch/grover/issues
 License: GPL-3

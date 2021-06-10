@@ -68,7 +68,7 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
-          install.packages('http://fgcz-ms.uzh.ch/~cpanse/rawrr_0.1.8.tar.gz',repos = NULL)
+          rawrr::installRawFileReaderDLLs()
           msconverteR::get_pwiz_container()
         shell: Rscript {0}
 
