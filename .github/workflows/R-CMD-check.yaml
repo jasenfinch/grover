@@ -68,7 +68,6 @@ jobs:
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
-          rawrr::installRawFileReaderDLLs()
           msconverteR::get_pwiz_container()
         shell: Rscript {0}
 
