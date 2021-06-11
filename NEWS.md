@@ -2,7 +2,7 @@
 
 * Added `biocViews` field to the DESCRIPTION to ensure the [`rawrr](https://bioconductor.org/packages/release/bioc/html/rawrr.html) Bioconductor dependency is installed automatically.
 
-* Fixed [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) error when more than to options are supplied to the `args` parameter.
+* Fixed [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) error when more than two options are supplied to the `args` parameter.
 
 # grover 1.0.6
 
