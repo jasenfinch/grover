@@ -15,7 +15,7 @@ grover_client <- grover(host = "127.0.0.1",
 
 api <- groverAPI(grover_host,background = TRUE)
 
-Sys.sleep(3)
+Sys.sleep(8)
 
 test_that('api is running',{
   expect_true(api$is_alive())
