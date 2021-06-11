@@ -12,7 +12,6 @@ URL: https://jasenfinch.github.io/grover/
 BugReports: https://github.com/jasenfinch/grover/issues
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports: callr,
         cli,
         crayon,
