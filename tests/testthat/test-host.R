@@ -38,7 +38,7 @@ test_that('hostConvertFile will error with incorrect auth',{
 
 test_that('hostSampleInfo works',{
   sample_info <- hostSampleInfo(host_auth,instrument,directory,sample)
-  expect_equal(nchar(sample_info),1131)
+  expect_equal(nchar(sample_info),1151)
 })
 
 test_that('hostSampleInfo will error with incorrect auth',{
@@ -47,7 +47,7 @@ test_that('hostSampleInfo will error with incorrect auth',{
 
 test_that('hostRunInfo works',{
   run_info <- hostRunInfo(host_auth,instrument,directory)
-  expect_equal(nchar(run_info),1131)
+  expect_equal(nchar(run_info),1151)
 })
 
 test_that('hostTidy works',{
@@ -127,3 +127,4 @@ test_that('hostRepositoryFileInfo works',{
   repository_info <- hostRepositoryFileInfo(host_auth)
   expect_true(stringr::str_detect(repository_info,'Thermo-Exactive'))
 })
+

@@ -1,8 +1,14 @@
+# grover 1.0.7
+
+* Added `biocViews` field to the DESCRIPTION to ensure the [`rawrr](https://bioconductor.org/packages/release/bioc/html/rawrr.html) Bioconductor dependency is installed automatically.
+
+* Fixed [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) error when more than two options are supplied to the `args` parameter.
+
 # grover 1.0.6
 
 * [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) creates the output directory if it doesn't already exist.
 
-* converted files now correctly zipped by [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) to ensure they are readable by the [`mzR`](https://www.bioconductor.org/packages/release/bioc/html/mzR.html) package.
+* Converted files now correctly zipped by [`grover::converFile`](https://jasenfinch.github.io/grover/reference/convert.html) to ensure they are readable by the [`mzR`](https://www.bioconductor.org/packages/release/bioc/html/mzR.html) package.
 
 # grover 1.0.5
 

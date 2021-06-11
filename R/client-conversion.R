@@ -48,6 +48,12 @@ setMethod('convertFile',signature = 'GroverClient',
               args <- ''
             }
             
+            if (length(args) > 1) {
+              args <- args %>% 
+                .[. != ''] %>% 
+                str_c(collapse = ' ')
+            }
+            
             cmd <- str_c(cmd,args)
             
             fileName <- str_split(file,'[.]')[[1]][1]

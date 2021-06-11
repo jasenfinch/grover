@@ -63,12 +63,14 @@ jobs:
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+          sudo apt install mono-xbuild
 
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran(c("rcmdcheck","goodpractice"))
-          install.packages('http://fgcz-ms.uzh.ch/~cpanse/rawrr_0.1.8.tar.gz',repos = NULL)
+          rawrr::installRawFileReaderDLLs()
+          rawrr::buildRawrrExe()
           msconverteR::get_pwiz_container()
         shell: Rscript {0}
 

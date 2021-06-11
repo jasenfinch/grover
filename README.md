@@ -21,9 +21,6 @@ The package functionality is platform independent with file conversion and sampl
 
 ### Installation
 
-This package requires the `rawrr` package.
-Details of how to install the latest version can be found [here](https://github.com/fgcz/rawrr/releases).
-
 The `grover` package can be installed from GitHub using the following:
 
 ```
