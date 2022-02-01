@@ -1,3 +1,7 @@
+# grover 1.0.8
+
+* Added Bioconductor package [`rawrr](https://bioconductor.org/packages/release/bioc/html/rawrr.html) as a `bioc` remote to ensure the package can be installed correctly using [`pak`](https://pak.r-lib.org/) and [`renv`](https://rstudio.github.io/renv/articles/renv.html).
+
 # grover 1.0.7
 
 * Added `biocViews` field to the DESCRIPTION to ensure the [`rawrr](https://bioconductor.org/packages/release/bioc/html/rawrr.html) Bioconductor dependency is installed automatically.

@@ -2,9 +2,11 @@
 # grover
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![R build status](https://github.com/jasenfinch/grover/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/grover/actions)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![R-CMD-check](https://github.com/jasenfinch/grover/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/grover/actions)
 [![Codecov test coverage](https://codecov.io/gh/jasenfinch/grover/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/grover?branch=master)
+[![license](https://img.shields.io/badge/license-GNU%20GPL%20v3.0-blue.svg)](https://github.com/jasenfinch/grover/blob/master/DESCRIPTION)
+[![GitHub release](https://img.shields.io/github/release/jasenfinch/grover.svg)](https://GitHub.com/jasenfinch/grover/releases/)
 <!-- badges: end -->
 
 ### Overview
