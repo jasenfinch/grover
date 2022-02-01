@@ -139,9 +139,9 @@ repository: ./data</code></pre>
                  background <span class="op">=</span> <span class="cn">TRUE</span>,
                  log_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span>,
                  temp_dir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/temp'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/Rtmp9HOVug/logs": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(log_dir): path[1]="/tmp/RtmpiHEaL8/logs": No such file</span>
 <span class="co">#&gt; or directory</span>
-<span class="co">#&gt; Warning in normalizePath(temp_dir): path[1]="/tmp/Rtmp9HOVug/temp": No such file</span>
+<span class="co">#&gt; Warning in normalizePath(temp_dir): path[1]="/tmp/RtmpiHEaL8/temp": No such file</span>
 <span class="co">#&gt; or directory</span></code></pre></div>
 <p>The <code>log_dir</code> argument has also been specified. See the final section for details on request logging by the API.</p>
 <p>Running the API in the background returns a <code>callr</code> package <code>process</code> object. We can test the status of the background process in which the API is running using:</p>
@@ -166,11 +166,11 @@ repository: ./data</code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">logs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>,<span class="st">'/logs'</span><span class="op">)</span>,full.names <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">logs</span>
-<span class="co">#&gt; [1] "/tmp/Rtmp9HOVug/logs/plumber_36ab379f60ea.log"</span></code></pre></div>
+<span class="co">#&gt; [1] "/tmp/RtmpiHEaL8/logs/plumber_2f9738a10d32.log"</span></code></pre></div>
 <p>The contents of this log file can be access as below:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">logs</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; [1] "INFO [2022-02-01 13:00:08] GET /extant 1234 200 0.086"</span></code></pre></div>
+<span class="co">#&gt; [1] "INFO [2022-02-01 13:05:39] GET /extant 1234 200 0.064"</span></code></pre></div>
 <p>The log entry above shows our single request using <code><a href="../reference/extant.html">extant()</a></code> whilst the API was live. This log entry also includes, in order of appearance, the data and time of the request, the request type, the requested function, the <code>auth</code> argument specified, the status of the request and the processing time of the request.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
