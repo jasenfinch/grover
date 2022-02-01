@@ -42,5 +42,17 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
+      
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install mono-xbuild
+          
+      - name: Setup R dependencies
+        run: |
+          rawrr::installRawFileReaderDLLs()
+          rawrr::buildRawrrExe()
+          msconverteR::get_pwiz_container()
+        shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v1

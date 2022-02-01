@@ -27,6 +27,18 @@ jobs:
         with:
           extra-packages: pkgdown
           needs: website
+      
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install mono-xbuild
+          
+      - name: Setup R dependencies
+        run: |
+          rawrr::installRawFileReaderDLLs()
+          rawrr::buildRawrrExe()
+          msconverteR::get_pwiz_container()
+        shell: Rscript {0}
 
       - name: Deploy package
         run: |

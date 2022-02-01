@@ -24,6 +24,18 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: covr
+      
+      - name: Install system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt install mono-xbuild
+          
+      - name: Setup R dependencies
+        run: |
+          rawrr::installRawFileReaderDLLs()
+          rawrr::buildRawrrExe()
+          msconverteR::get_pwiz_container()
+        shell: Rscript {0}
 
       - name: Test coverage
         run: covr::codecov()
