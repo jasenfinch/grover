@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![R build status](https://github.com/jasenfinch/grover/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/grover/actions)
+[![R-CMD-check](https://github.com/jasenfinch/grover/workflows/R-CMD-check/badge.svg)](https://github.com/jasenfinch/grover/actions)
 [![Codecov test coverage](https://codecov.io/gh/jasenfinch/grover/branch/master/graph/badge.svg)](https://codecov.io/gh/jasenfinch/grover?branch=master)
 <!-- badges: end -->
 
