@@ -42,4 +42,4 @@ Suggests:
 Remotes: wilsontom/msconverteR,
         bioc::rawrr
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
