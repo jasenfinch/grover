@@ -12,6 +12,9 @@ extant(grover_client)
 \arguments{
 \item{grover_client}{S4 object of class GroverGlient}
 }
+\value{
+\code{TRUE} if the API host is accessible and \code{FALSE} if not.
+}
 \description{
 Check grover API is still extistant.
 }

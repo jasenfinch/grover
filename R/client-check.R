@@ -3,6 +3,7 @@
 #' @rdname extant
 #' @description Check grover API is still extistant.
 #' @param grover_client S4 object of class GroverGlient
+#' @return `TRUE` if the API host is accessible and `FALSE` if not.
 #' @importFrom httr GET content
 #' @export
 
