@@ -24,8 +24,16 @@ groverAPI <- function(grover_host,
                       log_dir = '~/.grover/logs',
                       temp_dir = '~/.grover/temp'){
   
-  log_dir <- normalizePath(log_dir)
-  temp_dir <- normalizePath(temp_dir)
+  log_dir <- path.expand(log_dir)
+  temp_dir <- path.expand(temp_dir)
+  
+  if (!dir.exists(log_dir)){
+    dir.create(log_dir)
+  }
+  
+  if (!dir.exists(temp_dir)){
+    dir.create(temp_dir)
+  }
   
   if (isFALSE(background)) {
     API(host(grover_host),
