@@ -1,3 +1,17 @@
+# grover 1.0.9
+
+* The [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) `log_dir` and `temp_dir` argument directories are now created if they do not already exist.
+
+* The [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) `temp_dir` argument default is now `tempdir()`. 
+
+* [`grover::extant`](https://jasenfinch.github.io/grover/reference/extant.html) now returns `TRUE` if the specified API is accessible and `FALSE` if not.
+
+* The argument `overwrite` has now been added to [`grover::convertFile`](https://jasenfinch.github.io/grover/reference/convert.html) and [`grover::convertDirectory`](https://jasenfinch.github.io/grover/reference/convert.html) to enable the overwriting of local mzML files with the same file name as the raw files to be converted.
+
+* Removed the `build_vignettes` argument from the installation instructions in the package README as the package documetation is available online from https://jasenfinch.github.io/grover.
+
+* Removed the Introduction vignette as the majority of this information was duplicated in the package README.
+
 # grover 1.0.8
 
 * Added Bioconductor package [`rawrr](https://bioconductor.org/packages/release/bioc/html/rawrr.html) as a `bioc` remote to ensure the package can be installed correctly using [`pak`](https://pak.r-lib.org/) and [`renv`](https://rstudio.github.io/renv/articles/renv.html).
