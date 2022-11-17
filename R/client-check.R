@@ -1,10 +1,4 @@
 
-serverside_error <- function(answer){
-  if (class(answer) == 'try-error') {
-    stop(answer,call. = FALSE)
-  }
-}
-
 #' Check the existance of a grover API
 #' @rdname extant
 #' @description Check grover API is still extistant.
@@ -23,8 +17,6 @@ setMethod('extant',signature = 'GroverClient',
                 GET() %>%
                 content() %>%
                 unlist()},silent = TRUE)
-            
-            serverside_error(answer)
             
             status <- ifelse(
               answer == "I'm still here!",
