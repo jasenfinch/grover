@@ -84,7 +84,7 @@ convertDirectorySplitModes(
 
 \item{zip}{zip converted file}
 
-\item{overwrite}{overwrite files with the same file name that already exist at the \code{outDir} path}
+\item{overwrite}{overwrite local mzML files that already exist at the \code{outDir} path that have the same file name as the raw files to be converted}
 }
 \value{
 A vector of file paths to converted data files.

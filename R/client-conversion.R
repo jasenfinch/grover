@@ -8,7 +8,7 @@
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
 #' @param zip zip converted file 
-#' @param overwrite overwrite files with the same file name that already exist at the `outDir` path
+#' @param overwrite overwrite local mzML files that already exist at the `outDir` path that have the same file name as the raw files to be converted 
 #' @return A vector of file paths to converted data files.
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
