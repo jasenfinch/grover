@@ -33,8 +33,6 @@ remotes::install_github('jasenfinch/grover')
 
 The package documentation can be browsed online at <https://jasenfinch.github.io/grover/>. 
 
-If this is your first time using `grover` see the [Introduction to grover](https://jasenfinch.github.io/grover/articles/introduction.html) vignette for information on how to get started.
-
 If you believe you've found a bug in `grover`, please file a bug (and, if
 possible, a [reproducible example](https://reprex.tidyverse.org)) at
 <https://github.com/jasenfinch/grover/issues>.
