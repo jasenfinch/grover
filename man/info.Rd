@@ -27,6 +27,6 @@ runInfo(grover_client, instrument, directory, time_out = 100)
 \item{time_out}{maximum request time in seconds. This may need to be increased for larger directories.}
 }
 \description{
-Get sample header information for a given raw file or directory using 
+Get sample header information for a given raw file or directory using
 a grover API.
 }
