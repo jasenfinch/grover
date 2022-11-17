@@ -22,7 +22,7 @@
 groverAPI <- function(grover_host,
                       background = FALSE,
                       log_dir = '~/.grover/logs',
-                      temp_dir = '~/.grover/temp'){
+                      temp_dir = tempdir()){
   
   log_dir <- path.expand(log_dir)
   temp_dir <- path.expand(temp_dir)
