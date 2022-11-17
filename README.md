@@ -26,7 +26,7 @@ The package functionality is platform independent with file conversion and sampl
 The `grover` package can be installed from GitHub using the following:
 
 ```
-remotes::install_github('jasenfinch/grover',build_vignettes = TRUE)
+remotes::install_github('jasenfinch/grover')
 ```
 
 ### Learn more
