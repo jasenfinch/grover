@@ -88,7 +88,8 @@ setGeneric('convertFile',function(grover_client,
                                   file, 
                                   args = '',
                                   outDir = '.',
-                                  zip = TRUE){
+                                  zip = TRUE,
+                                  overwrite = FALSE){
   standardGeneric('convertFile')
 })
 
@@ -99,7 +100,8 @@ setGeneric('convertDirectory',function(grover_client,
                                        directory, 
                                        args = '', 
                                        outDir = '.',
-                                       zip = TRUE){
+                                       zip = TRUE,
+                                       overwrite = FALSE){
   standardGeneric('convertDirectory')
 })
 

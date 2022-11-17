@@ -8,6 +8,7 @@
 #' @param args arguments to pass to msconverteR::convert_files
 #' @param outDir output directory path for converted files
 #' @param zip zip converted file 
+#' @param overwrite overwrite files with the same file name that already exist at the `outDir` path
 #' @return A vector of file paths to converted data files.
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
@@ -26,7 +27,8 @@ setMethod('convertFile',signature = 'GroverClient',
                    file, 
                    args = NULL, 
                    outDir = '.',
-                   zip = TRUE){
+                   zip = TRUE,
+                   overwrite = FALSE){
             
             converted_file <- file %>%
               file_path_sans_ext() %>%
@@ -78,7 +80,8 @@ setMethod('convertFile',signature = 'GroverClient',
                 zipped_file_path <- str_c(outDir,'/',fileName,'.mzML.gz')
                 
                 gzip(converted_file_path,
-                     zipped_file_path)
+                     zipped_file_path,
+                     overwrite = overwrite)
                 
                 converted_file_path <- zipped_file_path
               }
@@ -113,6 +116,7 @@ setMethod('convertFile',signature = 'GroverClient',
           })
 
 #' @rdname convert
+#' @importFrom purrr map_chr
 #' @export
 
 setMethod('convertDirectory',signature = 'GroverClient',
@@ -121,25 +125,41 @@ setMethod('convertDirectory',signature = 'GroverClient',
                    directory, 
                    args = '', 
                    outDir = '.',
-                   zip = TRUE){
-            
-            files <- listRawFiles(grover_client,instrument,directory)
-            
-            message('\nConverting ',
-                    bold(blue(directory)),
-                    ' containing ',
-                    bold(yellow(length(files))),
-                    ' .raw files\n')
+                   zip = TRUE,
+                   overwrite = FALSE){
             
             outDir <- str_c(outDir,directory,sep = '/')
-            dir_create(outDir)
+            
+            if (!dir.exists(outDir)) {
+              dir_create(outDir) 
+            }
+            
+            local_files <- list.files(
+              outDir,
+              pattern = '.mzML'
+            )
+            
+            raw_files <- listRawFiles(grover_client,instrument,directory)
+            
+            if (isFALSE(overwrite)){
+              files <- raw_files[!(file_path_sans_ext(raw_files) %in% 
+                                 file_path_sans_ext(local_files,compression = zip))] 
+            } else {
+              files <- raw_files
+            }
+            
+            message('\nConverting ',
+                    bold(yellow(length(files))),
+                    ' .raw files from directory ',
+                    bold(blue(directory)),
+                    '\n')
             
             pb <- progress_bar$new(
               format = "[:bar] :percent eta: :eta",
               total = length(files), clear = FALSE)
             pb$tick(0)
             
-            results <- map(seq_len(length(files)),~{
+            results <- map_chr(seq_len(length(files)),~{
               file <- files[.]
               suppressMessages({
                 res <- convertFile(grover_client,
@@ -148,7 +168,8 @@ setMethod('convertDirectory',signature = 'GroverClient',
                                    file,
                                    args,
                                    outDir,
-                                   zip)
+                                   zip,
+                                   overwrite)
               })
               pb$tick()
               return(res)

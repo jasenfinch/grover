@@ -25,7 +25,8 @@ convertDirectory(
   directory,
   args = "",
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 convertDirectorySplitModes(
@@ -53,7 +54,8 @@ convertDirectorySplitModes(
   directory,
   args = "",
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 \S4method{convertDirectorySplitModes}{GroverClient}(
@@ -79,6 +81,8 @@ convertDirectorySplitModes(
 \item{outDir}{output directory path for converted files}
 
 \item{zip}{zip converted file}
+
+\item{overwrite}{overwrite files with the same file name that already exist at the `outDir` path}
 }
 \value{
 A vector of file paths to converted data files.
