@@ -16,7 +16,7 @@ grover(host, port, auth, repository = NULL)
 \item{repository}{data repository directory path}
 }
 \description{
-Create a GroverClient or GroverHost class object containing 
+Create a GroverClient or GroverHost class object containing
 API host information.
 }
 \examples{

@@ -25,7 +25,7 @@ conversionArgsMSlevel3()
 Helper functions for msconvert arguments for raw data conversion.
 }
 \details{
-These functions return character strings suitable for supplying to the \code{args} 
+These functions return character strings suitable for supplying to the \code{args}
 argument of \code{convertFile} for passing to msconvert.
 }
 \examples{

@@ -13,7 +13,10 @@ grover_client <- grover(host = "127.0.0.1",
                        port = 8000,
                        auth = "1234")
 
-api <- groverAPI(grover_host,background = TRUE)
+api <- groverAPI(grover_host,
+                 background = TRUE,
+                 log_dir = paste0(tempdir(),'/logs'),
+                 temp_dir = paste0(tempdir(),'/temp'))
 
 Sys.sleep(8)
 
@@ -22,7 +25,7 @@ test_that('api is running',{
 })
 
 test_that('client can detect api',{
-  expect_equal(extant(grover_client),"I'm still here!")
+  expect_true(extant(grover_client))
 })
 
 test_that('the api version is returned',{
@@ -187,5 +190,5 @@ test_that('repository file information can be returned',{
 api$kill()
 
 test_that('client cannot detect api after it is killed',{
-  expect_equal(extant(grover_client),"grover is MIA!")
+  expect_equal(extant(grover_client),FALSE)
 })

@@ -16,7 +16,8 @@ convertFile(
   file,
   args = "",
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 convertDirectory(
@@ -25,7 +26,8 @@ convertDirectory(
   directory,
   args = "",
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 convertDirectorySplitModes(
@@ -44,7 +46,8 @@ convertDirectorySplitModes(
   file,
   args = NULL,
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 \S4method{convertDirectory}{GroverClient}(
@@ -53,7 +56,8 @@ convertDirectorySplitModes(
   directory,
   args = "",
   outDir = ".",
-  zip = TRUE
+  zip = TRUE,
+  overwrite = FALSE
 )
 
 \S4method{convertDirectorySplitModes}{GroverClient}(
@@ -79,6 +83,8 @@ convertDirectorySplitModes(
 \item{outDir}{output directory path for converted files}
 
 \item{zip}{zip converted file}
+
+\item{overwrite}{overwrite local mzML files that already exist at the \code{outDir} path that have the same file name as the raw files to be converted}
 }
 \value{
 A vector of file paths to converted data files.

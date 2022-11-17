@@ -8,7 +8,7 @@ groverAPI(
   grover_host,
   background = FALSE,
   log_dir = "~/.grover/logs",
-  temp_dir = "~/.grover/temp"
+  temp_dir = tempdir()
 )
 }
 \arguments{

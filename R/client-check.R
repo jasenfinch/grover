@@ -1,7 +1,9 @@
+
 #' Check the existance of a grover API
 #' @rdname extant
 #' @description Check grover API is still extistant.
 #' @param grover_client S4 object of class GroverGlient
+#' @return `TRUE` if the API host is accessible and `FALSE` if not.
 #' @importFrom httr GET content
 #' @export
 
@@ -16,12 +18,14 @@ setMethod('extant',signature = 'GroverClient',
                 GET() %>%
                 content() %>%
                 unlist()},silent = TRUE)
-           
-             if (answer != "I'm still here!") {
-              answer <- 'grover is MIA!'
-             }
             
-            return(answer)
+            status <- ifelse(
+              answer == "I'm still here!",
+              TRUE,
+              FALSE
+            )
+            
+            return(status)
           }
 )
 
