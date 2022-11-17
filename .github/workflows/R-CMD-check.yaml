@@ -44,17 +44,17 @@ jobs:
         run: |
           sudo apt install mono-xbuild
       
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+          
       - name: Set up R dependencies
         run: |
           rawrr::installRawFileReaderDLLs()
           rawrr::buildRawrrExe()
           msconverteR::get_pwiz_container()
         shell: Rscript {0}
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
