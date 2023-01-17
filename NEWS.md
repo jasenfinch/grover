@@ -1,3 +1,13 @@
+# grover 1.1.0
+
+* Added the `exclude` argument to [`convertDirectory`](https://jasenfinch.github.io/grover/reference/convert.html) and [`runInfo`](https://jasenfinch.github.io/grover/reference/info.html) to exclude raw files matching the specified patterns.
+
+* [`runInfo`](https://jasenfinch.github.io/grover/reference/info.html) now collates the sample information client-side and so the `time_out` argument has been removed.
+
+* The [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) `log_dir` and `temp_dir` argument directories are now created recursively if they do not already exist.
+
+* Improved the naming of the [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) log files to include the current system date.
+
 # grover 1.0.9
 
 * The [`grover::groverAPI`](https://jasenfinch.github.io/grover/reference/groverAPI.html) `log_dir` and `temp_dir` argument directories are now created if they do not already exist.
