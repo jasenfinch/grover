@@ -131,7 +131,10 @@ API <- function(host,
     
     message(stringr::str_c('API logs can be found at ',log_dir))
     
-    logger::log_appender(logger::appender_tee(tempfile("plumber_", log_dir, ".log")))
+    logger::log_appender(logger::appender_tee(paste0(log_dir,
+                                                    '/grover_',
+                                                    Sys.Date(),
+                                                    '.log')))
     
     api <- plumber::pr()
     
