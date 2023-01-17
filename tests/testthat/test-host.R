@@ -45,11 +45,6 @@ test_that('hostSampleInfo will error with incorrect auth',{
   expect_error(hostSampleInfo('incorrect',instrument,directory,sample))
 })
 
-test_that('hostRunInfo works',{
-  run_info <- hostRunInfo(host_auth,instrument,directory)
-  expect_equal(nchar(run_info),1151)
-})
-
 test_that('hostTidy works',{
   result <- hostTidy(host_auth,'QC01.mzML')
   expect_equal(result,'QC01.mzML')

@@ -70,7 +70,6 @@ groverAPI <- function(grover_host,
     env$hostListDirectories <- hostListDirectories
     env$hostListInstruments <- hostListInstruments
     env$hostSampleInfo <- hostSampleInfo
-    env$hostRunInfo <- hostRunInfo
     env$hostTidy <- hostTidy
     env$hostFileInfo <- hostFileInfo
     env$hostDirectoryFileInfo <- hostDirectoryFileInfo
@@ -155,7 +154,6 @@ API <- function(host,
     api <- plumber::pr_get(api,'/listDirectories',hostListDirectories)
     api <- plumber::pr_get(api,'/listInstruments',hostListInstruments)
     api <- plumber::pr_get(api,'/sampleInfo',hostSampleInfo)
-    api <- plumber::pr_get(api,'/runInfo',hostRunInfo)
     api <- plumber::pr_put(api,'/tidy',hostTidy)
     
     api <- plumber::pr_get(api,'/fileInfo',hostFileInfo)
