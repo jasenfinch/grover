@@ -188,6 +188,14 @@ setMethod('convertDirectory',signature = 'GroverClient',
               return(res)
             })
             
+            converted_files <- list.files(outDir,
+                                          full.names = TRUE,
+                                          pattern = '.mzML') %>% 
+              {
+                .[file_path_sans_ext(basename(.),compression = zip) %in% 
+                    file_path_sans_ext(raw_files)]
+              }
+            
             message()
             
             failed <- files[is.na(results)]
@@ -197,7 +205,7 @@ setMethod('convertDirectory',signature = 'GroverClient',
                             str_c(failed,collapse = ', ')),call. = FALSE)
             }
             
-            return(results)
+            return(converted_files)
           })
 
 #' @rdname convert
