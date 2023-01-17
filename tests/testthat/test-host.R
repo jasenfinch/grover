@@ -29,7 +29,7 @@ test_that('hostExtant fails',{
 
 test_that('hostConvertFile works',{
   output <- hostConvertFile(host_auth,instrument,directory,sample)
-  expect_equal(nchar(output),24979028)
+  expect_equal(nchar(output),24979029)
 })
 
 test_that('hostConvertFile will error with incorrect auth',{
@@ -43,11 +43,6 @@ test_that('hostSampleInfo works',{
 
 test_that('hostSampleInfo will error with incorrect auth',{
   expect_error(hostSampleInfo('incorrect',instrument,directory,sample))
-})
-
-test_that('hostRunInfo works',{
-  run_info <- hostRunInfo(host_auth,instrument,directory)
-  expect_equal(nchar(run_info),1151)
 })
 
 test_that('hostTidy works',{

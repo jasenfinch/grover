@@ -28,11 +28,11 @@ groverAPI <- function(grover_host,
   temp_dir <- path.expand(temp_dir)
   
   if (!dir.exists(log_dir)){
-    dir.create(log_dir)
+    dir.create(log_dir,recursive = TRUE)
   }
   
   if (!dir.exists(temp_dir)){
-    dir.create(temp_dir)
+    dir.create(temp_dir,recursive = TRUE)
   }
   
   if (isFALSE(background)) {
@@ -70,7 +70,6 @@ groverAPI <- function(grover_host,
     env$hostListDirectories <- hostListDirectories
     env$hostListInstruments <- hostListInstruments
     env$hostSampleInfo <- hostSampleInfo
-    env$hostRunInfo <- hostRunInfo
     env$hostTidy <- hostTidy
     env$hostFileInfo <- hostFileInfo
     env$hostDirectoryFileInfo <- hostDirectoryFileInfo
@@ -132,7 +131,10 @@ API <- function(host,
     
     message(stringr::str_c('API logs can be found at ',log_dir))
     
-    logger::log_appender(logger::appender_tee(tempfile("plumber_", log_dir, ".log")))
+    logger::log_appender(logger::appender_tee(paste0(log_dir,
+                                                    '/grover_',
+                                                    Sys.Date(),
+                                                    '.log')))
     
     api <- plumber::pr()
     
@@ -155,7 +157,6 @@ API <- function(host,
     api <- plumber::pr_get(api,'/listDirectories',hostListDirectories)
     api <- plumber::pr_get(api,'/listInstruments',hostListInstruments)
     api <- plumber::pr_get(api,'/sampleInfo',hostSampleInfo)
-    api <- plumber::pr_get(api,'/runInfo',hostRunInfo)
     api <- plumber::pr_put(api,'/tidy',hostTidy)
     
     api <- plumber::pr_get(api,'/fileInfo',hostFileInfo)

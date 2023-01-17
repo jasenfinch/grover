@@ -27,7 +27,8 @@ convertDirectory(
   args = "",
   outDir = ".",
   zip = TRUE,
-  overwrite = FALSE
+  overwrite = FALSE,
+  exclude = character()
 )
 
 convertDirectorySplitModes(
@@ -57,7 +58,8 @@ convertDirectorySplitModes(
   args = "",
   outDir = ".",
   zip = TRUE,
-  overwrite = FALSE
+  overwrite = FALSE,
+  exclude = character()
 )
 
 \S4method{convertDirectorySplitModes}{GroverClient}(
@@ -85,6 +87,8 @@ convertDirectorySplitModes(
 \item{zip}{zip converted file}
 
 \item{overwrite}{overwrite local mzML files that already exist at the \code{outDir} path that have the same file name as the raw files to be converted}
+
+\item{exclude}{A character vector of regular expression patterns for which raw files with matching patterns will not be converted.}
 }
 \value{
 A vector of file paths to converted data files.

@@ -6,7 +6,7 @@
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param file file name
-#' @param time_out maximum request time in seconds. This may need to be increased for larger directories.
+#' @param exclude A character vector of regular expression patterns for which the information matching files will not be retrieved.
 #' @importFrom rjson fromJSON
 #' @export
 
@@ -63,8 +63,17 @@ setMethod('sampleInfo',signature = 'GroverClient',
 #' @export
 
 setMethod('runInfo',signature = 'GroverClient',
-          function(grover_client, instrument, directory,time_out = 100) {
+          function(grover_client, instrument, directory,exclude = character()) {
             files <- listRawFiles(grover_client, instrument, directory)
+            
+            files <- files[exclude %>% 
+                             map(
+                               ~!grepl(.x,files)) %>% 
+                             setNames(seq_along(.)) %>% 
+                             as_tibble() %>% 
+                             split(1:nrow(.)) %>% 
+                             map_lgl(all)] %>% 
+              na.omit()
             
             message('\nGenrating run info table for ',
                     bold(blue(directory)),
@@ -72,23 +81,31 @@ setMethod('runInfo',signature = 'GroverClient',
                     bold(yellow(length(files))),
                     ' .raw files\n')
             
-            cmd <-  str_c(hostURL(grover_client),
-                          "/runInfo?", 
-                          "auth=",auth(grover_client), 
-                          "&instrument=",instrument,
-                          "&directory=",directory)
+            pb <- progress_bar$new(
+              format = "[:bar] :percent eta: :eta",
+              total = length(files), clear = FALSE)
+            pb$tick(0)
             
-            run_info <- GET(cmd,timeout(time_out))
+            run_info <- files %>% 
+              purrr::map_dfr(~{
+                suppressMessages({
+                  sample_info <- sampleInfo(
+                    grover_client = grover_client,
+                    instrument = instrument,
+                    directory = directory,
+                    file = .x)
+                })
+                
+                pb$tick()
+                
+                return(sample_info)
+              })
             
-            if (run_info$status_code == 200) {
-              run_info <- run_info %>%
-                content() %>%
-                unlist() %>%
-                fromJSON() %>%
-                as_tibble()
-            } else {
-             stop(str_c('Failed to retrieve with status code ', 
-                        run_info$status_code),call. = FALSE) 
+            failed <- files[!(files %in% run_info$`RAW file`)]
+            
+            if (length(failed) > 0) {
+              warning(str_c('Unable to retrieve information for files: ',
+                            str_c(failed,collapse = ', ')),call. = FALSE)
             }
             
             return(run_info)

@@ -101,7 +101,8 @@ setGeneric('convertDirectory',function(grover_client,
                                        args = '', 
                                        outDir = '.',
                                        zip = TRUE,
-                                       overwrite = FALSE){
+                                       overwrite = FALSE,
+                                       exclude = character()){
   standardGeneric('convertDirectory')
 })
 
@@ -143,7 +144,7 @@ setGeneric('sampleInfo',function(grover_client,instrument,directory,file){
 
 #' @rdname info
 
-setGeneric('runInfo',function(grover_client,instrument,directory,time_out = 100){
+setGeneric('runInfo',function(grover_client,instrument,directory,exclude = character()){
   standardGeneric('runInfo')
 })
 

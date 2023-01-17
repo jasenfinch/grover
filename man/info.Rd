@@ -9,11 +9,11 @@
 \usage{
 sampleInfo(grover_client, instrument, directory, file)
 
-runInfo(grover_client, instrument, directory, time_out = 100)
+runInfo(grover_client, instrument, directory, exclude = character())
 
 \S4method{sampleInfo}{GroverClient}(grover_client, instrument, directory, file)
 
-\S4method{runInfo}{GroverClient}(grover_client, instrument, directory, time_out = 100)
+\S4method{runInfo}{GroverClient}(grover_client, instrument, directory, exclude = character())
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
@@ -24,7 +24,7 @@ runInfo(grover_client, instrument, directory, time_out = 100)
 
 \item{file}{file name}
 
-\item{time_out}{maximum request time in seconds. This may need to be increased for larger directories.}
+\item{exclude}{A character vector of regular expression patterns for which the information matching files will not be retrieved.}
 }
 \description{
 Get sample header information for a given raw file or directory using
