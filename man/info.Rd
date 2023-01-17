@@ -9,11 +9,11 @@
 \usage{
 sampleInfo(grover_client, instrument, directory, file)
 
-runInfo(grover_client, instrument, directory, time_out = 100)
+runInfo(grover_client, instrument, directory, exclude = character())
 
 \S4method{sampleInfo}{GroverClient}(grover_client, instrument, directory, file)
 
-\S4method{runInfo}{GroverClient}(grover_client, instrument, directory, time_out = 100)
+\S4method{runInfo}{GroverClient}(grover_client, instrument, directory, exclude = character())
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
