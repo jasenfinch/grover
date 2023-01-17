@@ -101,7 +101,8 @@ setGeneric('convertDirectory',function(grover_client,
                                        args = '', 
                                        outDir = '.',
                                        zip = TRUE,
-                                       overwrite = FALSE){
+                                       overwrite = FALSE,
+                                       exclude = character()){
   standardGeneric('convertDirectory')
 })
 

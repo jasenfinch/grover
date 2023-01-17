@@ -9,6 +9,7 @@
 #' @param outDir output directory path for converted files
 #' @param zip zip converted file 
 #' @param overwrite overwrite local mzML files that already exist at the `outDir` path that have the same file name as the raw files to be converted 
+#' @param exclude A character vector of regular expression patterns for which raw files with matching patterns will not be converted.
 #' @return A vector of file paths to converted data files.
 #' @importFrom tools file_path_sans_ext
 #' @importFrom stringr str_split
@@ -18,6 +19,7 @@
 #' @importFrom progress progress_bar
 #' @importFrom crayon yellow bold
 #' @importFrom R.utils gzip
+#' @importFrom purrr map_lgl
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',
@@ -126,7 +128,8 @@ setMethod('convertDirectory',signature = 'GroverClient',
                    args = '', 
                    outDir = '.',
                    zip = TRUE,
-                   overwrite = FALSE){
+                   overwrite = FALSE,
+                   exclude = character()){
             
             outDir <- str_c(outDir,directory,sep = '/')
             
@@ -141,9 +144,18 @@ setMethod('convertDirectory',signature = 'GroverClient',
             
             raw_files <- listRawFiles(grover_client,instrument,directory)
             
+            raw_files <- raw_files[exclude %>% 
+                                     map(
+                                       ~!grepl(.x,raw_files)) %>% 
+                                     setNames(seq_along(.)) %>% 
+                                     as_tibble() %>% 
+                                     split(1:nrow(.)) %>% 
+                                     map_lgl(all)] %>% 
+              na.omit()
+            
             if (isFALSE(overwrite)){
               files <- raw_files[!(file_path_sans_ext(raw_files) %in% 
-                                 file_path_sans_ext(local_files,compression = zip))] 
+                                     file_path_sans_ext(local_files,compression = zip))] 
             } else {
               files <- raw_files
             }
