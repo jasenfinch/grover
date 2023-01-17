@@ -28,11 +28,11 @@ groverAPI <- function(grover_host,
   temp_dir <- path.expand(temp_dir)
   
   if (!dir.exists(log_dir)){
-    dir.create(log_dir)
+    dir.create(log_dir,recursive = TRUE)
   }
   
   if (!dir.exists(temp_dir)){
-    dir.create(temp_dir)
+    dir.create(temp_dir,recursive = TRUE)
   }
   
   if (isFALSE(background)) {
