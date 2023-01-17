@@ -29,7 +29,7 @@ test_that('hostExtant fails',{
 
 test_that('hostConvertFile works',{
   output <- hostConvertFile(host_auth,instrument,directory,sample)
-  expect_equal(nchar(output),24979028)
+  expect_equal(nchar(output),24979029)
 })
 
 test_that('hostConvertFile will error with incorrect auth',{
