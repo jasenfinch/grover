@@ -6,7 +6,7 @@
 #' @param instrument instrument name
 #' @param directory directory name
 #' @param file file name
-#' @param time_out maximum request time in seconds. This may need to be increased for larger directories.
+#' @param exclude A character vector of regular expression patterns for which the information matching files will not be retrieved.
 #' @importFrom rjson fromJSON
 #' @export
 

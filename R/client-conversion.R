@@ -20,6 +20,7 @@
 #' @importFrom crayon yellow bold
 #' @importFrom R.utils gzip
 #' @importFrom purrr map_lgl
+#' @importFrom stats setNames na.omit
 #' @export
 
 setMethod('convertFile',signature = 'GroverClient',

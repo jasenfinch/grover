@@ -24,7 +24,7 @@ runInfo(grover_client, instrument, directory, exclude = character())
 
 \item{file}{file name}
 
-\item{time_out}{maximum request time in seconds. This may need to be increased for larger directories.}
+\item{exclude}{A character vector of regular expression patterns for which the information matching files will not be retrieved.}
 }
 \description{
 Get sample header information for a given raw file or directory using
