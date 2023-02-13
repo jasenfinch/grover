@@ -1,3 +1,7 @@
+# grover 1.1.2
+
+* Ensure that the run information tibble returned by [`grover::runInfo`](https://jasenfinch.github.io/grover/reference/info.html) is ordered by .RAW file name.
+
 # grover 1.1.1
 
 * Ensure that [`grover::convertDirectory`](https://jasenfinch.github.io/grover/reference/convert.html) returns the file paths of the converted .mzML files for all the of the raw files in the specified directory.
