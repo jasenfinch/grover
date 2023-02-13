@@ -15,7 +15,8 @@ setMethod('listInstruments',signature = 'GroverClient',
             cmd %>%
               GET() %>%
               content() %>%
-              unlist()
+              unlist() %>% 
+              sort()
           })
 
 #' @rdname list
@@ -32,7 +33,8 @@ setMethod('listDirectories',signature = 'GroverClient',
             cmd %>%
               GET() %>%
               content() %>%
-              unlist()
+              unlist() %>% 
+              sort()
           })
 
 #' @rdname list
@@ -51,7 +53,8 @@ setMethod('listFiles',signature = 'GroverClient',
             cmd %>%
               GET() %>%
               content() %>%
-              unlist()
+              unlist() %>% 
+              sort()
           })
 
 #' @rdname list
@@ -70,5 +73,6 @@ setMethod('listRawFiles',signature = 'GroverClient',
             cmd %>%
               GET() %>%
               content() %>%
-              unlist()
+              unlist() %>% 
+              sort()
           })
