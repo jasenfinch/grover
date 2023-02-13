@@ -57,7 +57,7 @@ setMethod('sampleInfo',signature = 'GroverClient',
           })
 
 #' @rdname info
-#' @importFrom dplyr bind_rows rename
+#' @importFrom dplyr bind_rows rename arrange
 #' @importFrom purrr map map_dfr
 #' @importFrom httr timeout
 #' @export
@@ -94,7 +94,8 @@ setMethod('runInfo',signature = 'GroverClient',
                     instrument = instrument,
                     directory = directory,
                     file = .x)
-                })
+                }) %>% 
+                  arrange(`RAW file`)
                 
                 pb$tick()
                 
