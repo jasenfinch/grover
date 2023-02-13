@@ -1,3 +1,7 @@
+# grover 1.1.3
+
+* Ensure that all vectors returned from functions used to list available information, such as [`grover::listFiles`](https://jasenfinch.github.io/grover/reference/list.html), are sorted client-side.
+
 # grover 1.1.2
 
 * Ensure that the run information tibble returned by [`grover::runInfo`](https://jasenfinch.github.io/grover/reference/info.html) is ordered by .RAW file name.
