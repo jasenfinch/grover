@@ -58,7 +58,7 @@ setMethod('sampleInfo',signature = 'GroverClient',
 
 #' @rdname info
 #' @importFrom dplyr bind_rows rename
-#' @importFrom purrr map
+#' @importFrom purrr map map_dfr
 #' @importFrom httr timeout
 #' @export
 
@@ -87,7 +87,7 @@ setMethod('runInfo',signature = 'GroverClient',
             pb$tick(0)
             
             run_info <- files %>% 
-              purrr::map_dfr(~{
+              map_dfr(~{
                 suppressMessages({
                   sample_info <- sampleInfo(
                     grover_client = grover_client,
