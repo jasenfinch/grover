@@ -4,6 +4,7 @@
 #' @param grover_client S4 object of class GroverClient
 #' @param instrument instrument name
 #' @param directory directory name
+#' @param recursive Boolean. List files recursively within subdirectories. 
 #' @export
 
 setMethod('listInstruments',signature = 'GroverClient',
@@ -41,7 +42,7 @@ setMethod('listDirectories',signature = 'GroverClient',
 #' @export
 
 setMethod('listFiles',signature = 'GroverClient',
-          function(grover_client,instrument,directory){
+          function(grover_client,instrument,directory,recursive = FALSE){
             cmd <- str_c(hostURL(grover_client),
                          '/listFiles?',
                          'auth=',
@@ -49,7 +50,9 @@ setMethod('listFiles',signature = 'GroverClient',
                          '&instrument=',
                          instrument,
                          '&directory=',
-                         directory)
+                         directory,
+                         '&recursive=',
+                         recursive)
             cmd %>%
               GET() %>%
               content() %>%
@@ -61,7 +64,7 @@ setMethod('listFiles',signature = 'GroverClient',
 #' @export
 
 setMethod('listRawFiles',signature = 'GroverClient',
-          function(grover_client,instrument,directory){
+          function(grover_client,instrument,directory,recursive = FALSE){
             cmd <- str_c(hostURL(grover_client),
                          '/listRawFiles?',
                          'auth=',
@@ -69,7 +72,9 @@ setMethod('listRawFiles',signature = 'GroverClient',
                          '&instrument=',
                          instrument,
                          '&directory=',
-                         directory)
+                         directory,
+                         '&recursive=',
+                         recursive)
             cmd %>%
               GET() %>%
               content() %>%

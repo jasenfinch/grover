@@ -70,13 +70,13 @@ setGeneric('listDirectories',function(grover_client,instrument){
 
 #' @rdname list
 
-setGeneric('listFiles',function(grover_client,instrument,directory){
+setGeneric('listFiles',function(grover_client,instrument,directory,recursive = FALSE){
   standardGeneric('listFiles')
 })
 
 #' @rdname list
 
-setGeneric('listRawFiles',function(grover_client,instrument,directory){
+setGeneric('listRawFiles',function(grover_client,instrument,directory,recursive = FALSE){
   standardGeneric('listRawFiles')
 })
 

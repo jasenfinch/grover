@@ -15,17 +15,17 @@ listInstruments(grover_client)
 
 listDirectories(grover_client, instrument)
 
-listFiles(grover_client, instrument, directory)
+listFiles(grover_client, instrument, directory, recursive = FALSE)
 
-listRawFiles(grover_client, instrument, directory)
+listRawFiles(grover_client, instrument, directory, recursive = FALSE)
 
 \S4method{listInstruments}{GroverClient}(grover_client)
 
 \S4method{listDirectories}{GroverClient}(grover_client, instrument)
 
-\S4method{listFiles}{GroverClient}(grover_client, instrument, directory)
+\S4method{listFiles}{GroverClient}(grover_client, instrument, directory, recursive = FALSE)
 
-\S4method{listRawFiles}{GroverClient}(grover_client, instrument, directory)
+\S4method{listRawFiles}{GroverClient}(grover_client, instrument, directory, recursive = FALSE)
 }
 \arguments{
 \item{grover_client}{S4 object of class GroverClient}
@@ -33,6 +33,8 @@ listRawFiles(grover_client, instrument, directory)
 \item{instrument}{instrument name}
 
 \item{directory}{directory name}
+
+\item{recursive}{Boolean. List files recursively within subdirectories.}
 }
 \description{
 List available instruments, experiment directories or samples using a grover API.

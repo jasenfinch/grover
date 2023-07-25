@@ -1,6 +1,6 @@
 #' @importFrom fs dir_ls
 
-hostListFiles <- function(auth,instrument,directory){
+hostListFiles <- function(auth,instrument,directory,recursive = FALSE){
   
   grover_host <-  yaml::read_yaml(
     stringr::str_c(tempdir(),
@@ -19,7 +19,7 @@ hostListFiles <- function(auth,instrument,directory){
                                      directory,
                                      sep = '/'),
                       type = 'file',
-                      recurse = FALSE)
+                      recurse = recursive)
   files <- fs::path_file(files)
   
   return(files)
@@ -27,7 +27,7 @@ hostListFiles <- function(auth,instrument,directory){
 
 #' @importFrom stringr str_detect regex
 
-hostListRawFiles <- function(auth,instrument,directory){
+hostListRawFiles <- function(auth,instrument,directory,recursive = FALSE){
   
   grover_host <-  yaml::read_yaml(
     stringr::str_c(tempdir(),
@@ -45,7 +45,7 @@ hostListRawFiles <- function(auth,instrument,directory){
                                      directory,
                                      sep = '/'),
                       type = 'file',
-                      recurse = FALSE)
+                      recurse = recursive)
   files <- fs::path_file(files)
   
   raw_files <- files[stringr::str_detect(files,
